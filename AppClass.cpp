@@ -110,37 +110,38 @@ bool AppClass::CheckString(const char *theString)
     _fsm.enterStartState();
     while (*theString != '\0')
     {
-       /* if (*theString == 'c') {
-            if (*(theString + 1) == 'r') {
-                if (*(theString + 2) == 'e') {
-                    if (*(theString + 3) == 'a') {
-                        if (*(theString + 4) == 't') {*/
+        if ((*theString == 'c') && *(theString + 1) == 'r' && *(theString + 2) == 'e' && *(theString + 3) == 'a' && *(theString + 4) == 't')
+        {
+                            
                             _fsm.W_Creat();
-         /*               }
-                    }
-                }
-            }
-        }*/
-        if (*theString >= '0' && *theString <= '9') 
+                            theString += 5;
+      
+        }
+        if (*theString >= '0' && *theString <= '9')
             _fsm.Num();
-        else if (*theString >= 'a' && *theString <= 'z') 
+        else if (*theString >= 'a' && *theString <= 'z')
             _fsm.Alth();
-        else if (*theString >= 'A' && *theString <= 'Z') 
+        else if (*theString >= 'A' && *theString <= 'Z')
             _fsm.Alth();
-        else if (*theString == '.')  
+        else if (*theString == '.')
             _fsm.Alth();
-        else if (*theString == ',') 
+        else if (*theString == ',')
             _fsm.Alth();
-        else if (*theString == '_') 
+        else if (*theString == '_')
             _fsm.Alth();
-        else if (*theString == '(') 
+        else if (*theString == '(')
             _fsm.Bracket_right();
-        else if (*theString == ',') 
+        else if (*theString == ',')
             _fsm.com();
-        else if (*theString == ' ') 
+        else if (*theString == ' ')
             _fsm.Space();
-        else if (*theString == ')') 
+        else if (*theString == ')')
+
             _fsm.Bracket_left();
+        else if (*theString == '[')
+            _fsm.Bracket_right_q();
+        else if (*theString == ']')
+            _fsm.Bracket_left_q();
         else 
             _fsm.Unknown();
 

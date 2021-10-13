@@ -1,2 +1,5 @@
-﻿  AppClass.cpp
+﻿  Main.cpp
+D:\AutomatoLabs\Test\Main.cpp(161,51): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\Main.cpp(166,51): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\Main.cpp(174,47): warning C4018: <: несоответствие типов со знаком и без знака
   Test.vcxproj -> D:\AutomatoLabs\Test\Debug\Test.exe

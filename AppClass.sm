@@ -51,24 +51,89 @@ Start
 {
 				W_Creat         Creat			{}  
 				Unknown			Error			{}
-				Alth			Error			{}
+				Alth			Join			{}
 				Bracket_right	Error			{}
 				Bracket_left	Error			{}
 				Space			Error			{}
 				com				Error			{}
 				Num				Error			{}
+				Bracket_right_q	Error			{}
+				Bracket_left_q	Error			{}
 				EOS				OK				{Acceptable();}
 }
+Join
+{
+				W_Creat         Error			{}  
+				Unknown			Error			{}
+				Alth			First_Letter_JNM1 {}
+				Bracket_right	Error			{}
+				Bracket_left	Error			{}
+				Space			Error			{}
+				com				Error			{}
+				Num				Error			{}
+				Bracket_right_q	Error			{}
+				Bracket_left_q	Error			{}
+				EOS				OK				{Acceptable();}
+}
+First_Letter_JNM1
+{
+				W_Creat			Error			{}  
+				Unknown			Error			{}
+				Alth			nil				{}
+				Bracket_right	Error			{}
+				Bracket_left	Error			{}
+				Space			Error			{}
+				com				Error			{}
+				Num				nil				{}
+				Bracket_right_q	Sec_NM			{}
+				Bracket_left_q	Error			{}
+				EOS				OK				{Acceptable();}
+
+}
+Sec_NM
+{
+				W_Creat			Error			{}  
+				Unknown			Error			{}
+				Alth			First_Letter_JNM2 {}
+				Bracket_right	Error			{}
+				Bracket_left	Error			{}
+				Bracket_right_q	Error			{}
+				Bracket_left_q	EndBracket		{}
+				Space			Error			{}
+				com				Error			{}
+				Num				Error			{}
+
+				EOS				OK				{Acceptable();}
+
+}
+First_Letter_JNM2
+{
+				W_Creat			Error			{}  
+				Unknown			Error			{}
+				Alth			nil				{}
+				Bracket_right	Error			{}
+				Bracket_left	Error			{}
+				Space			Error			{}
+				com				Error			{}
+				Num				nil				{}
+				Bracket_right_q	Error			{}
+				Bracket_left_q	EndBracket		{}
+				EOS				OK				{Acceptable();}
+
+}
+
 Creat
 {	
 				W_Creat         Error			{}  
 				Unknown			Error			{}
 				Alth			First_Letter_NM	{}
-				Bracket_right	List_Atr		{}
+				Bracket_right	Error			{}
 				Bracket_left	Error			{}
-				Space			Error			{}
-				com				First_Letter_NM	{}
+				Space			space_NM		{}
+				com				Error			{}
 				Num				Error			{}
+				Bracket_right_q	Error			{}
+				Bracket_left_q	Error			{}
 				EOS				OK				{Acceptable();}
 }
 First_Letter_NM
@@ -81,6 +146,8 @@ First_Letter_NM
 				Space			Error			{}
 				com				nil				{}
 				Num				nil				{}
+				Bracket_right_q	Error			{}
+				Bracket_left_q	Error			{}
 				EOS				OK				{Acceptable();}
 
 }
@@ -90,10 +157,12 @@ List_Atr
 				Unknown			Error			{}
 				Alth			First_Letter_AT	{}
 				Bracket_right	Error			{}
-				Bracket_left	OK				{Acceptable();}
+				Bracket_left	EndBracket		{}
 				Space			Error			{}
 				com				First_Letter_AT	{}
 				Num				Error			{}
+				Bracket_right_q	Error			{}
+				Bracket_left_q	Error			{}
 				EOS				OK				{Acceptable();}		
 }
 
@@ -103,9 +172,11 @@ First_Letter_AT
 				Unknown			Error			{}
 				Alth			nil				{}
 				Bracket_right	Error			{}
-				Bracket_left	OK				{Acceptable();}
+				Bracket_left	EndBracket		{}
 				Space			Error			{}
 				com				Comma			{}
+				Bracket_right_q	Error			{}
+				Bracket_left_q	Error			{}
 				Num				nil				{}
 				EOS				OK				{Acceptable();}		
 }
@@ -115,39 +186,64 @@ Comma
 				Unknown			Error			{}
 				Alth			First_Letter_AT	{}
 				Bracket_right	Error			{}
-				Bracket_left	OK				{Acceptable();}
-				Space			space			{}
-				com				Comma			{}
+				Bracket_left	Error			{}
+				Space			Error			{}
+				com				Error			{}
 				Num				Error			{}
+				Bracket_right_q	Error			{}
+				Bracket_left_q	Error			{}
 				EOS				OK				{Acceptable();}		
 }
-space
+
+space_NM
+{
+				W_Creat         Error			{}  
+				Unknown			Error			{}
+				Alth			First_Letter_NM	{}
+				Bracket_right	Error			{}
+				Bracket_left	Error			{}
+				Space			nil				{}
+				com				Error			{}
+				Num				Error			{}
+				Bracket_right_q	Error			{}
+				Bracket_left_q	Error			{}
+				EOS				OK				{Acceptable();}		
+}
+
+space_AT
 {
 				W_Creat         Error			{}  
 				Unknown			Error			{}
 				Alth			First_Letter_AT	{}
 				Bracket_right	Error			{}
-				Bracket_left	OK				{Acceptable();}
-				Space			nil				{}
+				Bracket_left	nil				{}
+				Space			Error			{}
 				com				Comma			{}
 				Num				Error			{}
+				Bracket_right_q	Error			{}
+				Bracket_left_q	Error			{}
 				EOS				OK				{Acceptable();}		
 }
-Space
+
+EndBracket
 {
-				W_Creat			Error			{}  
+				W_Creat         Error			{}  
 				Unknown			Error			{}
-				Alth			First_Letter_AT	{}
+				Alth			Error			{}
 				Bracket_right	Error			{}
-				Bracket_left	OK				{Acceptable();}
-				Space			nil				{}
-				com				Comma			{}
+				Bracket_left	Error			{}
+				Space			Error			{}
+				com				Error			{}
 				Num				Error			{}
+				Bracket_right_q	Error			{}
+				Bracket_left_q	Error			{}
 				EOS				OK				{Acceptable();}		
 }
 
 OK
-{}
+{
+				eps				Start			{}
+}
 
 Error
 {
@@ -159,7 +255,10 @@ Error
 				Space			nil				{}
 				com				nil				{}
 				Num				nil				{}
+				Bracket_right_q	nil				{}
+				Bracket_left_q	nil				{}
 				EOS				nil				{Unacceptable();}
+
 }
 
 %%

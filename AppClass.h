@@ -47,7 +47,7 @@
 //
 
 #include "AppClass_sm.h"
-
+#define _CRT_SECURE_NO_WARNINGS
 #ifdef CRTP
 class AppClass : public AppClassContext<AppClass>
 #else

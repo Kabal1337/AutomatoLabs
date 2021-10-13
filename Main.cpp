@@ -62,51 +62,138 @@
 //
 
 #include "AppClass.h"
+
+#include <string>
+#include <vector>
+
 #define _CRT_SECURE_NO_WARNINGS
+
 using namespace std;
 using namespace statemap;
 
-int main(int argc, char *argv[])
+struct Rel
 {
-    AppClass thisContext;
-    int retcode = 0;
+    string name;
+    string atr;
+};
+vector<Rel> rels;
 
-    if (argc < 2)
+int main()
+{
+    while (1)
     {
-        cerr << "No string to check." << endl;
-        retcode = 2;
-    }
-    else if (argc > 2)
-    {
-        cerr << "Only one argument is accepted." << endl;
-        retcode = 3;
-    }
-    else
-    {
-        cout << "The string \"" << argv[1] << "\" is ";
+        string argv;
 
-        try
+        getline(cin, argv);
+        
+        int argc = argv.length();
+
+        AppClass thisContext;
+        int retcode = 0;
+
+        if (argc == 0)
         {
-            if (thisContext.CheckString(argv[1]) == false)
+            cerr << "No string to check." << endl;
+            retcode = 2;
+        }
+        else if (argc == 1)
+        {
+            cerr << "Only one argument is accepted." << endl;
+            retcode = 3;
+        }
+        else
+        {
+            cout << "The string \"" << argv << "\" is ";
+
+            try
             {
-                cout << "not acceptable." << endl;
+                if (thisContext.CheckString(argv.c_str()) == false)
+                {
+                    cout << "not acceptable." << endl;
+                    retcode = 1;
+                }
+                else
+                {
+                    cout << "acceptable." << endl;
+                    if (argv[0] == 'c' && argv[1] == 'r' && argv[2] == 'e' && argv[3] == 'a' && argv[4] == 't')
+                    {
+                        Rel rel;
+                        int i = 0;
+                        while (argv[i] != ' ') i++;
+                        i++;
+                        while (argv[i] != '(')
+                        {
+
+                            rel.name.push_back(argv[i]);
+                            i++;
+                        }
+                        i++;
+                        while (argv[i] != ')') 
+                        {
+                            rel.atr.push_back(argv[i]);
+                            i++;
+                        }
+                        rels.push_back(rel);
+                        //cout << "name: " << rels[0].name;
+                    }
+                    else 
+                    {
+                        
+                        string name1;
+                        string name2;
+                        int i = 0;
+                        
+                        while(argv[i] != '[')
+                        {
+                            name1.push_back(argv[i]);
+                            i++;
+                        }
+                        i++;
+                        while (argv[i] != ']') 
+                        {
+                            name2.push_back(argv[i]);
+                            i++;
+                        }
+                        //cout << name1 << ' ' << name2 << endl;
+                        if (name1 == "" || name2 == "")
+                        {
+                            if (name1 != "")
+                                for (int i = 0; i < rels.size(); i++)
+                                {
+                                    if (rels[i].name == name1) cout << "name: " << name1 << endl << "atributes: " << rels[i].atr<<endl;
+                                }
+                            if (name2 != "")
+                                for (int i = 0; i < rels.size(); i++)
+                                {
+                                    if (rels[i].name == name1) cout << "name: " << name1 << endl << "atributes: " << rels[i].atr<<endl;
+                                }
+                        }
+                        else
+                        {
+                            cout << "Relations names: " << name1 << ", " << name2 << endl;
+                            for (int i = 0; i < rels.size(); i++)
+                            {
+                                if (rels[i].name == name1) cout << rels[i].atr << ", ";
+                                if (name2 != name1) if (rels[i].name == name2) cout << rels[i].atr << endl;
+                            }
+
+                        }
+                    }
+                    
+                }
+            }
+            catch (const SmcException& smcex)
+            {
+                cout << "not acceptable - "
+                    << smcex.what()
+                    << '.'
+                    << endl;
+
                 retcode = 1;
             }
-            else
-            {
-                cout << "acceptable." << endl;
-            }
-        }
-        catch (const SmcException &smcex)
-        {
-            cout << "not acceptable - "
-                 << smcex.what()
-                 << '.'
-                 << endl;
-
-            retcode = 1;
         }
     }
-
-    return retcode;
+       // return retcode;
+    
 }
+
