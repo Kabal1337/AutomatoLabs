@@ -47,10 +47,14 @@
 //
 
 #include "AppClass_sm.h"
+
+#include <string>
+#include <vector>
 #define _CRT_SECURE_NO_WARNINGS
 #ifdef CRTP
 class AppClass : public AppClassContext<AppClass>
 #else
+
 class AppClass
 #endif
 {
@@ -58,27 +62,38 @@ private:
 #ifndef CRTP
     AppClassContext _fsm;
 #endif
-
+    std::string str;
     bool isAcceptable;
+    struct Rel
+    {
+        std::string name;
+        std::vector<std::string> atr;
+    };
+    std::vector<Rel> rels;
         // If a string is acceptable, then this variable is set to YES;
         // NO, otherwise.
 
 public:
-    AppClass();
+    inline AppClass();
         // Default constructor.
 
     ~AppClass() {};
         // Destructor.
 
-    bool CheckString(const char*);
-        // Checks if the string is acceptable.
-
+    inline bool CheckString(const char*);
+      
     inline void Acceptable()
     { isAcceptable = true; };
 
     inline void Unacceptable()
     { isAcceptable = false; };
-        // State map actions.
+    inline void SetStr(std::string str) 
+    {
+        this->str = str;
+    }
+    inline void AddRel();
+    inline void ShowRels(std::string name1);
+    inline void ShowRels(std::string name1, std::string name2);
 };
 
 #endif

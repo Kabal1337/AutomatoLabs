@@ -144,11 +144,13 @@
   <ItemGroup>
     <ClCompile Include="AppClass.cpp" />
     <ClCompile Include="AppClass_sm.cpp" />
+    <ClCompile Include="FileGeneration.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppClass.h" />
     <ClInclude Include="AppClass_sm.h" />
+    <ClInclude Include="FileGeneration.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AppClass.sm" />

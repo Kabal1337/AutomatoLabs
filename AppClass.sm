@@ -49,183 +49,258 @@
 // State		Transition		End State		Action(s)
 Start
 {
-				W_Creat         Creat			{}  
-				Unknown			Error			{}
-				Alth			Join			{}
-				Bracket_right	Error			{}
-				Bracket_left	Error			{}
-				Space			Error			{}
-				com				Error			{}
-				Num				Error			{}
-				Bracket_right_q	Error			{}
-				Bracket_left_q	Error			{}
+				Letter_c        c					{}  
+				Letter_r		First_Letter_JNM1					{}
+				Letter_e		First_Letter_JNM1					{}
+				Letter_a		First_Letter_JNM1					{}
+				Letter_t		First_Letter_JNM1					{}
+				Letter_j		First_Letter_JNM1						{}
+				Letter_o		First_Letter_JNM1						{}		
+				Letter_i		First_Letter_JNM1						{}
+				Letter_n		First_Letter_JNM1						{}
+				Alth			First_Letter_JNM1					{}
+				
+				
 				EOS				OK				{Acceptable();}
 }
-Join
+c
 {
-				W_Creat         Error			{}  
-				Unknown			Error			{}
-				Alth			First_Letter_JNM1 {}
-				Bracket_right	Error			{}
-				Bracket_left	Error			{}
-				Space			Error			{}
-				com				Error			{}
-				Num				Error			{}
-				Bracket_right_q	Error			{}
-				Bracket_left_q	Error			{}
+
+				Letter_c        First_Letter_JNM1					{}
+				Letter_r		r									{}
+				Letter_e		First_Letter_JNM1					{}
+				Letter_a		First_Letter_JNM1					{}
+				Letter_t		First_Letter_JNM1					{}
+				Letter_j		First_Letter_JNM1						{}
+				Letter_o		First_Letter_JNM1						{}		
+				Letter_i		First_Letter_JNM1						{}
+				Letter_n		First_Letter_JNM1					{}
+				Alth			First_Letter_JNM1					{}
+				
+				EOS				OK				{Acceptable();}
+
+}
+
+r
+{
+				Letter_c        First_Letter_JNM1					{}
+				Letter_r		First_Letter_JNM1					{}
+				Letter_e		e									{}
+				Letter_a		First_Letter_JNM1					{}
+				Letter_t		First_Letter_JNM1					{}
+				Letter_j		First_Letter_JNM1						{}
+				Letter_o		First_Letter_JNM1						{}		
+				Letter_i		First_Letter_JNM1						{}
+				Letter_n		First_Letter_JNM1						{}
+				Alth			First_Letter_JNM1					{}
+				
 				EOS				OK				{Acceptable();}
 }
+e
+{
+				Letter_c        First_Letter_JNM1					{}
+				Letter_r		First_Letter_JNM1					{}
+				Letter_e		First_Letter_JNM1					{}
+				Letter_a		a					{}
+				Letter_t		First_Letter_JNM1					{}
+				Letter_j		First_Letter_JNM1					{}
+				Letter_o		First_Letter_JNM1						{}		
+				Letter_i		First_Letter_JNM1						{}
+				Letter_n		First_Letter_JNM1						{}
+				Alth			First_Letter_JNM1					{}
+				
+				EOS				OK				{Acceptable();}
+}
+a
+{
+				Letter_c        First_Letter_JNM1					{}
+				Letter_r		First_Letter_JNM1					{}
+				Letter_e		First_Letter_JNM1					{}
+				Letter_a		First_Letter_JNM1					{}
+				Letter_t		t									{}
+				Letter_j		First_Letter_JNM1						{}
+				Letter_o		First_Letter_JNM1						{}		
+				Letter_i		First_Letter_JNM1						{}
+				Letter_n		First_Letter_JNM1						{}
+				Alth			First_Letter_JNM1					{}
+				
+				EOS				OK				{Acceptable();}
+}
+t
+{
+				Letter_c		First_Letter_JNM1					{}
+				Letter_r		First_Letter_JNM1					{}
+				Letter_e		First_Letter_JNM1					{}
+				Letter_a		First_Letter_JNM1					{}
+				Letter_t		First_Letter_JNM1					{}
+				Letter_j		First_Letter_JNM1						{}
+				Letter_o		First_Letter_JNM1						{}		
+				Letter_i		First_Letter_JNM1						{}
+				Letter_n		First_Letter_JNM1						{}
+				Alth			First_Letter_JNM1					{}
+				
+				Space			space_NM			{}
+				
+}
+
 First_Letter_JNM1
 {
-				W_Creat			Error			{}  
-				Unknown			Error			{}
-				Alth			nil				{}
-				Bracket_right	Error			{}
-				Bracket_left	Error			{}
-				Space			Error			{}
-				com				Error			{}
+				Letter_c		nil					{}
+				Letter_r		nil					{}
+				Letter_e		nil					{}
+				Letter_a		nil					{}
+				Letter_t		nil					{}
+				Letter_j		nil					{}
+				Letter_o		nil					{}		
+				Letter_i		nil					{}
+				Letter_n		nil					{}
+				Alth			nil					{}
+				
 				Num				nil				{}
-				Bracket_right_q	Sec_NM			{}
-				Bracket_left_q	Error			{}
+				Space			space_J			{}
 				EOS				OK				{Acceptable();}
 
 }
+space_J
+{
+				Letter_j		j				{}
+}
+j
+{
+				Letter_o		o				{}			
+}
+o
+{
+				Letter_i		i				{}
+}
+i
+{
+				Letter_n		n				{}
+}
+n
+{
+				Space			Sec_NM			{}
+}
+
 Sec_NM
 {
-				W_Creat			Error			{}  
-				Unknown			Error			{}
+				
 				Alth			First_Letter_JNM2 {}
-				Bracket_right	Error			{}
-				Bracket_left	Error			{}
-				Bracket_right_q	Error			{}
-				Bracket_left_q	EndBracket		{}
-				Space			Error			{}
-				com				Error			{}
-				Num				Error			{}
+				
 
-				EOS				OK				{Acceptable();}
+				
 
 }
 First_Letter_JNM2
 {
-				W_Creat			Error			{}  
-				Unknown			Error			{}
+				
 				Alth			nil				{}
-				Bracket_right	Error			{}
-				Bracket_left	Error			{}
-				Space			Error			{}
-				com				Error			{}
 				Num				nil				{}
-				Bracket_right_q	Error			{}
-				Bracket_left_q	EndBracket		{}
 				EOS				OK				{Acceptable();}
 
 }
 
-Creat
-{	
-				W_Creat         Error			{}  
-				Unknown			Error			{}
-				Alth			First_Letter_NM	{}
-				Bracket_right	Error			{}
-				Bracket_left	Error			{}
-				Space			space_NM		{}
-				com				Error			{}
-				Num				Error			{}
-				Bracket_right_q	Error			{}
-				Bracket_left_q	Error			{}
-				EOS				OK				{Acceptable();}
-}
 First_Letter_NM
 {
-				W_Creat			Error			{}  
-				Unknown			Error			{}
+				Letter_c        nil				{}  
+				Letter_r		nil				{}
+				Letter_e		nil				{}
+				Letter_a		nil				{}
+				Letter_t		nil				{}
+				Letter_j		nil					{}
+				Letter_o		nil					{}		
+				Letter_i		nil					{}
+				Letter_n		nil					{}
 				Alth			nil				{}
 				Bracket_right	List_Atr		{}
-				Bracket_left	Error			{}
-				Space			Error			{}
+				
 				com				nil				{}
 				Num				nil				{}
-				Bracket_right_q	Error			{}
-				Bracket_left_q	Error			{}
-				EOS				OK				{Acceptable();}
+				
+				
 
 }
 List_Atr
 {
-				W_Creat         Error			{}  
-				Unknown			Error			{}
+				Letter_c        First_Letter_AT	{}  
+				Letter_r		First_Letter_AT	{}
+				Letter_e		First_Letter_AT	{}
+				Letter_a		First_Letter_AT	{}
+				Letter_t		First_Letter_AT	{}
+				Letter_j		First_Letter_AT	{}
+				Letter_o		First_Letter_AT	{}		
+				Letter_i		First_Letter_AT	{}
+				Letter_n		First_Letter_AT	{}
 				Alth			First_Letter_AT	{}
-				Bracket_right	Error			{}
+				
 				Bracket_left	EndBracket		{}
-				Space			Error			{}
-				com				First_Letter_AT	{}
-				Num				Error			{}
-				Bracket_right_q	Error			{}
-				Bracket_left_q	Error			{}
-				EOS				OK				{Acceptable();}		
+				
+				com				Comma			{}
+				
+					
 }
 
 First_Letter_AT
 {
-				W_Creat         Error			{}  
-				Unknown			Error			{}
+				Letter_c        nil				{}  
+				Letter_r		nil				{}
+				Letter_e		nil				{}
+				Letter_a		nil				{}
+				Letter_t		nil				{}
+				Letter_j		nil					{}
+				Letter_o		nil					{}		
+				Letter_i		nil					{}
+				Letter_n		nil					{}
 				Alth			nil				{}
-				Bracket_right	Error			{}
+				
 				Bracket_left	EndBracket		{}
-				Space			Error			{}
+				
 				com				Comma			{}
-				Bracket_right_q	Error			{}
-				Bracket_left_q	Error			{}
+				
 				Num				nil				{}
-				EOS				OK				{Acceptable();}		
+			
 }
 Comma
 {
-				W_Creat         Error			{}  
-				Unknown			Error			{}
+				Letter_c        First_Letter_AT	{}  
+				Letter_r		First_Letter_AT	{}
+				Letter_e		First_Letter_AT	{}
+				Letter_a		First_Letter_AT	{}
+				Letter_t		First_Letter_AT	{}
+				Letter_j		First_Letter_AT					{}
+				Letter_o		First_Letter_AT					{}		
+				Letter_i		First_Letter_AT					{}
+				Letter_n		First_Letter_AT					{}
 				Alth			First_Letter_AT	{}
-				Bracket_right	Error			{}
-				Bracket_left	Error			{}
-				Space			Error			{}
-				com				Error			{}
-				Num				Error			{}
-				Bracket_right_q	Error			{}
-				Bracket_left_q	Error			{}
-				EOS				OK				{Acceptable();}		
+						
 }
 
 space_NM
 {
-				W_Creat         Error			{}  
-				Unknown			Error			{}
+				Letter_c        First_Letter_NM	{}  
+				Letter_r		First_Letter_NM	{}
+				Letter_e		First_Letter_NM	{}
+				Letter_a		First_Letter_NM	{}
+				Letter_t		First_Letter_NM	{}
+				Letter_j		First_Letter_NM	{}
+				Letter_o		First_Letter_NM	{}		
+				Letter_i		First_Letter_NM	{}
+				Letter_n		First_Letter_NM	{}
 				Alth			First_Letter_NM	{}
+				
 				Bracket_right	Error			{}
 				Bracket_left	Error			{}
 				Space			nil				{}
-				com				Error			{}
-				Num				Error			{}
-				Bracket_right_q	Error			{}
-				Bracket_left_q	Error			{}
-				EOS				OK				{Acceptable();}		
-}
-
-space_AT
-{
-				W_Creat         Error			{}  
-				Unknown			Error			{}
-				Alth			First_Letter_AT	{}
-				Bracket_right	Error			{}
-				Bracket_left	nil				{}
-				Space			Error			{}
-				com				Comma			{}
-				Num				Error			{}
-				Bracket_right_q	Error			{}
-				Bracket_left_q	Error			{}
-				EOS				OK				{Acceptable();}		
+				
 }
 
 EndBracket
+{
+				
+				EOS				OK				{Acceptable();}
+																
+}
+Default
 {
 				W_Creat         Error			{}  
 				Unknown			Error			{}
@@ -237,9 +312,9 @@ EndBracket
 				Num				Error			{}
 				Bracket_right_q	Error			{}
 				Bracket_left_q	Error			{}
-				EOS				OK				{Acceptable();}		
-}
+				EOS				Error			{}		
 
+}
 OK
 {
 				eps				Start			{}
@@ -247,17 +322,9 @@ OK
 
 Error
 {
-				W_Creat			nil				{}  
-				Unknown			nil				{}
-				Alth			nil				{}
-				Bracket_right	nil				{}
-				Bracket_left	nil				{}
-				Space			nil				{}
-				com				nil				{}
-				Num				nil				{}
-				Bracket_right_q	nil				{}
-				Bracket_left_q	nil				{}
+				
 				EOS				nil				{Unacceptable();}
+				eps				Start			{}
 
 }
 

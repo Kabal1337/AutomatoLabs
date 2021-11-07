@@ -60,11 +60,23 @@
 // Revision 1.0  2003/12/14 19:12:12  charlesr
 // Initial revision
 //
+#ifndef _REGEX_MAX_COMPLEXITY_COUNT
+#define _REGEX_MAX_COMPLEXITY_COUNT   0   /* set to 0 to disable */
+#endif /* _REGEX_MAX_COMPLEXITY_COUNT */
 
+#ifndef _REGEX_MAX_STACK_COUNT
+#ifdef _WIN64
+#define _REGEX_MAX_STACK_COUNT   0    /* set to 0 to disable */
+#else /* _WIN64 */
+#define _REGEX_MAX_STACK_COUNT   0   /* set to 0 to disable */
+#endif /* _WIN64 */
+#endif /* _REGEX_MAX_STACK_COUNT */
 #include "AppClass.h"
-
+#include "FileGeneration.h"
 #include <string>
 #include <vector>
+#include <regex>
+#include "AppClass.cpp"
 
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -77,18 +89,60 @@ struct Rel
     string atr;
 };
 vector<Rel> rels;
+bool CheckStringRegex(string str)
+{
+    try {
+        regex regular("[c][r][e][a][t][\ ][a-zA-Z][a-zA-Z0-9]*[\(][a-zA-Z][a-zA-Z0-9]*([\,][a-zA-Z][a-zA-Z0-9]*)*[\)]|[a-zA-Z][a-zA-Z0-9]*|[a-zA-Z][a-zA-Z0-9]*[\ ][j][o][i][n][\ ][a-zA-Z][a-zA-Z0-9]*");
+        return regex_match(str.c_str(), regular);
+    }
+    catch (const std::exception& ex)
+    {
+        cout << ex.what() << endl;
+    }
 
+}
 int main()
 {
-    while (1)
-    {
-        string argv;
+    
+    FileGeneration fg;
+    fg.generate("test.txt");
 
-        getline(cin, argv);
-        
-        int argc = argv.length();
+    clock_t start, stop;
+
+    std::ifstream fin;
+    fin.open("test.txt", ios_base::in);
+
+    std::ofstream fout;
+    fout.open("time.txt", ios_base::out);
+
+    if (!fin.is_open())
+    {
+        cout << "Can`t open the test.txt!" << endl;
+        return -1;
+    }
+
+    if (!fout.is_open())
+    {
+        cout << "Can`t open the time.txt!" << endl;
+        return -2;
+    }
+    string word;
+    
+   // while (!fin.eof())
+   // {
+        fin >> word;
+        std::string temp;
+        fin >> temp;
+        word += ' ';
+        word += temp;
+        std::string argv;
+        //getline(cin, argv);
+        int index = 0;
+        int argc = word.length();
 
         AppClass thisContext;
+        bool isAcceptable;
+        //thisContext.SetStr(argv);
         int retcode = 0;
 
         if (argc == 0)
@@ -103,83 +157,93 @@ int main()
         }
         else
         {
-            cout << "The string \"" << argv << "\" is ";
+            //cout << "The string \"" << word << "\" is ";
 
             try
             {
-                if (thisContext.CheckString(argv.c_str()) == false)
+                /*if(regex_match(word.c_str(), result, regular)==false)
+                cout << "In regex: " << "false" << endl;
+                else  cout << "In regex: " << "true" << endl;*/
+                start = clock();
+                isAcceptable = thisContext.CheckString(word.c_str());
+                //isAcceptable = CheckStringRegex(word);
+                stop = clock();
+                if (!isAcceptable)
                 {
-                    cout << "not acceptable." << endl;
-                    retcode = 1;
+                    fout << index << " is not acceptable, " << "time: " << (stop - start)<< endl;
+                    index++;
+
                 }
                 else
                 {
-                    cout << "acceptable." << endl;
-                    if (argv[0] == 'c' && argv[1] == 'r' && argv[2] == 'e' && argv[3] == 'a' && argv[4] == 't')
-                    {
-                        Rel rel;
-                        int i = 0;
-                        while (argv[i] != ' ') i++;
-                        i++;
-                        while (argv[i] != '(')
-                        {
+                    fout << index << " is acceptable, " << "time: " << (stop - start) << endl;
+                    index++;
+                    //if (argv[0] == 'c' && argv[1] == 'r' && argv[2] == 'e' && argv[3] == 'a' && argv[4] == 't')
+                    //{
+                    //    Rel rel;
+                    //    int i = 0;
+                    //    while (argv[i] != ' ') i++;
+                    //    i++;
+                    //    while (argv[i] != '(')
+                    //    {
 
-                            rel.name.push_back(argv[i]);
-                            i++;
-                        }
-                        i++;
-                        while (argv[i] != ')') 
-                        {
-                            rel.atr.push_back(argv[i]);
-                            i++;
-                        }
-                        rels.push_back(rel);
-                        //cout << "name: " << rels[0].name;
-                    }
-                    else 
-                    {
-                        
-                        string name1;
-                        string name2;
-                        int i = 0;
-                        
-                        while(argv[i] != '[')
-                        {
-                            name1.push_back(argv[i]);
-                            i++;
-                        }
-                        i++;
-                        while (argv[i] != ']') 
-                        {
-                            name2.push_back(argv[i]);
-                            i++;
-                        }
-                        //cout << name1 << ' ' << name2 << endl;
-                        if (name1 == "" || name2 == "")
-                        {
-                            if (name1 != "")
-                                for (int i = 0; i < rels.size(); i++)
-                                {
-                                    if (rels[i].name == name1) cout << "name: " << name1 << endl << "atributes: " << rels[i].atr<<endl;
-                                }
-                            if (name2 != "")
-                                for (int i = 0; i < rels.size(); i++)
-                                {
-                                    if (rels[i].name == name1) cout << "name: " << name1 << endl << "atributes: " << rels[i].atr<<endl;
-                                }
-                        }
-                        else
-                        {
-                            cout << "Relations names: " << name1 << ", " << name2 << endl;
-                            for (int i = 0; i < rels.size(); i++)
-                            {
-                                if (rels[i].name == name1) cout << rels[i].atr << ", ";
-                                if (name2 != name1) if (rels[i].name == name2) cout << rels[i].atr << endl;
-                            }
+                    //        rel.name.push_back(argv[i]);
+                    //        i++;
+                    //    }
+                    //    i++;
+                    //    while (argv[i] != ')') 
+                    //    {
+                    //        rel.atr.push_back(argv[i]);
+                    //        i++;
+                    //    }
+                    //    rels.push_back(rel);
+                    //    //cout << "name: " << rels[0].name;
+                    //}
+                    //else 
+                    //{
+                    //    
+                    //    string name1;
+                    //    string name2;
+                    //    int i = 0;
+                    //    
+                    //    while(argv[i] != '[')
+                    //    {
+                    //        name1.push_back(argv[i]);
+                    //        i++;
+                    //        
+                    //    }
+                    //    i++;
+                    //    while (argv[i] != ']') 
+                    //    {
+                    //        name2.push_back(argv[i]);
+                    //        i++;
+                    //    }
+                    //    //cout << name1 << ' ' << name2 << endl;
+                    //    if (name1 == "" || name2 == "")
+                    //    {
+                    //        if (name1 != "")
+                    //            for (int i = 0; i < rels.size(); i++)
+                    //            {
+                    //                if (rels[i].name == name1) cout << "name: " << name1 << endl << "atributes: " << rels[i].atr<<endl;
+                    //            }
+                    //        if (name2 != "")
+                    //            for (int i = 0; i < rels.size(); i++)
+                    //            {
+                    //                if (rels[i].name == name1) cout << "name: " << name1 << endl << "atributes: " << rels[i].atr<<endl;
+                    //            }
+                    //    }
+                    //    else
+                    //    {
+                    //        cout << "Relations names: " << name1 << ", " << name2 << endl;
+                    //        for (int i = 0; i < rels.size(); i++)
+                    //        {
+                    //            if (rels[i].name == name1) cout << rels[i].atr << ", ";
+                    //            if (name2 != name1) if (rels[i].name == name2) cout << rels[i].atr << endl;
+                    //        }
 
-                        }
-                    }
-                    
+                    //    }
+                    //}
+
                 }
             }
             catch (const SmcException& smcex)
@@ -192,8 +256,12 @@ int main()
                 retcode = 1;
             }
         }
-    }
+   // }
+    fin.close();
+    fout.close();
        // return retcode;
     
 }
+
+
 

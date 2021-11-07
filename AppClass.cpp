@@ -110,22 +110,33 @@ bool AppClass::CheckString(const char *theString)
     _fsm.enterStartState();
     while (*theString != '\0')
     {
-        if ((*theString == 'c') && *(theString + 1) == 'r' && *(theString + 2) == 'e' && *(theString + 3) == 'a' && *(theString + 4) == 't')
-        {
-                            
-                            _fsm.W_Creat();
-                            theString += 5;
-      
-        }
-        if (*theString >= '0' && *theString <= '9')
-            _fsm.Num();
-        else if (*theString >= 'a' && *theString <= 'z')
+        
+        if (*theString == 'c')
+            _fsm.Letter_c();
+        else if (*theString == 'r')
+            _fsm.Letter_r();
+        else if (*theString == 'e')
+            _fsm.Letter_e();
+        else if (*theString == 'a')
+            _fsm.Letter_a();
+        else if (*theString == 't')
+            _fsm.Letter_t();
+        else if (*theString == 'j')
+            _fsm.Letter_j();
+        else if (*theString == 'o')
+            _fsm.Letter_o();
+        else if (*theString == 'i')
+            _fsm.Letter_i();
+        else if (*theString == 'n')
+            _fsm.Letter_n();
+        else if(*theString >= 'a' && *theString <= 'z')
             _fsm.Alth();
+         else if (*theString >= '0' && *theString <= '9')
+            _fsm.Num();
+       
         else if (*theString >= 'A' && *theString <= 'Z')
             _fsm.Alth();
         else if (*theString == '.')
-            _fsm.Alth();
-        else if (*theString == ',')
             _fsm.Alth();
         else if (*theString == '_')
             _fsm.Alth();
@@ -155,4 +166,36 @@ bool AppClass::CheckString(const char *theString)
 //#endif
 
     return isAcceptable;
+}
+
+void AppClass::AddRel()
+{
+    Rel rel;
+    int i = 0;
+        while (str[i] != ' ') i++;
+        i++;
+        while (str[i] != '(')
+        {
+
+            rel.name.push_back(str[i]);
+            i++;
+        }
+        i++;
+        while (str[i] != ')') 
+        {
+            std::string temp;
+            while (str[i] != ')' && str[i] != ',')
+            {
+                temp.push_back(str[i]);
+                i++;
+            }
+            rel.atr.push_back(temp);
+        }
+        
+}
+void AppClass::ShowRels(std::string name1)
+{
+}
+void AppClass::ShowRels(std::string name1, std::string name2)
+{
 }

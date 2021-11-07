@@ -1,5 +1,8 @@
 ﻿  Main.cpp
-D:\AutomatoLabs\Test\Main.cpp(161,51): warning C4018: <: несоответствие типов со знаком и без знака
-D:\AutomatoLabs\Test\Main.cpp(166,51): warning C4018: <: несоответствие типов со знаком и без знака
-D:\AutomatoLabs\Test\Main.cpp(174,47): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\FileGeneration.h(13,13): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+D:\AutomatoLabs\Test\Main.cpp(95,23): warning C4129: : неизвестная escape-последовательность
+D:\AutomatoLabs\Test\Main.cpp(95,23): warning C4129: (: неизвестная escape-последовательность
+D:\AutomatoLabs\Test\Main.cpp(95,23): warning C4129: ,: неизвестная escape-последовательность
+D:\AutomatoLabs\Test\Main.cpp(95,23): warning C4129: ): неизвестная escape-последовательность
+D:\AutomatoLabs\Test\Main.cpp(103): warning C4715: CheckStringRegex: значение возвращается не при всех путях выполнения
   Test.vcxproj -> D:\AutomatoLabs\Test\Debug\Test.exe
