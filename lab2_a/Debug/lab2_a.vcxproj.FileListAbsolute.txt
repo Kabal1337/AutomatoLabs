@@ -1,0 +1,2 @@
+D:\AutomatoLabs\lab2\lab2_a\Debug\lab2_a.exe
+D:\AutomatoLabs\Test\lab2_a\Debug\lab2_a.exe
