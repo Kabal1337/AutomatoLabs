@@ -49,169 +49,40 @@
 // State		Transition		End State		Action(s)
 Start
 {
-				Letter_c        c					{}  
-				Letter_r		First_Letter_JNM1					{}
-				Letter_e		First_Letter_JNM1					{}
-				Letter_a		First_Letter_JNM1					{}
-				Letter_t		First_Letter_JNM1					{}
-				Letter_j		First_Letter_JNM1						{}
-				Letter_o		First_Letter_JNM1						{}		
-				Letter_i		First_Letter_JNM1						{}
-				Letter_n		First_Letter_JNM1						{}
-				Alth			First_Letter_JNM1					{}
+ Alth(t_string1: std::string, index: int&) 
+	[ ctxt.CheckCreat(t_string1, index) ] Creat_Rel {}
+				Alth(t_string1: std::string, index: int&)            See_Rel			{}
 				
 				
-				EOS				OK				{Acceptable();}
+				EOS(t_string: std::string)				OK				{Acceptable(); AddRel(t_string);}
 }
-c
+Creat_Rel
 {
-
-				Letter_c        First_Letter_JNM1					{}
-				Letter_r		r									{}
-				Letter_e		First_Letter_JNM1					{}
-				Letter_a		First_Letter_JNM1					{}
-				Letter_t		First_Letter_JNM1					{}
-				Letter_j		First_Letter_JNM1						{}
-				Letter_o		First_Letter_JNM1						{}		
-				Letter_i		First_Letter_JNM1						{}
-				Letter_n		First_Letter_JNM1					{}
-				Alth			First_Letter_JNM1					{}
-				
-				EOS				OK				{Acceptable();}
-
-}
-
-r
-{
-				Letter_c        First_Letter_JNM1					{}
-				Letter_r		First_Letter_JNM1					{}
-				Letter_e		e									{}
-				Letter_a		First_Letter_JNM1					{}
-				Letter_t		First_Letter_JNM1					{}
-				Letter_j		First_Letter_JNM1						{}
-				Letter_o		First_Letter_JNM1						{}		
-				Letter_i		First_Letter_JNM1						{}
-				Letter_n		First_Letter_JNM1						{}
-				Alth			First_Letter_JNM1					{}
-				
-				EOS				OK				{Acceptable();}
-}
-e
-{
-				Letter_c        First_Letter_JNM1					{}
-				Letter_r		First_Letter_JNM1					{}
-				Letter_e		First_Letter_JNM1					{}
-				Letter_a		a					{}
-				Letter_t		First_Letter_JNM1					{}
-				Letter_j		First_Letter_JNM1					{}
-				Letter_o		First_Letter_JNM1						{}		
-				Letter_i		First_Letter_JNM1						{}
-				Letter_n		First_Letter_JNM1						{}
-				Alth			First_Letter_JNM1					{}
-				
-				EOS				OK				{Acceptable();}
-}
-a
-{
-				Letter_c        First_Letter_JNM1					{}
-				Letter_r		First_Letter_JNM1					{}
-				Letter_e		First_Letter_JNM1					{}
-				Letter_a		First_Letter_JNM1					{}
-				Letter_t		t									{}
-				Letter_j		First_Letter_JNM1						{}
-				Letter_o		First_Letter_JNM1						{}		
-				Letter_i		First_Letter_JNM1						{}
-				Letter_n		First_Letter_JNM1						{}
-				Alth			First_Letter_JNM1					{}
-				
-				EOS				OK				{Acceptable();}
-}
-t
-{
-				Letter_c		First_Letter_JNM1					{}
-				Letter_r		First_Letter_JNM1					{}
-				Letter_e		First_Letter_JNM1					{}
-				Letter_a		First_Letter_JNM1					{}
-				Letter_t		First_Letter_JNM1					{}
-				Letter_j		First_Letter_JNM1						{}
-				Letter_o		First_Letter_JNM1						{}		
-				Letter_i		First_Letter_JNM1						{}
-				Letter_n		First_Letter_JNM1						{}
-				Alth			First_Letter_JNM1					{}
-				
-				Space			space_NM			{}
+				 Alth(t_string1: std::string, index: int&)			First_Letter_NM  {}
 				
 }
-
-First_Letter_JNM1
+See_Rel
 {
-				Letter_c		nil					{}
-				Letter_r		nil					{}
-				Letter_e		nil					{}
-				Letter_a		nil					{}
-				Letter_t		nil					{}
-				Letter_j		nil					{}
-				Letter_o		nil					{}		
-				Letter_i		nil					{}
-				Letter_n		nil					{}
-				Alth			nil					{}
-				
+				 Alth(t_string1: std::string, index: int&)			nil				{}
 				Num				nil				{}
-				Space			space_J			{}
-				EOS				OK				{Acceptable();}
-
+				Space			Space_See_Rel	{}
+				EOS(t_string: std::string)				OK				{Acceptable();}
 }
-space_J
+Space_See_Rel
 {
-				Letter_j		j				{}
+				 Alth(t_string1: std::string, index: int&) 
+	[ ctxt.CheckJoin(t_string1, index) ]	Join					{}
 }
-j
+Join
 {
-				Letter_o		o				{}			
+			 Alth(t_string1: std::string, index: int&)			nil				{}
+			Num				nil				{}
+			EOS(t_string: std::string)				OK				{Acceptable();}
 }
-o
-{
-				Letter_i		i				{}
-}
-i
-{
-				Letter_n		n				{}
-}
-n
-{
-				Space			Sec_NM			{}
-}
-
-Sec_NM
-{
-				
-				Alth			First_Letter_JNM2 {}
-				
-
-				
-
-}
-First_Letter_JNM2
-{
-				
-				Alth			nil				{}
-				Num				nil				{}
-				EOS				OK				{Acceptable();}
-
-}
-
 First_Letter_NM
 {
-				Letter_c        nil				{}  
-				Letter_r		nil				{}
-				Letter_e		nil				{}
-				Letter_a		nil				{}
-				Letter_t		nil				{}
-				Letter_j		nil					{}
-				Letter_o		nil					{}		
-				Letter_i		nil					{}
-				Letter_n		nil					{}
-				Alth			nil				{}
+				
+				 Alth(t_string1: std::string, index: int&)			nil				{}
 				Bracket_right	List_Atr		{}
 				
 				com				nil				{}
@@ -222,19 +93,9 @@ First_Letter_NM
 }
 List_Atr
 {
-				Letter_c        First_Letter_AT	{}  
-				Letter_r		First_Letter_AT	{}
-				Letter_e		First_Letter_AT	{}
-				Letter_a		First_Letter_AT	{}
-				Letter_t		First_Letter_AT	{}
-				Letter_j		First_Letter_AT	{}
-				Letter_o		First_Letter_AT	{}		
-				Letter_i		First_Letter_AT	{}
-				Letter_n		First_Letter_AT	{}
-				Alth			First_Letter_AT	{}
 				
+				 Alth(t_string1: std::string, index: int&)			First_Letter_AT	{}
 				Bracket_left	EndBracket		{}
-				
 				com				Comma			{}
 				
 					
@@ -242,52 +103,24 @@ List_Atr
 
 First_Letter_AT
 {
-				Letter_c        nil				{}  
-				Letter_r		nil				{}
-				Letter_e		nil				{}
-				Letter_a		nil				{}
-				Letter_t		nil				{}
-				Letter_j		nil					{}
-				Letter_o		nil					{}		
-				Letter_i		nil					{}
-				Letter_n		nil					{}
-				Alth			nil				{}
-				
+		
+				 Alth(t_string1: std::string, index: int&)			nil				{}
 				Bracket_left	EndBracket		{}
-				
 				com				Comma			{}
-				
 				Num				nil				{}
 			
 }
 Comma
 {
-				Letter_c        First_Letter_AT	{}  
-				Letter_r		First_Letter_AT	{}
-				Letter_e		First_Letter_AT	{}
-				Letter_a		First_Letter_AT	{}
-				Letter_t		First_Letter_AT	{}
-				Letter_j		First_Letter_AT					{}
-				Letter_o		First_Letter_AT					{}		
-				Letter_i		First_Letter_AT					{}
-				Letter_n		First_Letter_AT					{}
-				Alth			First_Letter_AT	{}
+			
+				 Alth(t_string1: std::string, index: int&)			First_Letter_AT	{}
 						
 }
 
 space_NM
 {
-				Letter_c        First_Letter_NM	{}  
-				Letter_r		First_Letter_NM	{}
-				Letter_e		First_Letter_NM	{}
-				Letter_a		First_Letter_NM	{}
-				Letter_t		First_Letter_NM	{}
-				Letter_j		First_Letter_NM	{}
-				Letter_o		First_Letter_NM	{}		
-				Letter_i		First_Letter_NM	{}
-				Letter_n		First_Letter_NM	{}
-				Alth			First_Letter_NM	{}
 				
+				 Alth(t_string1: std::string, index: int&)			First_Letter_NM	{}
 				Bracket_right	Error			{}
 				Bracket_left	Error			{}
 				Space			nil				{}
@@ -297,14 +130,14 @@ space_NM
 EndBracket
 {
 				
-				EOS				OK				{Acceptable();}
+				EOS(t_string: std::string)				OK				{Acceptable(); AddRel(t_string);}
 																
 }
 Default
 {
 				W_Creat         Error			{}  
 				Unknown			Error			{}
-				Alth			Error			{}
+				Alth(t_string1: std::string, index: int&)			Error			{}
 				Bracket_right	Error			{}
 				Bracket_left	Error			{}
 				Space			Error			{}
@@ -312,6 +145,7 @@ Default
 				Num				Error			{}
 				Bracket_right_q	Error			{}
 				Bracket_left_q	Error			{}
+				Creat			Error			{}
 				EOS				Error			{}		
 
 }

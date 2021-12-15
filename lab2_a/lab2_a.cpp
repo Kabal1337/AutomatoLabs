@@ -10,8 +10,8 @@ int main()
 {
     std::string reg = "(ab)...";
     NFA_Creating* nfa = new NFA_Creating(reg);
-    nfa->draw_syntax_tree("test.txt");
-    nfa->draw_nfa_graph("test.txt");
+    nfa->draw_syntax_tree("test1.txt");
+    nfa->draw_nfa_graph("test2.txt");
     return 0;
     
 }

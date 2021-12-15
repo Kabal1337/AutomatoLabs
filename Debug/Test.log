@@ -1,5 +1,8 @@
 ﻿  Main.cpp
+D:\AutomatoLabs\Test\AppClass.h(128,27): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\AppClass.h(131,31): warning C4018: <: несоответствие типов со знаком и без знака
 D:\AutomatoLabs\Test\FileGeneration.h(13,13): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+D:\AutomatoLabs\Test\AppClass.cpp(111,23): warning C4018: <: несоответствие типов со знаком и без знака
 D:\AutomatoLabs\Test\Main.cpp(95,23): warning C4129: : неизвестная escape-последовательность
 D:\AutomatoLabs\Test\Main.cpp(95,23): warning C4129: (: неизвестная escape-последовательность
 D:\AutomatoLabs\Test\Main.cpp(95,23): warning C4129: ,: неизвестная escape-последовательность

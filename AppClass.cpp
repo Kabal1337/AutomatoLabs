@@ -79,7 +79,7 @@ AppClass::AppClass()
 #endif
 }
 
-bool AppClass::CheckString(const char *theString)
+bool AppClass::CheckString(std::string str)
 {
 //#ifdef CRTP
 //    enterStartState();
@@ -108,91 +108,43 @@ bool AppClass::CheckString(const char *theString)
     
     
     _fsm.enterStartState();
-    while (*theString != '\0')
-    {
+    for (int i = 0; i < str.length(); i++){
         
-        if (*theString == 'c')
-            _fsm.Letter_c();
-        else if (*theString == 'r')
-            _fsm.Letter_r();
-        else if (*theString == 'e')
-            _fsm.Letter_e();
-        else if (*theString == 'a')
-            _fsm.Letter_a();
-        else if (*theString == 't')
-            _fsm.Letter_t();
-        else if (*theString == 'j')
-            _fsm.Letter_j();
-        else if (*theString == 'o')
-            _fsm.Letter_o();
-        else if (*theString == 'i')
-            _fsm.Letter_i();
-        else if (*theString == 'n')
-            _fsm.Letter_n();
-        else if(*theString >= 'a' && *theString <= 'z')
-            _fsm.Alth();
-         else if (*theString >= '0' && *theString <= '9')
+        
+        if (str[i] >= 'a' && str[i] <= 'z')
+            _fsm.Alth(str, i);
+         else if (str[i] >= '0' && str[i] <= '9')
             _fsm.Num();
        
-        else if (*theString >= 'A' && *theString <= 'Z')
-            _fsm.Alth();
-        else if (*theString == '.')
-            _fsm.Alth();
-        else if (*theString == '_')
-            _fsm.Alth();
-        else if (*theString == '(')
+        else if (str[i] >= 'A' && str[i] <= 'Z')
+            _fsm.Alth(str, i);
+        else if (str[i] == '.')
+           _fsm.Alth(str, i);
+        else if (str[i] == '_')
+            _fsm.Alth(str, i);
+        else if (str[i] == '(')
             _fsm.Bracket_right();
-        else if (*theString == ',')
+        else if (str[i] == ',')
             _fsm.com();
-        else if (*theString == ' ')
+        else if (str[i] == ' ')
             _fsm.Space();
-        else if (*theString == ')')
+        else if (str[i] == ')')
 
             _fsm.Bracket_left();
-        else if (*theString == '[')
-            _fsm.Bracket_right_q();
-        else if (*theString == ']')
-            _fsm.Bracket_left_q();
         else 
             _fsm.Unknown();
 
         
-        
-        ++theString;
     }
 
     // end of string has been reached - send the EOS transition.
-    _fsm.EOS();
+    _fsm.EOS(str);
 //#endif
 
     return isAcceptable;
 }
 
-void AppClass::AddRel()
-{
-    Rel rel;
-    int i = 0;
-        while (str[i] != ' ') i++;
-        i++;
-        while (str[i] != '(')
-        {
 
-            rel.name.push_back(str[i]);
-            i++;
-        }
-        i++;
-        while (str[i] != ')') 
-        {
-            std::string temp;
-            while (str[i] != ')' && str[i] != ',')
-            {
-                temp.push_back(str[i]);
-                i++;
-            }
-            rel.atr.push_back(temp);
-        }
-        
-}
 void AppClass::ShowRels(std::string name1)
 {
 }

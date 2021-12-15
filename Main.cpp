@@ -133,13 +133,13 @@ int main()
         fin >> word;
         std::string temp;
         fin >> temp;
-        word += ' ';
-        word += temp;
+       /* word += ' ';
+        word += temp;*/
         std::string argv;
-        //getline(cin, argv);
+        getline(cin, argv);
         int index = 0;
-        int argc = word.length();
-
+        //int argc = word.length();
+        int argc = argv.length();
         AppClass thisContext;
         bool isAcceptable;
         //thisContext.SetStr(argv);
@@ -165,18 +165,21 @@ int main()
                 cout << "In regex: " << "false" << endl;
                 else  cout << "In regex: " << "true" << endl;*/
                 start = clock();
-                isAcceptable = thisContext.CheckString(word.c_str());
+                //isAcceptable = thisContext.CheckString(word.c_str());
+                isAcceptable = thisContext.CheckString(argv);
                 //isAcceptable = CheckStringRegex(word);
                 stop = clock();
                 if (!isAcceptable)
                 {
-                    fout << index << " is not acceptable, " << "time: " << (stop - start)<< endl;
+                    //fout << index << " is not acceptable, " << "time: " << (stop - start)<< endl;
+                    cout << " is not acceptable, " << std::endl;
                     index++;
 
                 }
                 else
                 {
-                    fout << index << " is acceptable, " << "time: " << (stop - start) << endl;
+                    //fout << index << " is acceptable, " << "time: " << (stop - start) << endl;
+                    cout << " is acceptable, " << std::endl;
                     index++;
                     //if (argv[0] == 'c' && argv[1] == 'r' && argv[2] == 'e' && argv[3] == 'a' && argv[4] == 't')
                     //{

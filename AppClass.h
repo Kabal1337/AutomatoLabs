@@ -50,6 +50,7 @@
 
 #include <string>
 #include <vector>
+#include <string>
 #define _CRT_SECURE_NO_WARNINGS
 #ifdef CRTP
 class AppClass : public AppClassContext<AppClass>
@@ -80,7 +81,7 @@ public:
     ~AppClass() {};
         // Destructor.
 
-    inline bool CheckString(const char*);
+    inline bool CheckString(std::string str);
       
     inline void Acceptable()
     { isAcceptable = true; };
@@ -91,7 +92,83 @@ public:
     {
         this->str = str;
     }
-    inline void AddRel();
+    inline void AddRel(std::string t_string) 
+    {
+        Rel rel;
+        int i = 0;
+        while (t_string[i] != ' ') i++;
+        i++;
+        while (t_string[i] != '(')
+        {
+
+            rel.name.push_back(t_string[i]);
+            i++;
+        }
+        i++;
+        
+        while (t_string[i] != ')')
+        {   
+            int j = 0;
+            std::string atribute;
+            while (t_string[i] != ')' && t_string[i] != ',')
+            {
+                int j = 0;
+                
+                atribute.push_back(t_string[i]);
+                
+                i++;
+                j++;
+            }
+            if(atribute.length()!=0)
+                rel.atr.push_back(atribute);
+            else if(t_string[i] != ')')
+                i++;
+        }
+        rels.push_back(rel);
+        for (int i = 0; i < rels.size(); i++)
+        {
+            std::cout << rels[i].name << "(";
+            for (int j = 0; j < rels[i].atr.size(); j++)
+            {
+                std::cout << rels[i].atr[j];
+            }
+            std::cout << ")" << std::endl;
+        }
+
+    }
+    inline bool CheckCreat(std::string t_string, int &index)
+    {
+        if (t_string[0]=='c' && t_string[1] == 'r' && t_string[2] == 'e' && t_string[3] == 'a' && t_string[4]=='t')
+        {
+            
+            index += 5;
+            return true;
+        }
+        else return false;
+    }
+    inline bool CheckJoin(std::string t_string, int &index)
+    {
+        int i = 0;
+        while (t_string[i] != ' ') 
+        {
+            i++;
+        }
+        i++;
+        int j = i;
+        int n = 0;
+            while (t_string[j] != ' ' && t_string[i] != '\0')
+            {
+                j++;
+                n++;
+            }
+        if (n < 4) return false;
+        else if (t_string[i] == 'j' && t_string[i + 1] == 'o' && t_string[i + 2] == 'i' && t_string[i + 3] == 'n')
+        {
+            index += 4;
+            return true;
+        }
+        else return false;
+    }
     inline void ShowRels(std::string name1);
     inline void ShowRels(std::string name1, std::string name2);
 };
