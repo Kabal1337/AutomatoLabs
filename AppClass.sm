@@ -66,7 +66,7 @@ See_Rel
 				 Alth(t_string1: std::string, index: int&)			nil				{}
 				Num				nil				{}
 				Space			Space_See_Rel	{}
-				EOS(t_string: std::string)				OK				{Acceptable();}
+				EOS(t_string: std::string)				OK				{Acceptable(); ShowRels(t_string);}
 }
 Space_See_Rel
 {
@@ -77,7 +77,7 @@ Join
 {
 			 Alth(t_string1: std::string, index: int&)			nil				{}
 			Num				nil				{}
-			EOS(t_string: std::string)				OK				{Acceptable();}
+			EOS(t_string1: std::string, t_string2: std::string)				OK				{Acceptable(); ShowRels(t_string1, t_string2);}
 }
 First_Letter_NM
 {

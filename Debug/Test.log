@@ -1,11 +1,37 @@
-﻿  Main.cpp
-D:\AutomatoLabs\Test\AppClass.h(128,27): warning C4018: <: несоответствие типов со знаком и без знака
-D:\AutomatoLabs\Test\AppClass.h(131,31): warning C4018: <: несоответствие типов со знаком и без знака
+﻿  AppClass.cpp
+D:\AutomatoLabs\Test\AppClass.h(127,27): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\AppClass.h(130,31): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\AppClass.h(174,27): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\AppClass.h(179,35): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\AppClass.h(194,27): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\AppClass.h(213,27): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\AppClass.h(216,31): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\AppClass.h(226,31): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\AppClass.cpp(112,23): warning C4018: <: несоответствие типов со знаком и без знака
+  AppClass_sm.cpp
+D:\AutomatoLabs\Test\AppClass.h(127,27): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\AppClass.h(130,31): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\AppClass.h(174,27): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\AppClass.h(179,35): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\AppClass.h(194,27): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\AppClass.h(213,27): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\AppClass.h(216,31): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\AppClass.h(226,31): warning C4018: <: несоответствие типов со знаком и без знака
+  Main.cpp
+D:\AutomatoLabs\Test\AppClass.h(127,27): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\AppClass.h(130,31): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\AppClass.h(174,27): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\AppClass.h(179,35): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\AppClass.h(194,27): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\AppClass.h(213,27): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\AppClass.h(216,31): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\AppClass.h(226,31): warning C4018: <: несоответствие типов со знаком и без знака
 D:\AutomatoLabs\Test\FileGeneration.h(13,13): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-D:\AutomatoLabs\Test\AppClass.cpp(111,23): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\AppClass.cpp(112,23): warning C4018: <: несоответствие типов со знаком и без знака
 D:\AutomatoLabs\Test\Main.cpp(95,23): warning C4129: : неизвестная escape-последовательность
 D:\AutomatoLabs\Test\Main.cpp(95,23): warning C4129: (: неизвестная escape-последовательность
 D:\AutomatoLabs\Test\Main.cpp(95,23): warning C4129: ,: неизвестная escape-последовательность
 D:\AutomatoLabs\Test\Main.cpp(95,23): warning C4129: ): неизвестная escape-последовательность
+  Создание кода...
 D:\AutomatoLabs\Test\Main.cpp(103): warning C4715: CheckStringRegex: значение возвращается не при всех путях выполнения
   Test.vcxproj -> D:\AutomatoLabs\Test\Debug\Test.exe

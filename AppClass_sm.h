@@ -53,6 +53,7 @@ public:
     virtual void Creat(AppClassContext& context);
     virtual void EOS(AppClassContext& context);
     virtual void EOS(AppClassContext& context, std::string t_string);
+    virtual void EOS(AppClassContext& context, std::string t_string1, std::string t_string2);
     virtual void Num(AppClassContext& context);
     virtual void Space(AppClassContext& context);
     virtual void Unknown(AppClassContext& context);
@@ -164,7 +165,7 @@ public:
     {};
 
     virtual void Alth(AppClassContext& context, std::string t_string1, int& index);
-    virtual void EOS(AppClassContext& context, std::string t_string);
+    virtual void EOS(AppClassContext& context, std::string t_string1, std::string t_string2);
     virtual void Num(AppClassContext& context);
 };
 
@@ -342,6 +343,11 @@ public:
     inline void EOS(std::string t_string)
     {
         getState().EOS(*this, t_string);
+    };
+
+    inline void EOS(std::string t_string1, std::string t_string2)
+    {
+        getState().EOS(*this, t_string1, t_string2);
     };
 
     inline void Num()

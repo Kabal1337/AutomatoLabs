@@ -108,6 +108,7 @@ bool AppClass::CheckString(std::string str)
     
     
     _fsm.enterStartState();
+    
     for (int i = 0; i < str.length(); i++){
         
         
@@ -139,15 +140,11 @@ bool AppClass::CheckString(std::string str)
 
     // end of string has been reached - send the EOS transition.
     _fsm.EOS(str);
-//#endif
+    _fsm.eps();
+    //#endif
 
     return isAcceptable;
 }
 
 
-void AppClass::ShowRels(std::string name1)
-{
-}
-void AppClass::ShowRels(std::string name1, std::string name2)
-{
-}
+

@@ -127,9 +127,9 @@ int main()
         return -2;
     }
     string word;
-    
-   // while (!fin.eof())
-   // {
+   AppClass thisContext;
+   while (1)
+   {
         fin >> word;
         std::string temp;
         fin >> temp;
@@ -140,7 +140,7 @@ int main()
         int index = 0;
         //int argc = word.length();
         int argc = argv.length();
-        AppClass thisContext;
+        
         bool isAcceptable;
         //thisContext.SetStr(argv);
         int retcode = 0;
@@ -259,7 +259,7 @@ int main()
                 retcode = 1;
             }
         }
-   // }
+   }
     fin.close();
     fout.close();
        // return retcode;

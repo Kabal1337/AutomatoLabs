@@ -71,8 +71,7 @@ private:
         std::vector<std::string> atr;
     };
     std::vector<Rel> rels;
-        // If a string is acceptable, then this variable is set to YES;
-        // NO, otherwise.
+       
 
 public:
     inline AppClass();
@@ -169,8 +168,73 @@ public:
         }
         else return false;
     }
-    inline void ShowRels(std::string name1);
-    inline void ShowRels(std::string name1, std::string name2);
+    inline void ShowRels(std::string name1)
+    {
+        
+        for (int i = 0; i < rels.size(); i++)
+        {
+            if (rels[i].name == name1)
+            {
+                std::cout << "Atributes of " << rels[i].name << ": ";
+                for (int j = 0; j < rels[i].atr.size(); j++)
+                {
+                    if (j != rels[i].atr.size() - 1)
+                        std::cout << rels[i].atr[j] << ',';
+                    else std::cout << rels[i].atr[j] << std::endl;
+                }
+                return;
+            }
+        }
+        std::cout << "There is no such relation" << std::endl;
+    }
+    inline void ShowRels(std::string name1, std::string name2)
+    {
+        int ind_n1=-1;
+        int ind_n2=-1;
+        for (int i = 0; i < rels.size(); i++)
+        {
+            if (rels[i].name == name1)
+            {
+               ind_n1 = i;
+            }
+            if (rels[i].name == name1)
+            {
+                ind_n2 = i;
+            }
+        }
+        if (ind_n2 == -1 || ind_n1 == -1)
+        {
+            std::cout << "There is no such relation" << std::endl;
+            return;
+        }
+        std::cout << "Atributs of " << name1 << " and " << name2;
+       
+        
+        for (int j = 0; j < rels[ind_n1].atr.size(); j++)
+        {
+            bool same = false;
+            for (int i = 0; i < rels[ind_n2].atr.size(); i++)
+            {
+                if (rels[ind_n1].atr[j] == rels[ind_n2].atr[i])
+                {
+                    std::cout << rels[ind_n1].atr[j] << "." << rels[ind_n1].name<<",";
+                    same = true;
+                }
+                if (same == false) std::cout << rels[ind_n1].atr[j] << ",";
+
+            }
+            for (int i = 0; i < rels[ind_n1].atr.size(); i++)
+            {
+                if (rels[ind_n1].atr[j] == rels[ind_n2].atr[i])
+                {
+                    std::cout << rels[ind_n2].atr[j] << "." << rels[ind_n2].name << ",";
+                    same = true;
+                }
+                if (same == false) std::cout << rels[ind_n2].atr[j] << ",";
+
+            }
+        }
+    };
 };
 
 #endif

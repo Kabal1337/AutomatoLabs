@@ -105,6 +105,11 @@ void AppClassState::EOS(AppClassContext& context, std::string t_string)
     Default(context);
 }
 
+void AppClassState::EOS(AppClassContext& context, std::string t_string1, std::string t_string2)
+{
+    Default(context);
+}
+
 void AppClassState::Num(AppClassContext& context)
 {
     Default(context);
@@ -317,6 +322,7 @@ void Map1_See_Rel::EOS(AppClassContext& context, std::string t_string)
     try
     {
         ctxt.Acceptable();
+        ctxt.ShowRels(t_string);
         context.setState(Map1::OK);
     }
     catch (...)
@@ -367,7 +373,7 @@ void Map1_Join::Alth(AppClassContext& context, std::string t_string1, int& index
 
 }
 
-void Map1_Join::EOS(AppClassContext& context, std::string t_string)
+void Map1_Join::EOS(AppClassContext& context, std::string t_string1, std::string t_string2)
 {
     AppClass& ctxt = context.getOwner();
 
@@ -376,6 +382,7 @@ void Map1_Join::EOS(AppClassContext& context, std::string t_string)
     try
     {
         ctxt.Acceptable();
+        ctxt.ShowRels(t_string1, t_string2);
         context.setState(Map1::OK);
     }
     catch (...)
