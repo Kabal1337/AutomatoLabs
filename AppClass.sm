@@ -49,40 +49,40 @@
 // State		Transition		End State		Action(s)
 Start
 {
- Alth(t_string1: std::string, index: int&) 
-	[ ctxt.CheckCreat(t_string1, index) ] Creat_Rel {}
-				Alth(t_string1: std::string, index: int&)            See_Rel			{}
+ Alth(index: int&) 
+	[ ctxt.CheckCreat(index) ] Creat_Rel {}
+				Alth(index: int&)            See_Rel			{}
 				
 				
-				EOS(t_string: std::string)				OK				{Acceptable(); AddRel(t_string);}
+				EOS()				OK				{Acceptable(); AddRel();}
 }
 Creat_Rel
 {
-				 Alth(t_string1: std::string, index: int&)			First_Letter_NM  {}
+				 Alth(index: int&)			First_Letter_NM  {}
 				
 }
 See_Rel
 {
-				 Alth(t_string1: std::string, index: int&)			nil				{}
+				 Alth(index: int&)			nil				{}
 				Num				nil				{}
 				Space			Space_See_Rel	{}
-				EOS(t_string: std::string)				OK				{Acceptable(); ShowRels(t_string);}
+				EOS()				OK				{Acceptable(); ShowRels();}
 }
 Space_See_Rel
 {
-				 Alth(t_string1: std::string, index: int&) 
-	[ ctxt.CheckJoin(t_string1, index) ]	Join					{}
+				 Alth(index: int&) 
+	[ ctxt.CheckJoin(index) ]	Join					{}
 }
 Join
 {
-			 Alth(t_string1: std::string, index: int&)			nil				{}
+			 Alth(index: int&)			nil				{}
 			Num				nil				{}
-			EOS(t_string1: std::string, t_string2: std::string)				OK				{Acceptable(); ShowRels(t_string1, t_string2);}
+			EOS()				OK				{Acceptable(); ShowRels();}
 }
 First_Letter_NM
 {
 				
-				 Alth(t_string1: std::string, index: int&)			nil				{}
+				 Alth(index: int&)			nil				{}
 				Bracket_right	List_Atr		{}
 				
 				com				nil				{}
@@ -94,7 +94,7 @@ First_Letter_NM
 List_Atr
 {
 				
-				 Alth(t_string1: std::string, index: int&)			First_Letter_AT	{}
+				 Alth(index: int&)			First_Letter_AT	{}
 				Bracket_left	EndBracket		{}
 				com				Comma			{}
 				
@@ -104,7 +104,7 @@ List_Atr
 First_Letter_AT
 {
 		
-				 Alth(t_string1: std::string, index: int&)			nil				{}
+				 Alth(index: int&)			nil				{}
 				Bracket_left	EndBracket		{}
 				com				Comma			{}
 				Num				nil				{}
@@ -113,14 +113,14 @@ First_Letter_AT
 Comma
 {
 			
-				 Alth(t_string1: std::string, index: int&)			First_Letter_AT	{}
+				 Alth(index: int&)			First_Letter_AT	{}
 						
 }
 
 space_NM
 {
 				
-				 Alth(t_string1: std::string, index: int&)			First_Letter_NM	{}
+				 Alth(index: int&)			First_Letter_NM	{}
 				Bracket_right	Error			{}
 				Bracket_left	Error			{}
 				Space			nil				{}
@@ -130,14 +130,14 @@ space_NM
 EndBracket
 {
 				
-				EOS(t_string: std::string)				OK				{Acceptable(); AddRel(t_string);}
+				EOS()				OK				{Acceptable(); AddRel();}
 																
 }
 Default
 {
 				W_Creat         Error			{}  
 				Unknown			Error			{}
-				Alth(t_string1: std::string, index: int&)			Error			{}
+				Alth(index: int&)			Error			{}
 				Bracket_right	Error			{}
 				Bracket_left	Error			{}
 				Space			Error			{}

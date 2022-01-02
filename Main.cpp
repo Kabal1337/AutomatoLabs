@@ -83,27 +83,130 @@
 using namespace std;
 using namespace statemap;
 
-struct Rel
+
+
+bool CheckStringRegex(string str, vector<Rel>& rels)
 {
-    string name;
-    string atr;
-};
-vector<Rel> rels;
-bool CheckStringRegex(string str)
-{
+    bool t = false;
+    cmatch m;
+    regex regular("(create)[\ ]([a-zA-Z][a-zA-Z0-9]*)[\(]([a-zA-Z][a-zA-Z0-9]*([\,][a-zA-Z][a-zA-Z0-9]*)*)[\)]|([a-zA-Z][a-zA-Z0-9]*)|([a-zA-Z][a-zA-Z0-9]*)[\ ][j][o][i][n][\ ]([a-zA-Z][a-zA-Z0-9]*)");
     try {
-        regex regular("[c][r][e][a][t][\ ][a-zA-Z][a-zA-Z0-9]*[\(][a-zA-Z][a-zA-Z0-9]*([\,][a-zA-Z][a-zA-Z0-9]*)*[\)]|[a-zA-Z][a-zA-Z0-9]*|[a-zA-Z][a-zA-Z0-9]*[\ ][j][o][i][n][\ ][a-zA-Z][a-zA-Z0-9]*");
-        return regex_match(str.c_str(), regular);
+        t = regex_match(str.c_str(), m, regular);
+        if (t == false) return t;
+        
+        
     }
     catch (const std::exception& ex)
     {
         cout << ex.what() << endl;
     }
+    
+    if (m[1] == "create")
+    {
+        Rel rel;
+        rel.name = m[2];
+        if (m[4] != false)
+        {
+            std::string str_t;
+            std::string atrib;
+            str_t = m[3];
+           
+            int j = 0;
+            for (int i = 0; i < str_t.size(); i++)
+            {
+                if (str_t[i] == ',')
+                {
+                    
+                    rel.atr.push_back(atrib);
+                    atrib.clear();
+                    continue;
+                }
+                atrib.push_back(str_t[i]);
+            }
+            if (atrib.size() != 0) rel.atr.push_back(atrib);
+            rels.push_back(rel);
+        }
+    }
+    else if (m[5].str().size()!=0)
+    {
+   
+            for (int i = 0; i < rels.size(); i++)
+            {
+                if (rels[i].name == m[5])
+                {
+                    std::cout << rels[i].name << ": ";
+                        for (int j = 0; j < rels[i].atr.size(); j++)
+                        {
+                            if (j != rels[i].atr.size() - 1) cout << rels[i].atr[j] << ',';
+                            else
+                                cout << rels[i].atr[j] << endl;
+                        }
+                }
+                
+            }
+        
+    }
+    else
+    {
+        int ind_n1 = -1;
+        int ind_n2 = -1;
+        for (int i = 0; i < rels.size(); i++)
+        {
+            if (rels[i].name == m[6])
+            {
+                ind_n1 = i;
+            }
+            if (rels[i].name == m[7])
+            {
+                ind_n2 = i;
+            }
+        }
+        if (ind_n2 == -1 || ind_n1 == -1)
+        {
+            std::cout << "There is no such relation" << std::endl;
+            return t;
+        }
+        std::cout << "Atributs of " << m[6] << " and " << m[7] << ": ";
 
+
+        for (int j = 0; j < rels[ind_n1].atr.size(); j++)
+        {
+            bool same = false;
+            for (int i = 0; i < rels[ind_n2].atr.size(); i++)
+            {
+                if (rels[ind_n1].atr[j] == rels[ind_n2].atr[i])
+                {
+                    same = true;
+                }
+
+
+            }
+            if (same == false) std::cout << rels[ind_n1].atr[j] << ", ";
+            else  std::cout << rels[ind_n1].atr[j] << "." << m[6] << ", ";
+        }
+        for (int j = 0; j < rels[ind_n2].atr.size(); j++)
+        {
+            bool same = false;
+            for (int i = 0; i < rels[ind_n1].atr.size(); i++)
+            {
+                if (rels[ind_n2].atr[j] == rels[ind_n1].atr[i])
+                {
+                    same = true;
+                }
+
+
+            }
+            if (same == false) std::cout << rels[ind_n2].atr[j] << ", ";
+            else  std::cout << rels[ind_n2].atr[j] << "." << m[7] << ", ";
+        }
+    }
+    return t;
+    
 }
+
 int main()
 {
-    
+    vector<Rel> rels;
     FileGeneration fg;
     fg.generate("test.txt");
 
@@ -165,9 +268,12 @@ int main()
                 cout << "In regex: " << "false" << endl;
                 else  cout << "In regex: " << "true" << endl;*/
                 start = clock();
+                thisContext.SetStr(argv);
                 //isAcceptable = thisContext.CheckString(word.c_str());
-                isAcceptable = thisContext.CheckString(argv);
-                //isAcceptable = CheckStringRegex(word);
+                //isAcceptable = thisContext.CheckString(argv);
+                cmatch m;
+                isAcceptable = CheckStringRegex(argv, rels);
+                for (int i = 0; i < m.size(); i++) cout << m[i] << endl;
                 stop = clock();
                 if (!isAcceptable)
                 {
@@ -181,71 +287,7 @@ int main()
                     //fout << index << " is acceptable, " << "time: " << (stop - start) << endl;
                     cout << " is acceptable, " << std::endl;
                     index++;
-                    //if (argv[0] == 'c' && argv[1] == 'r' && argv[2] == 'e' && argv[3] == 'a' && argv[4] == 't')
-                    //{
-                    //    Rel rel;
-                    //    int i = 0;
-                    //    while (argv[i] != ' ') i++;
-                    //    i++;
-                    //    while (argv[i] != '(')
-                    //    {
-
-                    //        rel.name.push_back(argv[i]);
-                    //        i++;
-                    //    }
-                    //    i++;
-                    //    while (argv[i] != ')') 
-                    //    {
-                    //        rel.atr.push_back(argv[i]);
-                    //        i++;
-                    //    }
-                    //    rels.push_back(rel);
-                    //    //cout << "name: " << rels[0].name;
-                    //}
-                    //else 
-                    //{
-                    //    
-                    //    string name1;
-                    //    string name2;
-                    //    int i = 0;
-                    //    
-                    //    while(argv[i] != '[')
-                    //    {
-                    //        name1.push_back(argv[i]);
-                    //        i++;
-                    //        
-                    //    }
-                    //    i++;
-                    //    while (argv[i] != ']') 
-                    //    {
-                    //        name2.push_back(argv[i]);
-                    //        i++;
-                    //    }
-                    //    //cout << name1 << ' ' << name2 << endl;
-                    //    if (name1 == "" || name2 == "")
-                    //    {
-                    //        if (name1 != "")
-                    //            for (int i = 0; i < rels.size(); i++)
-                    //            {
-                    //                if (rels[i].name == name1) cout << "name: " << name1 << endl << "atributes: " << rels[i].atr<<endl;
-                    //            }
-                    //        if (name2 != "")
-                    //            for (int i = 0; i < rels.size(); i++)
-                    //            {
-                    //                if (rels[i].name == name1) cout << "name: " << name1 << endl << "atributes: " << rels[i].atr<<endl;
-                    //            }
-                    //    }
-                    //    else
-                    //    {
-                    //        cout << "Relations names: " << name1 << ", " << name2 << endl;
-                    //        for (int i = 0; i < rels.size(); i++)
-                    //        {
-                    //            if (rels[i].name == name1) cout << rels[i].atr << ", ";
-                    //            if (name2 != name1) if (rels[i].name == name2) cout << rels[i].atr << endl;
-                    //        }
-
-                    //    }
-                    //}
+                   
 
                 }
             }

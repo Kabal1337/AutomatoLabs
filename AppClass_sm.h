@@ -45,15 +45,13 @@ public:
     virtual void Entry(AppClassContext&) {};
     virtual void Exit(AppClassContext&) {};
 
-    virtual void Alth(AppClassContext& context, std::string t_string1, int& index);
+    virtual void Alth(AppClassContext& context, int& index);
     virtual void Bracket_left(AppClassContext& context);
     virtual void Bracket_left_q(AppClassContext& context);
     virtual void Bracket_right(AppClassContext& context);
     virtual void Bracket_right_q(AppClassContext& context);
     virtual void Creat(AppClassContext& context);
     virtual void EOS(AppClassContext& context);
-    virtual void EOS(AppClassContext& context, std::string t_string);
-    virtual void EOS(AppClassContext& context, std::string t_string1, std::string t_string2);
     virtual void Num(AppClassContext& context);
     virtual void Space(AppClassContext& context);
     virtual void Unknown(AppClassContext& context);
@@ -96,7 +94,7 @@ public:
 
     virtual void W_Creat(AppClassContext& context);
     virtual void Unknown(AppClassContext& context);
-    virtual void Alth(AppClassContext& context, std::string t_string1, int& index);
+    virtual void Alth(AppClassContext& context, int& index);
     virtual void Bracket_right(AppClassContext& context);
     virtual void Bracket_left(AppClassContext& context);
     virtual void Space(AppClassContext& context);
@@ -116,8 +114,8 @@ public:
     : Map1_Default(name, stateId)
     {};
 
-    virtual void Alth(AppClassContext& context, std::string t_string1, int& index);
-    virtual void EOS(AppClassContext& context, std::string t_string);
+    virtual void Alth(AppClassContext& context, int& index);
+    virtual void EOS(AppClassContext& context);
 };
 
 class Map1_Creat_Rel :
@@ -128,7 +126,7 @@ public:
     : Map1_Default(name, stateId)
     {};
 
-    virtual void Alth(AppClassContext& context, std::string t_string1, int& index);
+    virtual void Alth(AppClassContext& context, int& index);
 };
 
 class Map1_See_Rel :
@@ -139,8 +137,8 @@ public:
     : Map1_Default(name, stateId)
     {};
 
-    virtual void Alth(AppClassContext& context, std::string t_string1, int& index);
-    virtual void EOS(AppClassContext& context, std::string t_string);
+    virtual void Alth(AppClassContext& context, int& index);
+    virtual void EOS(AppClassContext& context);
     virtual void Num(AppClassContext& context);
     virtual void Space(AppClassContext& context);
 };
@@ -153,7 +151,7 @@ public:
     : Map1_Default(name, stateId)
     {};
 
-    virtual void Alth(AppClassContext& context, std::string t_string1, int& index);
+    virtual void Alth(AppClassContext& context, int& index);
 };
 
 class Map1_Join :
@@ -164,8 +162,8 @@ public:
     : Map1_Default(name, stateId)
     {};
 
-    virtual void Alth(AppClassContext& context, std::string t_string1, int& index);
-    virtual void EOS(AppClassContext& context, std::string t_string1, std::string t_string2);
+    virtual void Alth(AppClassContext& context, int& index);
+    virtual void EOS(AppClassContext& context);
     virtual void Num(AppClassContext& context);
 };
 
@@ -177,7 +175,7 @@ public:
     : Map1_Default(name, stateId)
     {};
 
-    virtual void Alth(AppClassContext& context, std::string t_string1, int& index);
+    virtual void Alth(AppClassContext& context, int& index);
     virtual void Bracket_right(AppClassContext& context);
     virtual void Num(AppClassContext& context);
     virtual void com(AppClassContext& context);
@@ -191,7 +189,7 @@ public:
     : Map1_Default(name, stateId)
     {};
 
-    virtual void Alth(AppClassContext& context, std::string t_string1, int& index);
+    virtual void Alth(AppClassContext& context, int& index);
     virtual void Bracket_left(AppClassContext& context);
     virtual void com(AppClassContext& context);
 };
@@ -204,7 +202,7 @@ public:
     : Map1_Default(name, stateId)
     {};
 
-    virtual void Alth(AppClassContext& context, std::string t_string1, int& index);
+    virtual void Alth(AppClassContext& context, int& index);
     virtual void Bracket_left(AppClassContext& context);
     virtual void Num(AppClassContext& context);
     virtual void com(AppClassContext& context);
@@ -218,7 +216,7 @@ public:
     : Map1_Default(name, stateId)
     {};
 
-    virtual void Alth(AppClassContext& context, std::string t_string1, int& index);
+    virtual void Alth(AppClassContext& context, int& index);
 };
 
 class Map1_space_NM :
@@ -229,7 +227,7 @@ public:
     : Map1_Default(name, stateId)
     {};
 
-    virtual void Alth(AppClassContext& context, std::string t_string1, int& index);
+    virtual void Alth(AppClassContext& context, int& index);
     virtual void Bracket_left(AppClassContext& context);
     virtual void Bracket_right(AppClassContext& context);
     virtual void Space(AppClassContext& context);
@@ -243,7 +241,7 @@ public:
     : Map1_Default(name, stateId)
     {};
 
-    virtual void EOS(AppClassContext& context, std::string t_string);
+    virtual void EOS(AppClassContext& context);
 };
 
 class Map1_OK :
@@ -305,9 +303,9 @@ public:
         return dynamic_cast<AppClassState&>(*_state);
     };
 
-    inline void Alth(std::string t_string1, int& index)
+    inline void Alth(int& index)
     {
-        getState().Alth(*this, t_string1, index);
+        getState().Alth(*this, index);
     };
 
     inline void Bracket_left()
@@ -338,16 +336,6 @@ public:
     inline void EOS()
     {
         getState().EOS(*this);
-    };
-
-    inline void EOS(std::string t_string)
-    {
-        getState().EOS(*this, t_string);
-    };
-
-    inline void EOS(std::string t_string1, std::string t_string2)
-    {
-        getState().EOS(*this, t_string1, t_string2);
     };
 
     inline void Num()

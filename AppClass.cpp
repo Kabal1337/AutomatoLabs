@@ -113,16 +113,16 @@ bool AppClass::CheckString(std::string str)
         
         
         if (str[i] >= 'a' && str[i] <= 'z')
-            _fsm.Alth(str, i);
+            _fsm.Alth(i);
          else if (str[i] >= '0' && str[i] <= '9')
             _fsm.Num();
        
         else if (str[i] >= 'A' && str[i] <= 'Z')
-            _fsm.Alth(str, i);
+            _fsm.Alth(i);
         else if (str[i] == '.')
-           _fsm.Alth(str, i);
+           _fsm.Alth(i);
         else if (str[i] == '_')
-            _fsm.Alth(str, i);
+            _fsm.Alth(i);
         else if (str[i] == '(')
             _fsm.Bracket_right();
         else if (str[i] == ',')
@@ -139,7 +139,7 @@ bool AppClass::CheckString(std::string str)
     }
 
     // end of string has been reached - send the EOS transition.
-    _fsm.EOS(str);
+    _fsm.EOS();
     _fsm.eps();
     //#endif
 

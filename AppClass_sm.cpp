@@ -65,7 +65,7 @@ Map1_EndBracket Map1::EndBracket("Map1::EndBracket", 10);
 Map1_OK Map1::OK("Map1::OK", 11);
 Map1_Error Map1::Error("Map1::Error", 12);
 
-void AppClassState::Alth(AppClassContext& context, std::string t_string1, int& index)
+void AppClassState::Alth(AppClassContext& context, int& index)
 {
     Default(context);
 }
@@ -96,16 +96,6 @@ void AppClassState::Creat(AppClassContext& context)
 }
 
 void AppClassState::EOS(AppClassContext& context)
-{
-    Default(context);
-}
-
-void AppClassState::EOS(AppClassContext& context, std::string t_string)
-{
-    Default(context);
-}
-
-void AppClassState::EOS(AppClassContext& context, std::string t_string1, std::string t_string2)
 {
     Default(context);
 }
@@ -167,7 +157,7 @@ void Map1_Default::Unknown(AppClassContext& context)
 
 }
 
-void Map1_Default::Alth(AppClassContext& context, std::string t_string1, int& index)
+void Map1_Default::Alth(AppClassContext& context, int& index)
 {
 
     context.getState().Exit(context);
@@ -257,11 +247,11 @@ void Map1_Default::EOS(AppClassContext& context)
 
 }
 
-void Map1_Start::Alth(AppClassContext& context, std::string t_string1, int& index)
+void Map1_Start::Alth(AppClassContext& context, int& index)
 {
     AppClass& ctxt = context.getOwner();
 
-    if ( ctxt.CheckCreat(t_string1, index) )
+    if ( ctxt.CheckCreat(index) )
     {
         context.getState().Exit(context);
         // No actions.
@@ -277,7 +267,7 @@ void Map1_Start::Alth(AppClassContext& context, std::string t_string1, int& inde
 
 }
 
-void Map1_Start::EOS(AppClassContext& context, std::string t_string)
+void Map1_Start::EOS(AppClassContext& context)
 {
     AppClass& ctxt = context.getOwner();
 
@@ -286,7 +276,7 @@ void Map1_Start::EOS(AppClassContext& context, std::string t_string)
     try
     {
         ctxt.Acceptable();
-        ctxt.AddRel(t_string);
+        ctxt.AddRel();
         context.setState(Map1::OK);
     }
     catch (...)
@@ -298,7 +288,7 @@ void Map1_Start::EOS(AppClassContext& context, std::string t_string)
 
 }
 
-void Map1_Creat_Rel::Alth(AppClassContext& context, std::string t_string1, int& index)
+void Map1_Creat_Rel::Alth(AppClassContext& context, int& index)
 {
 
     context.getState().Exit(context);
@@ -307,13 +297,13 @@ void Map1_Creat_Rel::Alth(AppClassContext& context, std::string t_string1, int& 
 
 }
 
-void Map1_See_Rel::Alth(AppClassContext& context, std::string t_string1, int& index)
+void Map1_See_Rel::Alth(AppClassContext& context, int& index)
 {
 
 
 }
 
-void Map1_See_Rel::EOS(AppClassContext& context, std::string t_string)
+void Map1_See_Rel::EOS(AppClassContext& context)
 {
     AppClass& ctxt = context.getOwner();
 
@@ -322,7 +312,7 @@ void Map1_See_Rel::EOS(AppClassContext& context, std::string t_string)
     try
     {
         ctxt.Acceptable();
-        ctxt.ShowRels(t_string);
+        ctxt.ShowRels();
         context.setState(Map1::OK);
     }
     catch (...)
@@ -349,11 +339,11 @@ void Map1_See_Rel::Space(AppClassContext& context)
 
 }
 
-void Map1_Space_See_Rel::Alth(AppClassContext& context, std::string t_string1, int& index)
+void Map1_Space_See_Rel::Alth(AppClassContext& context, int& index)
 {
     AppClass& ctxt = context.getOwner();
 
-    if ( ctxt.CheckJoin(t_string1, index) )
+    if ( ctxt.CheckJoin(index) )
     {
         context.getState().Exit(context);
         // No actions.
@@ -362,18 +352,18 @@ void Map1_Space_See_Rel::Alth(AppClassContext& context, std::string t_string1, i
     }
     else
     {
-         Map1_Default::Alth(context, t_string1, index);
+         Map1_Default::Alth(context, index);
     }
 
 }
 
-void Map1_Join::Alth(AppClassContext& context, std::string t_string1, int& index)
+void Map1_Join::Alth(AppClassContext& context, int& index)
 {
 
 
 }
 
-void Map1_Join::EOS(AppClassContext& context, std::string t_string1, std::string t_string2)
+void Map1_Join::EOS(AppClassContext& context)
 {
     AppClass& ctxt = context.getOwner();
 
@@ -382,7 +372,7 @@ void Map1_Join::EOS(AppClassContext& context, std::string t_string1, std::string
     try
     {
         ctxt.Acceptable();
-        ctxt.ShowRels(t_string1, t_string2);
+        ctxt.ShowRels();
         context.setState(Map1::OK);
     }
     catch (...)
@@ -400,7 +390,7 @@ void Map1_Join::Num(AppClassContext& context)
 
 }
 
-void Map1_First_Letter_NM::Alth(AppClassContext& context, std::string t_string1, int& index)
+void Map1_First_Letter_NM::Alth(AppClassContext& context, int& index)
 {
 
 
@@ -427,7 +417,7 @@ void Map1_First_Letter_NM::com(AppClassContext& context)
 
 }
 
-void Map1_List_Atr::Alth(AppClassContext& context, std::string t_string1, int& index)
+void Map1_List_Atr::Alth(AppClassContext& context, int& index)
 {
 
     context.getState().Exit(context);
@@ -454,7 +444,7 @@ void Map1_List_Atr::com(AppClassContext& context)
 
 }
 
-void Map1_First_Letter_AT::Alth(AppClassContext& context, std::string t_string1, int& index)
+void Map1_First_Letter_AT::Alth(AppClassContext& context, int& index)
 {
 
 
@@ -484,7 +474,7 @@ void Map1_First_Letter_AT::com(AppClassContext& context)
 
 }
 
-void Map1_Comma::Alth(AppClassContext& context, std::string t_string1, int& index)
+void Map1_Comma::Alth(AppClassContext& context, int& index)
 {
 
     context.getState().Exit(context);
@@ -493,7 +483,7 @@ void Map1_Comma::Alth(AppClassContext& context, std::string t_string1, int& inde
 
 }
 
-void Map1_space_NM::Alth(AppClassContext& context, std::string t_string1, int& index)
+void Map1_space_NM::Alth(AppClassContext& context, int& index)
 {
 
     context.getState().Exit(context);
@@ -526,7 +516,7 @@ void Map1_space_NM::Space(AppClassContext& context)
 
 }
 
-void Map1_EndBracket::EOS(AppClassContext& context, std::string t_string)
+void Map1_EndBracket::EOS(AppClassContext& context)
 {
     AppClass& ctxt = context.getOwner();
 
@@ -535,7 +525,7 @@ void Map1_EndBracket::EOS(AppClassContext& context, std::string t_string)
     try
     {
         ctxt.Acceptable();
-        ctxt.AddRel(t_string);
+        ctxt.AddRel();
         context.setState(Map1::OK);
     }
     catch (...)
