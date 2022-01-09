@@ -139,6 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DFA_Creating.cpp" />
+    <ClCompile Include="DFA_Node.cpp" />
     <ClCompile Include="lab2_a.cpp" />
     <ClCompile Include="NFA_Component.cpp" />
     <ClCompile Include="NFA_Creating.cpp" />
@@ -147,6 +149,8 @@
     <ClCompile Include="Syntax_Tree.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DFA_Creating.h" />
+    <ClInclude Include="DFA_Node.h" />
     <ClInclude Include="NFA_Component.h" />
     <ClInclude Include="NFA_Creating.h" />
     <ClInclude Include="NFA_Node.h" />

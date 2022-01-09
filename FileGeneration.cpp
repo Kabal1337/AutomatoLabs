@@ -17,15 +17,23 @@ void FileGeneration::generate(std::string file_name)
 	char temp;
 	int name_size;
 	int atr_size;
+	int mist;
 	for (int i = 0; i < MAX_STRINGS; i++)
 	{
-		fout << "creat ";
+		fout << "create ";
 
 		
 		name_size = this->rand_num(1, MAX_SIGNS);
-
+		mist = this->rand_num(0, 2);
+		if (mist == 1)
+		{
+			name_size++;
+			temp = '1';
+			fout << temp;
+		}
 		for (int k = 0; k < name_size; k++)
 		{
+			
 			temp = 'a' + this->rand_num(0, 'z' - 'a');
 			fout << temp;
 		}
@@ -52,3 +60,4 @@ void FileGeneration::generate(std::string file_name)
 
 	fout.close();
 }
+

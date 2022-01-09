@@ -78,6 +78,7 @@
 #include <regex>
 #include "AppClass.cpp"
 
+
 #define _CRT_SECURE_NO_WARNINGS
 
 using namespace std;
@@ -216,7 +217,7 @@ int main()
     fin.open("test.txt", ios_base::in);
 
     std::ofstream fout;
-    fout.open("time.txt", ios_base::out);
+    fout.open("time.txt", ios_base::app);
 
     if (!fin.is_open())
     {
@@ -233,13 +234,15 @@ int main()
    AppClass thisContext;
    while (1)
    {
-        fin >> word;
+       
+        //fin >> word;
         std::string temp;
-        fin >> temp;
+        //fin >> temp;
        /* word += ' ';
         word += temp;*/
         std::string argv;
-        getline(cin, argv);
+        //getline(cin, argv);
+        if (!getline(fin, argv)) break;
         int index = 0;
         //int argc = word.length();
         int argc = argv.length();
@@ -252,12 +255,15 @@ int main()
         {
             cerr << "No string to check." << endl;
             retcode = 2;
+            
         }
         else if (argc == 1)
         {
             cerr << "Only one argument is accepted." << endl;
             retcode = 3;
+            
         }
+        
         else
         {
             //cout << "The string \"" << word << "\" is ";
@@ -270,23 +276,23 @@ int main()
                 start = clock();
                 thisContext.SetStr(argv);
                 //isAcceptable = thisContext.CheckString(word.c_str());
-                //isAcceptable = thisContext.CheckString(argv);
+                isAcceptable = thisContext.CheckString(argv);
                 cmatch m;
-                isAcceptable = CheckStringRegex(argv, rels);
+                //isAcceptable = CheckStringRegex(argv, rels);
                 for (int i = 0; i < m.size(); i++) cout << m[i] << endl;
                 stop = clock();
                 if (!isAcceptable)
                 {
                     //fout << index << " is not acceptable, " << "time: " << (stop - start)<< endl;
-                    cout << " is not acceptable, " << std::endl;
-                    index++;
-
+                    cout << argv << " is not acceptable, " << std::endl;
+                    fout << (stop - start) << endl;
+                    
                 }
                 else
                 {
                     //fout << index << " is acceptable, " << "time: " << (stop - start) << endl;
-                    cout << " is acceptable, " << std::endl;
-                    index++;
+                    cout<< argv << " is acceptable, " << std::endl;
+                    fout << (stop - start) << endl;
                    
 
                 }

@@ -17,6 +17,7 @@ public:
 	Syntax_Tree(std::string string);
 	Syntax_Node* _get_root();
 	Syntax_Node* _get_node(int index);
+	void add_cat_str(std::string &str);
 	bool check_bracket(int index);
 	void draw_syntax_tree(std::string file_name);
 private:

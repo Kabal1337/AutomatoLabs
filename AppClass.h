@@ -126,15 +126,17 @@ public:
                 i++;
         }
         rels.push_back(rel);
-        for (int i = 0; i < rels.size(); i++)
+        /*for (int i = 0; i < rels.size(); i++)
         {
             std::cout << rels[i].name << "(";
             for (int j = 0; j < rels[i].atr.size(); j++)
             {
+                if(j == rels[i].atr.size()-1)
                 std::cout << rels[i].atr[j];
+                else std::cout << rels[i].atr[j] << ',';
             }
             std::cout << ")" << std::endl;
-        }
+        }*/
 
     }
     inline bool CheckCreat(int &index)

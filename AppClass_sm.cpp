@@ -288,11 +288,11 @@ void Map1_Start::EOS(AppClassContext& context)
 
 }
 
-void Map1_Creat_Rel::Alth(AppClassContext& context, int& index)
+void Map1_Creat_Rel::Space(AppClassContext& context)
 {
 
     context.getState().Exit(context);
-    context.setState(Map1::First_Letter_NM);
+    context.setState(Map1::space_NM);
     context.getState().Entry(context);
 
 }
@@ -489,30 +489,6 @@ void Map1_space_NM::Alth(AppClassContext& context, int& index)
     context.getState().Exit(context);
     context.setState(Map1::First_Letter_NM);
     context.getState().Entry(context);
-
-}
-
-void Map1_space_NM::Bracket_left(AppClassContext& context)
-{
-
-    context.getState().Exit(context);
-    context.setState(Map1::Error);
-    context.getState().Entry(context);
-
-}
-
-void Map1_space_NM::Bracket_right(AppClassContext& context)
-{
-
-    context.getState().Exit(context);
-    context.setState(Map1::Error);
-    context.getState().Entry(context);
-
-}
-
-void Map1_space_NM::Space(AppClassContext& context)
-{
-
 
 }
 

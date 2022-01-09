@@ -1,5 +1,12 @@
 digraph G {
-"id:-2 cat" -> "id:2 a"
-"id:-2 cat" -> "id:3 b"
-"id:5 ..." -> "id:-2 cat"
+"id:4 |" -> "id:3 a"
+"id:4 |" -> "id:5 b"
+"id:7 ..." -> "id:4 |"
+"id:10 cat" -> "id:7 ..."
+"id:10 cat" -> "id:13 |"
+"id:13 |" -> "id:12 c"
+"id:13 |" -> "id:14 d"
+"id:17 ..." -> "id:10 cat"
+"id:20 cat" -> "id:17 ..."
+"id:20 cat" -> "id:21 #"
 }

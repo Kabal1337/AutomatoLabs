@@ -126,7 +126,7 @@ public:
     : Map1_Default(name, stateId)
     {};
 
-    virtual void Alth(AppClassContext& context, int& index);
+    virtual void Space(AppClassContext& context);
 };
 
 class Map1_See_Rel :
@@ -228,9 +228,6 @@ public:
     {};
 
     virtual void Alth(AppClassContext& context, int& index);
-    virtual void Bracket_left(AppClassContext& context);
-    virtual void Bracket_right(AppClassContext& context);
-    virtual void Space(AppClassContext& context);
 };
 
 class Map1_EndBracket :

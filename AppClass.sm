@@ -58,7 +58,7 @@ Start
 }
 Creat_Rel
 {
-				 Alth(index: int&)			First_Letter_NM  {}
+				 Space			space_NM					{}
 				
 }
 See_Rel
@@ -121,9 +121,7 @@ space_NM
 {
 				
 				 Alth(index: int&)			First_Letter_NM	{}
-				Bracket_right	Error			{}
-				Bracket_left	Error			{}
-				Space			nil				{}
+				
 				
 }
 
