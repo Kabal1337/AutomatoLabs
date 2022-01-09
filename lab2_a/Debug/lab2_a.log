@@ -1,2 +1,18 @@
-﻿  lab2_a.cpp
+﻿  Syntax_Tree.cpp
+D:\AutomatoLabs\Test\lab2_a\Syntax_Tree.cpp(17,21): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\Syntax_Tree.cpp(110,23): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\Syntax_Tree.cpp(115,23): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\Syntax_Tree.cpp(119,23): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\Syntax_Tree.cpp(124,23): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\Syntax_Tree.cpp(151,23): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\Syntax_Tree.cpp(156,24): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\Syntax_Tree.cpp(160,23): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\Syntax_Tree.cpp(165,24): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\Syntax_Tree.cpp(376,20): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\Syntax_Tree.cpp(380,14): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\Syntax_Tree.cpp(534,22): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\Syntax_Tree.cpp(536,23): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\Syntax_Tree.cpp(546,22): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\Syntax_Tree.cpp(548,23): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\Syntax_Tree.cpp(568,22): warning C4018: <: несоответствие типов со знаком и без знака
   lab2_a.vcxproj -> D:\AutomatoLabs\Test\lab2_a\Debug\lab2_a.exe

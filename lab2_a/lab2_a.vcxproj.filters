@@ -33,7 +33,7 @@
     <ClCompile Include="NFA_Component.cpp">
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
-    <ClCompile Include="DFA_Creating.cpp">
+    <ClCompile Include="DFA.cpp">
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
     <ClCompile Include="DFA_Node.cpp">
@@ -56,7 +56,7 @@
     <ClInclude Include="NFA_Component.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="DFA_Creating.h">
+    <ClInclude Include="DFA.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="DFA_Node.h">

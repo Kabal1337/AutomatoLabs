@@ -8,8 +8,9 @@
 #include "NFA_Creating.h"
 int main()
 {
-    std::string reg = "((a|b)...(c|d))...";
+    std::string reg = "(m|e)(p|h)i";
     Syntax_Tree* tree = new Syntax_Tree(reg);
+    
     tree->draw_syntax_tree("test1.txt");
     //NFA_Creating* nfa = new NFA_Creating(reg);
     //nfa->draw_syntax_tree("test1.txt");

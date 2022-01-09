@@ -44,6 +44,7 @@ Syntax_Tree::Syntax_Tree(std::string string)
 				temp1.push_back(str[i]);
 				creat_node(temp1, temp, a_node);
 				_get_node(i)->Nullable = false;
+				
 				str[i] = ' ';
 
 			}
@@ -56,6 +57,7 @@ Syntax_Tree::Syntax_Tree(std::string string)
 				temp.push_back(i);
 				creat_node(".", temp, a_node);
 				_get_node(i)->Nullable = false;
+				
 				str[i] = ' ';
 			}
 			if (str[i] == '#')
@@ -66,6 +68,7 @@ Syntax_Tree::Syntax_Tree(std::string string)
 				temp1.push_back(str[i]);
 				creat_node(temp1, temp, eps_node);
 				_get_node(i)->Nullable = false;
+				
 				str[i] = ' ';
 			}
 		}
@@ -141,7 +144,7 @@ Syntax_Tree::Syntax_Tree(std::string string)
 			{
 				std::vector<int> temp;
 				temp.push_back(i);
-				creat_node("cat", temp, or_node);
+				creat_node("cat", temp, cat_node);
 				str[i] = ' ';
 				add_child(i, i - 1);
 				add_child(i, i + 1);
@@ -297,6 +300,7 @@ Syntax_Tree::Syntax_Tree(std::string string)
 	while (last_index != 0 && first_index != 0);
 		
 	this->root = _get_root();
+	creat_FP();
 	/*for (auto it = nodes.begin(); it != nodes.end(); ++it)
 	{
 		
@@ -455,6 +459,8 @@ void Syntax_Tree::creat_node(std::string sign, std::vector<int> indexes, sign_ty
 	if (type == eps_node)
 	{
 		temp->Nullable = true;
+		temp->First.push_back(indexes[0]);
+		temp->Last.push_back(indexes[0]);
 	}
 	if (type == a_node)
 	{
@@ -509,4 +515,62 @@ void Syntax_Tree::draw_syntax_tree(std::string file_name)
 
 	*out << "}";
 
+}
+
+void Syntax_Tree::creat_FP()
+{
+	for (auto it = nodes.begin(); it != nodes.end(); it++)
+	{
+		if (it->second->type == a_node || it->second->type == eps_node)
+		{
+			std::vector<int> temp;
+			FP[it->second->indexes[0]] = temp;
+		}
+	}
+	for (auto it = nodes.begin(); it != nodes.end(); it++)
+	{
+		if (it->second->type == cat_node)
+		{
+			for (int i = 0; i < it->second->left_ptr->Last.size(); i++)
+			{
+				for (int j = 0; j < it->second->right_ptr->First.size(); j++)
+				{
+					FP[it->second->left_ptr->Last[i]].push_back(it->second->right_ptr->First[j]);
+				}
+				
+			}
+			
+		}
+		if (it->second->type == klyn_node)
+		{
+			for (int i = 0; i < it->second->left_ptr->Last.size(); i++)
+			{
+				for (int j = 0; j < it->second->left_ptr->First.size(); j++)
+				{
+					FP[it->second->left_ptr->Last[i]].push_back(it->second->left_ptr->First[j]);
+				}
+
+			}
+		}
+	}
+}
+
+std::vector<std::string>* Syntax_Tree::get_alth()
+{
+	std::vector<std::string> *alth = new std::vector<std::string>();
+	for (auto it = nodes.begin(); it != nodes.end(); it++)
+	{	
+		
+		
+		if (it->second->type == a_node)
+		{
+			bool uniq = true;
+			for (int i = 0; i < alth->size(); i++)
+			{
+				if (it->second->sign == (*alth)[i]) uniq = false;
+			}
+			if (uniq) alth->push_back(it->second->sign);
+		}
+	}
+	return alth;
 }

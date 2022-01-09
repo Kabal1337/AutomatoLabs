@@ -20,6 +20,10 @@ public:
 	void add_cat_str(std::string &str);
 	bool check_bracket(int index);
 	void draw_syntax_tree(std::string file_name);
+	void creat_FP();
+	std::vector<std::string> *get_alth();
+	std::map <int, Syntax_Node*> nodes;
+	std::map <int, std::vector<int>> FP;
 private:
 	
 	void add_child(int parent_index, int child_index);
@@ -27,7 +31,7 @@ private:
 	bool check_node(int index);
 	void add_brackets(int open, int close);
 	
-	std::map <int, Syntax_Node*> nodes;
+	
 	std::map<int, std::pair<int, bracket_type>> brackets;
 	Syntax_Node* root;
 	//Syntax_Node* std::vector<>
