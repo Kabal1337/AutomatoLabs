@@ -6,15 +6,19 @@
 #include <string>
 #include "Syntax_Tree.h"
 #include "NFA_Creating.h"
+#include "DFA.h"
 int main()
 {
-    std::string reg = "(m|e)(p|h)i";
+    std::string reg = "L(L|D)...";
     Syntax_Tree* tree = new Syntax_Tree(reg);
     
     tree->draw_syntax_tree("test1.txt");
+    DFA* dfa = new DFA(tree);
+   
+    dfa->draw_dfa_graph("test3.txt");
     //NFA_Creating* nfa = new NFA_Creating(reg);
     //nfa->draw_syntax_tree("test1.txt");
-   // nfa->draw_nfa_graph("test2.txt");
+    //nfa->draw_nfa_graph("test2.txt");
     
     return 0;
     

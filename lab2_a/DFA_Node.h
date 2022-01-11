@@ -11,7 +11,7 @@ class DFA_Node
 public:
 	DFA_Node(DFA_node_type type, std::vector<int> positions);
 	DFA_node_type type;
-
+	int id;
 	bool isChecked;
 	
 

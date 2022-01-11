@@ -10,9 +10,14 @@ public:
 	std::vector<std::string> alth;
 	DFA_Node* enter_node;
 	DFA_Node* exit_node;
-
-	void add_node(DFA_Node* node);
 	
+	void add_node(DFA_Node* node);
+
+	void draw_dfa_graph(std::string file_name);
+
+	void drawing(DFA_Node* node, std::ofstream* out);
+
 	std::vector<DFA_Node*> nodes;
 private:
+	void set_exit_node(Syntax_Tree* tree);
 };
