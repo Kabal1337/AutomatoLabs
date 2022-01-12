@@ -9,7 +9,7 @@
 #include <iterator>
 enum sign_type
 {
-	a_node, cat_node, klyn_node, opart_node, or_node, eps_node
+	a_node, cat_node, klyn_node, opart_node, or_node, eps_node, end_str
 };
 class Syntax_Node
 {

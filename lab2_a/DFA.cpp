@@ -52,7 +52,7 @@ void DFA::node_process(DFA_Node* node, Syntax_Tree* tree)
 				{
 					uniq_node = false;
 					node->make_link(nodes[l], alth[i]);
-					//node_process(nodes[i], tree);
+					
 					break;
 				}
 			}
@@ -126,7 +126,7 @@ void DFA::draw_dfa_graph(std::string file_name)
 	{
 		*out << exit_node->positions[i] << ",";
 	}
-	*out << "\\nexit\"];" << std::endl;
+	*out << "\\naccepting\"];" << std::endl;
 
 	drawing(this->enter_node, out);
 
@@ -172,7 +172,8 @@ void DFA::set_exit_node(Syntax_Tree* tree)
 			if (tree->nodes[nodes[i]->positions[j]]->sign == "#")
 			{
 				exit_node = nodes[i];
-				return;
+				exit_node->type = dfa_accepting;
+				
 			}
 		}
 	}

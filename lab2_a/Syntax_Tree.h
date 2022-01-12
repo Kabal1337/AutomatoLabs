@@ -21,6 +21,7 @@ public:
 	bool check_bracket(int index);
 	void draw_syntax_tree(std::string file_name);
 	void creat_FP();
+	
 	std::vector<std::string> *get_alth();
 	std::map <int, Syntax_Node*> nodes;
 	std::map <int, std::vector<int>> FP;
@@ -30,8 +31,8 @@ private:
 	void creat_node(std::string sign, std::vector<int> indexes, sign_type type);
 	bool check_node(int index);
 	void add_brackets(int open, int close);
-	
-	
+	void process_opart(std::string *str);
+	void find_repeat(std::string* str);
 	std::map<int, std::pair<int, bracket_type>> brackets;
 	Syntax_Node* root;
 	//Syntax_Node* std::vector<>

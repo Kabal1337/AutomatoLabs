@@ -5,7 +5,8 @@ Syntax_Tree::Syntax_Tree(std::string string)
 	int first_index;
 	int last_index;
 	
-	
+	process_opart(&string);
+	find_repeat(&string);
 	std::string str = "(" + string + "#" + ")";
 	add_cat_str(str);
 	
@@ -36,7 +37,7 @@ Syntax_Tree::Syntax_Tree(std::string string)
 		for (int i = first_index; i <= last_index; i++)
 		{
 			
-			if (str[i] != '.' && str[i] != '?' && str[i] != '|' && str[i] != '%' && str[i]!=' ' && str[i] != '#' && str[i] != '@')
+			if (str[i] != '.' && str[i] != '?' && str[i] != '|' && str[i] != '%' && str[i]!=' ' && str[i] != '#' && str[i] != '@' && str[i] != '^')
 			{
 				std::vector<int> temp;
 				temp.push_back(i);
@@ -66,9 +67,20 @@ Syntax_Tree::Syntax_Tree(std::string string)
 				temp.push_back(i);
 				std::string temp1;
 				temp1.push_back(str[i]);
-				creat_node(temp1, temp, eps_node);
+				creat_node(temp1, temp, end_str);
 				_get_node(i)->Nullable = false;
 				
+				str[i] = ' ';
+			}
+			if (str[i] == '^')
+			{
+				std::vector<int> temp;
+				temp.push_back(i);
+				std::string temp1;
+				temp1.push_back(str[i]);
+				creat_node(temp1, temp, eps_node);
+				_get_node(i)->Nullable = true;
+
 				str[i] = ' ';
 			}
 		}
@@ -167,128 +179,7 @@ Syntax_Tree::Syntax_Tree(std::string string)
 						_get_node(i)->Last.push_back(_get_node(i)->left_ptr->Last[j]);
 					}
 			}
-			//if(check_node(i))
-			//{
-			//
-			//	if (check_node(i + 1))
-			//	{
-			//		if (nodes[i + 1]->type == a_node)
-			//		{
-			//			std::vector<int> temp;
-			//			temp.push_back(-i);
-			//			temp.push_back(i + 1);
-			//			creat_node("cat", temp, cat_node);
-			//			str[i] = ' ';
-			//			add_child(-i, i);
-			//			add_child(-i, i + 1);
-			//			_get_node(-i)->Nullable = _get_node(-i)->left_ptr->Nullable && _get_node(-i)->right_ptr->Nullable;
-			//			for (int j = 0; j < _get_node(-i)->left_ptr->First.size(); j++)
-			//			{
-			//				_get_node(-i)->First.push_back(_get_node(-i)->left_ptr->First[j]);
-			//			}
-			//			if (_get_node(-i)->left_ptr->Nullable == true)
-			//				for (int j = 0; j < _get_node(-i)->right_ptr->First.size(); j++)
-			//				{
-			//					_get_node(-i)->First.push_back(_get_node(-i)->right_ptr->First[j]);
-			//				}
-			//			for (int j = 0; j < _get_node(-i)->right_ptr->Last.size(); j++)
-			//			{
-			//				_get_node(-i)->Last.push_back(_get_node(-i)->right_ptr->Last[j]);
-			//			}
-			//			if (_get_node(-i)->right_ptr->Nullable == true)
-			//				for (int j = 0; j < _get_node(-i)->left_ptr->Last.size(); j++)
-			//				{
-			//					_get_node(-i)->Last.push_back(_get_node(-i)->left_ptr->Last[j]);
-			//				}
-
-			//		}
-
-			//	}
-			//	/*else
-			//	{
-			//		int j = i+1;
-			//		while (j <= last_index)
-			//		{
-			//			if (check_node(j + 1)) 
-			//			{
-			//				if (nodes[j + 1]->type == a_node)
-			//				{
-			//					std::vector<int> temp;
-			//					temp.push_back(-i);
-			//					temp.push_back(j + 1);
-			//					creat_node("cat", temp, cat_node);
-			//					str[i] = ' ';
-			//					add_child(-i, i);
-			//					add_child(-i, j + 1);
-			//					_get_node(-i)->Nullable = _get_node(-i)->left_ptr->Nullable && _get_node(-i)->right_ptr->Nullable;
-			//					for (int j = 0; j < _get_node(-i)->left_ptr->First.size(); j++)
-			//					{
-			//						_get_node(-i)->First.push_back(_get_node(-i)->left_ptr->First[j]);
-			//					}
-			//					if (_get_node(-i)->left_ptr->Nullable == true)
-			//						for (int j = 0; j < _get_node(-i)->right_ptr->First.size(); j++)
-			//						{
-			//							_get_node(-i)->First.push_back(_get_node(-i)->right_ptr->First[j]);
-			//						}
-			//					for (int j = 0; j < _get_node(-i)->right_ptr->Last.size(); j++)
-			//					{
-			//						_get_node(-i)->Last.push_back(_get_node(-i)->right_ptr->Last[j]);
-			//					}
-			//					if (_get_node(-i)->right_ptr->Nullable == true)
-			//						for (int j = 0; j < _get_node(-i)->left_ptr->Last.size(); j++)
-			//						{
-			//							_get_node(-i)->Last.push_back(_get_node(-i)->left_ptr->Last[j]);
-			//						}
-			//				}
-			//				break;
-			//			}
-
-			//			j++;
-			//		}
-			//	}*/
-			//}
-			//else
-			//if (check_bracket(i)) 
-			//{
-			//	if (brackets[i].second == Close)
-			//	{
-
-			//		
-			//		if (check_node(i + 1))
-			//		{
-			//			if (nodes[i + 1]->type == a_node)
-			//			{
-			//				std::vector<int> temp;
-			//				temp.push_back(-i);
-			//				temp.push_back(i + 1);
-			//				creat_node("cat", temp, cat_node);
-			//				str[i] = ' ';
-			//				add_child(-i, i);
-			//				add_child(-i, i + 1);
-			//				_get_node(-i)->Nullable = _get_node(-i)->left_ptr->Nullable && _get_node(-i)->right_ptr->Nullable;
-			//				for (int j = 0; j < _get_node(-i)->left_ptr->First.size(); j++)
-			//				{
-			//					_get_node(-i)->First.push_back(_get_node(-i)->left_ptr->First[j]);
-			//				}
-			//				if (_get_node(-i)->left_ptr->Nullable == true)
-			//					for (int j = 0; j < _get_node(-i)->right_ptr->First.size(); j++)
-			//					{
-			//						_get_node(-i)->First.push_back(_get_node(-i)->right_ptr->First[j]);
-			//					}
-			//				for (int j = 0; j < _get_node(-i)->right_ptr->Last.size(); j++)
-			//				{
-			//					_get_node(-i)->Last.push_back(_get_node(-i)->right_ptr->Last[j]);
-			//				}
-			//				if (_get_node(-i)->right_ptr->Nullable == true)
-			//					for (int j = 0; j < _get_node(-i)->left_ptr->Last.size(); j++)
-			//					{
-			//						_get_node(-i)->Last.push_back(_get_node(-i)->left_ptr->Last[j]);
-			//					}
-			//			}
-
-			//		}
-			//	}
-			//}
+			
 			
 
 		}
@@ -301,68 +192,7 @@ Syntax_Tree::Syntax_Tree(std::string string)
 		
 	this->root = _get_root();
 	creat_FP();
-	/*for (auto it = nodes.begin(); it != nodes.end(); ++it)
-	{
-		
-		if (it->second->type == cat_node)
-		{
-			it->second->Nullable = it->second->left_ptr->Nullable && it->second->right_ptr->Nullable;
-			if (it->second->left_ptr->Nullable == true)
-			{
-				for (int i = 0; i < it->second->left_ptr->First.size(); i++)
-				{
-					it->second->First.push_back(it->second->left_ptr->First[i]);
-				}
-				for (int i = 0; i < it->second->right_ptr->First.size(); i++)
-				{
-					it->second->First.push_back(it->second->right_ptr->First[i]);
-				}
-				
-			}
-			else it->second->First = it->second->left_ptr->First;
-			
-			if (it->second->left_ptr->Nullable == true)
-			{
-				for (int i = 0; i < it->second->left_ptr->Last.size(); i++)
-				{
-					it->second->Last.push_back(it->second->left_ptr->Last[i]);
-				}
-				for (int i = 0; i < it->second->right_ptr->Last.size(); i++)
-				{
-					it->second->Last.push_back(it->second->right_ptr->Last[i]);
-				}
-			}
-			else it->second->Last = it->second->left_ptr->Last;
-		}
-		if (it->second->type == or_node)
-		{
-			it->second->Nullable = it->second->left_ptr->Nullable || it->second->right_ptr->Nullable;
-
-			for (int i = 0; i < it->second->left_ptr->First.size(); i++)
-			{
-				it->second->First.push_back(it->second->left_ptr->First[i]);
-			}
-			for (int i = 0; i < it->second->right_ptr->First.size(); i++)
-			{
-				it->second->First.push_back(it->second->right_ptr->First[i]);
-			}
-
-			for (int i = 0; i < it->second->left_ptr->Last.size(); i++)
-			{
-				it->second->Last.push_back(it->second->left_ptr->Last[i]);
-			}
-			for (int i = 0; i < it->second->right_ptr->Last.size(); i++)
-			{
-				it->second->Last.push_back(it->second->right_ptr->Last[i]);
-			}
-		}
-		if (it->second->type == klyn_node)
-		{
-			it->second->Nullable = true;
-			it->second->First = it->second->left_ptr->First;
-			it->second->Last = it->second->left_ptr->Last;
-		}
-	}*/
+	
 	
 }
 
@@ -456,7 +286,7 @@ void Syntax_Tree::creat_node(std::string sign, std::vector<int> indexes, sign_ty
 {
 	Syntax_Node* temp = new Syntax_Node(sign, indexes, type);
 	
-	if (type == eps_node)
+	if (type == end_str)
 	{
 		temp->Nullable = true;
 		temp->First.push_back(indexes[0]);
@@ -485,6 +315,78 @@ void Syntax_Tree::add_brackets(int open, int close)
 	std::pair<int, bracket_type> t2 = { close, Close };
 	this->brackets[open] = t1;
 	this->brackets[close] = t2;
+}
+void Syntax_Tree::process_opart(std::string* str)
+{
+	for (int i = 0; i < str->size(); i++)
+	{
+		if ((*str)[i] == '?')
+		{
+			str->erase(i, 1);
+			str->insert(i, ")");
+			if ((*str)[i - 1] == ')')
+			{
+				for (int j = i; j >= 0; j--)
+				{
+					if ((*str)[j] == '(')
+					{
+						str->insert(j, "(^|");
+					}
+				}
+			}
+			else str->insert(i-1, "(^|");
+			
+		}
+	}
+}
+void Syntax_Tree::find_repeat(std::string* str)
+{
+	for (int i = 0; i < str->size(); i++)
+	{
+		if ((*str)[i] == '{')
+		{
+			std::string temp_str;
+			if ((*str)[i - 1] == ')')
+			{
+				int t = 0;
+				for (int j = i-1; j >= 0; j--)
+				{
+					
+					if ((*str)[j] == '(')
+					{
+						t = j;
+						break;
+					}
+					
+				}
+				for (int j = t; j < i; j++)
+				{
+					temp_str.push_back((*str)[j]);
+				}
+				
+			}
+			else temp_str.push_back((*str)[i - 1]);
+			int j = i;
+			while ((*str)[j] != '}')
+			{
+				j++;
+			}
+			int temp = 1;
+			std::string rep_num;
+			for (int k = i+1; k < j; k++)
+			{
+				rep_num.push_back((*str)[k]);
+				temp++;
+			}
+			temp++;
+			str->erase(i, temp);
+			for (int k = 0; k < std::stoi(rep_num)-1; k++)
+			{
+				str->insert(i, temp_str);
+			}
+		}
+
+	}
 }
 void Syntax_Tree::draw_syntax_tree(std::string file_name)
 {
@@ -521,7 +423,7 @@ void Syntax_Tree::creat_FP()
 {
 	for (auto it = nodes.begin(); it != nodes.end(); it++)
 	{
-		if (it->second->type == a_node || it->second->type == eps_node)
+		if (it->second->type == a_node || it->second->type == eps_node || it->second->type == end_str)
 		{
 			std::vector<int> temp;
 			FP[it->second->indexes[0]] = temp;

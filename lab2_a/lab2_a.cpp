@@ -9,7 +9,7 @@
 #include "DFA.h"
 int main()
 {
-    std::string reg = "L(L|D)...";
+    std::string reg = "(L|B){4}";
     Syntax_Tree* tree = new Syntax_Tree(reg);
     
     tree->draw_syntax_tree("test1.txt");

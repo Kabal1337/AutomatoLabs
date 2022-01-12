@@ -16,7 +16,7 @@ public:
 	void draw_dfa_graph(std::string file_name);
 
 	void drawing(DFA_Node* node, std::ofstream* out);
-
+	
 	std::vector<DFA_Node*> nodes;
 private:
 	void set_exit_node(Syntax_Tree* tree);
