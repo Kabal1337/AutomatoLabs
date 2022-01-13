@@ -95,6 +95,32 @@ void DFA::add_node(DFA_Node* node)
 	this->nodes.push_back(node);
 }
 
+bool DFA::check_string(std::string str)
+{
+	DFA_Node* cur_ptr = enter_node;
+	for (int i = 0; i < str.size(); i++)
+	{
+		std::string temp_char;
+		temp_char.push_back(str[i]);
+		if (cur_ptr->links[temp_char] == NULL) 
+			return false;
+		else if (cur_ptr->links[temp_char]->positions.size() == NULL) 
+			return false;
+		else
+		{
+			cur_ptr = cur_ptr->links[temp_char];
+		}
+		
+		
+	}
+	if(cur_ptr->type == dfa_accepting)
+		return true;
+	else
+	{
+		return false;
+	}
+}
+
 void DFA::draw_dfa_graph(std::string file_name)
 {
 	if (this->enter_node == nullptr) return;

@@ -9,7 +9,7 @@ Syntax_Tree::Syntax_Tree(std::string string)
 	find_repeat(&string);
 	std::string str = "(" + string + "#" + ")";
 	add_cat_str(str);
-	
+	catch_groups(str);
 	do
 	{
 		first_index = 0;
@@ -205,6 +205,11 @@ void Syntax_Tree::add_cat_str(std::string &str)
 {
 	for (int i = 0; i < str.size() - 1; i++)
 	{
+		if (str[i] == '<')
+		{
+			while (str[i] != '>') i++;
+			i++;
+		}
 		if (str[i] != '?' && str[i] != '|' && str[i] != '%' && str[i] != ' ' && str[i] != '#' && str[i] != '@' && str[i] != '(')
 		{	
 			if (i + 2 < str.size() - 1)
@@ -386,6 +391,46 @@ void Syntax_Tree::find_repeat(std::string* str)
 			}
 		}
 
+	}
+}
+void Syntax_Tree::catch_groups(std::string& str)
+{
+	
+	for (int i = 0; i < str.size(); i++)
+	{
+		if (str[i] == '<')
+		{
+			std::string name;
+			int name_length = 1;
+			for (int j = i+1; j<str.size(); j++)
+			{
+				name_length++;
+				if (str[j] == '>')
+				{
+					str.erase(i, name_length);
+					break;
+				}
+				name.push_back(str[j]);
+				
+			}
+			//i -= name_length;
+			if (str[i] == '(')
+			{
+				int first_pos = i + 1;
+
+				for (int j = i; j < str.size(); j++)
+				{
+					if (str[j] == ')')
+					{
+						int last_pos = j - 1;
+						groups[name] = std::make_pair(first_pos, last_pos);
+						break;
+					}
+				}
+			}
+			else groups[name] = std::make_pair(i, i);
+		}
+		
 	}
 }
 void Syntax_Tree::draw_syntax_tree(std::string file_name)

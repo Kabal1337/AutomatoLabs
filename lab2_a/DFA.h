@@ -12,7 +12,7 @@ public:
 	DFA_Node* exit_node;
 	
 	void add_node(DFA_Node* node);
-
+	bool check_string(std::string str);
 	void draw_dfa_graph(std::string file_name);
 
 	void drawing(DFA_Node* node, std::ofstream* out);

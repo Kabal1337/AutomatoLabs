@@ -25,6 +25,7 @@ public:
 	std::vector<std::string> *get_alth();
 	std::map <int, Syntax_Node*> nodes;
 	std::map <int, std::vector<int>> FP;
+	std::map <std::string, std::pair<int, int>> groups;
 private:
 	
 	void add_child(int parent_index, int child_index);
@@ -33,6 +34,7 @@ private:
 	void add_brackets(int open, int close);
 	void process_opart(std::string *str);
 	void find_repeat(std::string* str);
+	void catch_groups(std::string& str);
 	std::map<int, std::pair<int, bracket_type>> brackets;
 	Syntax_Node* root;
 	//Syntax_Node* std::vector<>

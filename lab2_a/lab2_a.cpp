@@ -9,13 +9,17 @@
 #include "DFA.h"
 int main()
 {
-    std::string reg = "(L|B){4}";
+    std::string reg = "AA";
     Syntax_Tree* tree = new Syntax_Tree(reg);
     
     tree->draw_syntax_tree("test1.txt");
     DFA* dfa = new DFA(tree);
    
     dfa->draw_dfa_graph("test3.txt");
+    if (dfa->check_string("AA"))
+    {
+        std::cout << "String accepted";
+    };
     //NFA_Creating* nfa = new NFA_Creating(reg);
     //nfa->draw_syntax_tree("test1.txt");
     //nfa->draw_nfa_graph("test2.txt");
