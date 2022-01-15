@@ -9,17 +9,18 @@
 #include "DFA.h"
 int main()
 {
-    std::string reg = "AA";
+    std::string reg = "<anime>(ANI...M?(<sosi>(E|H)))";
     Syntax_Tree* tree = new Syntax_Tree(reg);
     
     tree->draw_syntax_tree("test1.txt");
     DFA* dfa = new DFA(tree);
-   
+    
     dfa->draw_dfa_graph("test3.txt");
-    if (dfa->check_string("AA"))
+    if (dfa->check_string("ANIIIIME", tree))
     {
-        std::cout << "String accepted";
-    };
+        std::cout << "string accepted";
+    }
+    else std::cout << "string not accepted";
     //NFA_Creating* nfa = new NFA_Creating(reg);
     //nfa->draw_syntax_tree("test1.txt");
     //nfa->draw_nfa_graph("test2.txt");

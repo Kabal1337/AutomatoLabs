@@ -95,11 +95,12 @@ void DFA::add_node(DFA_Node* node)
 	this->nodes.push_back(node);
 }
 
-bool DFA::check_string(std::string str)
-{
+bool DFA::check_string(std::string str, Syntax_Tree* tree)
+{	
 	DFA_Node* cur_ptr = enter_node;
 	for (int i = 0; i < str.size(); i++)
 	{
+				
 		std::string temp_char;
 		temp_char.push_back(str[i]);
 		if (cur_ptr->links[temp_char] == NULL) 
@@ -108,6 +109,7 @@ bool DFA::check_string(std::string str)
 			return false;
 		else
 		{
+			add_to_group(cur_ptr, tree, str[i]);
 			cur_ptr = cur_ptr->links[temp_char];
 		}
 		
@@ -119,6 +121,33 @@ bool DFA::check_string(std::string str)
 	{
 		return false;
 	}
+}
+void DFA::add_to_group(DFA_Node* node, Syntax_Tree* tree, char ch)
+{
+	for (auto it = tree->groups.begin(); it != tree->groups.end(); it++)
+	{
+		for (int j = 0; j < node->positions.size(); j++)
+		{
+		
+			if (node->positions[j] >= it->second.first && node->positions[j] <= it->second.second && tree->str[node->positions[j]] == ch)
+			{
+				if (catch_groups[it->first].empty())
+				{
+					std::string temp;
+					temp.push_back(ch);
+					catch_groups[it->first] = temp;
+					break;
+				}
+				else
+				{
+					catch_groups[it->first].push_back(ch);
+					break;
+				}
+			}
+		}
+
+	}
+	
 }
 
 void DFA::draw_dfa_graph(std::string file_name)
@@ -158,6 +187,8 @@ void DFA::draw_dfa_graph(std::string file_name)
 
 	*out << "}";
 }
+
+
 
 void DFA::drawing(DFA_Node* node, std::ofstream* out)
 {

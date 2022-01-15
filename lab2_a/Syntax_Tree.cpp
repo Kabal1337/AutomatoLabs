@@ -10,6 +10,7 @@ Syntax_Tree::Syntax_Tree(std::string string)
 	std::string str = "(" + string + "#" + ")";
 	add_cat_str(str);
 	catch_groups(str);
+	this->str = str;
 	do
 	{
 		first_index = 0;
@@ -247,10 +248,11 @@ void Syntax_Tree::add_child(int parent_index, int child_index)
 	int real_child_index = child_index;
 	if (!check_node(real_child_index)) {
 		if (check_bracket(real_child_index))
-		{
+		{	
 			while (!check_node(real_child_index))
 			{
-				if (brackets[real_child_index].second == Open)
+				if (!check_bracket(real_child_index) && !check_node(real_child_index)) real_child_index--;
+				else if (brackets[real_child_index].second == Open)
 				{
 					real_child_index++;
 
@@ -331,11 +333,19 @@ void Syntax_Tree::process_opart(std::string* str)
 			str->insert(i, ")");
 			if ((*str)[i - 1] == ')')
 			{
-				for (int j = i; j >= 0; j--)
+				int c_br = 0;
+				for (int j = i - 2; j >= 0; j--)
 				{
-					if ((*str)[j] == '(')
+					
+					if ((*str)[j] == '(' && c_br == 0)
 					{
 						str->insert(j, "(^|");
+						break;
+					}
+					else if ((*str)[j] == '(' && c_br != 0) c_br--;
+					else if ((*str)[j] == ')')
+					{
+						c_br++;
 					}
 				}
 			}
@@ -407,6 +417,11 @@ void Syntax_Tree::catch_groups(std::string& str)
 				name_length++;
 				if (str[j] == '>')
 				{
+					for (auto it = groups.begin(); it != groups.end(); it++)
+					{
+						it->second.first -= name_length;
+						it->second.second -= name_length;
+					}
 					str.erase(i, name_length);
 					break;
 				}
@@ -416,16 +431,20 @@ void Syntax_Tree::catch_groups(std::string& str)
 			//i -= name_length;
 			if (str[i] == '(')
 			{
-				int first_pos = i + 1;
-
-				for (int j = i; j < str.size(); j++)
+				int first_pos = i+1;
+				int open_br = 0;
+				for (int j = i+1; j < str.size(); j++)
 				{
-					if (str[j] == ')')
+					
+					if (str[j] == '(') open_br++;
+					if (str[j] == ')' && open_br == 0)
 					{
+
 						int last_pos = j - 1;
 						groups[name] = std::make_pair(first_pos, last_pos);
 						break;
 					}
+					else if (str[j] == ')') open_br--;
 				}
 			}
 			else groups[name] = std::make_pair(i, i);

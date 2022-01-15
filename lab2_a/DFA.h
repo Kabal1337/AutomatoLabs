@@ -12,12 +12,13 @@ public:
 	DFA_Node* exit_node;
 	
 	void add_node(DFA_Node* node);
-	bool check_string(std::string str);
+	bool check_string(std::string str, Syntax_Tree* tree);
 	void draw_dfa_graph(std::string file_name);
-
+	void add_to_group(DFA_Node* node, Syntax_Tree* tree, char ch);
 	void drawing(DFA_Node* node, std::ofstream* out);
 	
 	std::vector<DFA_Node*> nodes;
 private:
 	void set_exit_node(Syntax_Tree* tree);
+	std::map <std::string, std::string> catch_groups;
 };

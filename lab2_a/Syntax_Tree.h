@@ -26,6 +26,7 @@ public:
 	std::map <int, Syntax_Node*> nodes;
 	std::map <int, std::vector<int>> FP;
 	std::map <std::string, std::pair<int, int>> groups;
+	std::string str;
 private:
 	
 	void add_child(int parent_index, int child_index);
@@ -37,6 +38,7 @@ private:
 	void catch_groups(std::string& str);
 	std::map<int, std::pair<int, bracket_type>> brackets;
 	Syntax_Node* root;
+	
 	//Syntax_Node* std::vector<>
 
 
