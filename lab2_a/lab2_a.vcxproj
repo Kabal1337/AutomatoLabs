@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="DFA.cpp" />
     <ClCompile Include="DFA_Node.cpp" />
+    <ClCompile Include="DFA_to_reg.cpp" />
     <ClCompile Include="lab2_a.cpp" />
     <ClCompile Include="NFA_Component.cpp" />
     <ClCompile Include="NFA_Creating.cpp" />
@@ -151,6 +152,7 @@
   <ItemGroup>
     <ClInclude Include="DFA.h" />
     <ClInclude Include="DFA_Node.h" />
+    <ClInclude Include="DFA_to_reg.h" />
     <ClInclude Include="NFA_Component.h" />
     <ClInclude Include="NFA_Creating.h" />
     <ClInclude Include="NFA_Node.h" />

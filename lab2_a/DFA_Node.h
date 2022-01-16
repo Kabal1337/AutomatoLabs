@@ -10,10 +10,12 @@ class DFA_Node
 {
 public:
 	DFA_Node(DFA_node_type type, std::vector<int> positions);
-	DFA_node_type type;
+	bool type_accept;
+	bool type_normal;
+	bool type_start;
 	int id;
 	bool isChecked;
-	
+	void sort_pos();
 
 	void make_link(DFA_Node* to, std::string tr);
 	std::vector<int> positions;

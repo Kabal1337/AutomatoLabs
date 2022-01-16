@@ -45,6 +45,7 @@ void DFA::node_process(DFA_Node* node, Syntax_Tree* tree)
 		}
 		if (accept_new_node)
 		{
+			node_new->sort_pos();
 			bool uniq_node = true;
 			for (int l = 0; l < nodes.size(); l++)
 			{
@@ -58,6 +59,7 @@ void DFA::node_process(DFA_Node* node, Syntax_Tree* tree)
 			}
 			if (uniq_node)
 			{
+				
 				node->make_link(node_new, alth[i]);
 				add_node(node_new);
 				node_process(node_new, tree);
@@ -115,7 +117,7 @@ bool DFA::check_string(std::string str, Syntax_Tree* tree)
 		
 		
 	}
-	if(cur_ptr->type == dfa_accepting)
+	if(cur_ptr->type_accept == true)
 		return true;
 	else
 	{
@@ -158,30 +160,51 @@ void DFA::draw_dfa_graph(std::string file_name)
 	*out << "digraph G {" << std::endl;
 
 	*out << "\"";
-	for (size_t i = 0; i < enter_node->positions.size(); i++)
+	for (int i = 0; i < enter_node->positions.size(); i++)
 	{
 		*out << enter_node->positions[i] << ",";
 	}
 
 	*out << "\"" << " [label=\"";
-		for (size_t i = 0; i < enter_node->positions.size(); i++)
+		for (int i = 0; i < enter_node->positions.size(); i++)
 		{
 			*out << enter_node->positions[i] << ",";
 		}
-	*out << "\\nstart\"];" << std::endl;
-	
-	*out << "\"";
-	for (size_t i = 0; i < exit_node->positions.size(); i++)
+		if(!enter_node->type_accept)
+			*out << "\\nstart\"];" << std::endl;
+		else
+			*out << "\\nstart, accepting\"];" << std::endl;
+	for (int i = 0; i < nodes.size(); i++)
+	{
+
+		if (nodes[i]->type_accept && !nodes[i]->type_start)
+		{
+			*out << "\"";
+			for (int j = 0; j < nodes[i]->positions.size(); j++)
+			{
+				*out << nodes[i]->positions[j] << ",";
+			}
+
+			*out << "\"" << " [label=\"";
+			for (int j = 0; j < nodes[i]->positions.size(); j++)
+			{
+				*out << nodes[i]->positions[j] << ",";
+			}
+			*out << "\\naccepting\"];" << std::endl;
+		}
+	}
+	/**out << "\"";
+	for (int i = 0; i < exit_node->positions.size(); i++)
 	{
 		*out << exit_node->positions[i] << ",";
 	}
 
 	*out << "\"" << " [label=\"";
-	for (size_t i = 0; i < exit_node->positions.size(); i++)
+	for (int i = 0; i < exit_node->positions.size(); i++)
 	{
 		*out << exit_node->positions[i] << ",";
 	}
-	*out << "\\naccepting\"];" << std::endl;
+	*out << "\\naccepting\"];" << std::endl;*/
 
 	drawing(this->enter_node, out);
 
@@ -197,13 +220,13 @@ void DFA::drawing(DFA_Node* node, std::ofstream* out)
 	for (auto it = node->links.begin(); it != node->links.end(); it++)
 	{
 		*out << "\"";
-		for (size_t i = 0; i < node->positions.size(); i++)
+		for (int i = 0; i < node->positions.size(); i++)
 		{
 			*out << node->positions[i] << ",";
 		}
 		
 		*out << "\"" << " -> " << " \"";
-		for (size_t i = 0; i < (*it).second->positions.size(); i++)
+		for (int i = 0; i < (*it).second->positions.size(); i++)
 		{
 			
 			*out << (*it).second->positions[i] <<",";
@@ -229,7 +252,7 @@ void DFA::set_exit_node(Syntax_Tree* tree)
 			if (tree->nodes[nodes[i]->positions[j]]->sign == "#")
 			{
 				exit_node = nodes[i];
-				exit_node->type = dfa_accepting;
+				exit_node->type_accept = true;
 				
 			}
 		}
