@@ -8,24 +8,31 @@
 #include "NFA_Creating.h"
 #include "DFA.h"
 #include "DFA_to_reg.h"
+#include "DFA_mul.h"
 int main()
 {
-    std::string reg = "abc?(A|B...)";
-    Syntax_Tree* tree = new Syntax_Tree(reg);
-    
-    tree->draw_syntax_tree("test1.txt");
-    DFA* dfa = new DFA(tree);
-    
-    dfa->draw_dfa_graph("test3.txt");
-    /*if (dfa->check_string("ANIIIIME", tree))
+    std::string reg1 = "<ab>(abcd<cd>(d...))";
+    std::string reg2 = "abcd";
+    Syntax_Tree* tree1 = new Syntax_Tree(reg1);
+    Syntax_Tree* tree2 = new Syntax_Tree(reg2);
+    //tree1->draw_syntax_tree("test1.txt");
+    DFA* dfa1 = new DFA(tree1);
+    DFA* dfa2 = new DFA(tree2);
+    dfa1->draw_dfa_graph("dfa1.txt");
+    dfa2->draw_dfa_graph("dfa2.txt");
+   
+    if (dfa1->check_string("abcddd", tree1))
     {
-        std::cout << "string accepted";
+        std::cout << "string accepted" << std::endl;;
     }
-    else std::cout << "string not accepted";*/
-    DFA_to_reg to_reg(dfa);
-    std::ofstream* out = new std::ofstream("regex_inv.txt");
-    *out << to_reg.regex;
-    
+    else std::cout << "string not accepted" << std::endl;
+    std::cout<<dfa1->search();
+   // DFA_to_reg to_reg(dfa);
+    //std::ofstream* out = new std::ofstream("regex_inv.txt");
+    //*out << to_reg.regex;
+    DFA_mul* dfa_mul = new DFA_mul(dfa1, dfa2, Diff);
+
+    dfa_mul->draw_dfa_graph("dfa_mul.txt");
     return 0;
     
 }

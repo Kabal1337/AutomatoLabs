@@ -84,7 +84,7 @@ void DFA::node_process(DFA_Node* node, Syntax_Tree* tree)
 				{
 					node_new->make_link(node_new, alth[j]);
 				}
-				nodes.push_back(node_new);
+				nodes, add_node(node_new);
 			}
 		}
 	}
@@ -98,11 +98,13 @@ void DFA::add_node(DFA_Node* node)
 }
 
 bool DFA::check_string(std::string str, Syntax_Tree* tree)
-{	
+{
+	search_str.clear();
+	bool was_in_accept = false;
 	DFA_Node* cur_ptr = enter_node;
 	for (int i = 0; i < str.size(); i++)
 	{
-				
+		if (cur_ptr->type_accept) was_in_accept = true;
 		std::string temp_char;
 		temp_char.push_back(str[i]);
 		if (cur_ptr->links[temp_char] == NULL) 
@@ -112,6 +114,8 @@ bool DFA::check_string(std::string str, Syntax_Tree* tree)
 		else
 		{
 			add_to_group(cur_ptr, tree, str[i]);
+			if(!was_in_accept)
+			search_str.push_back(str[i]);
 			cur_ptr = cur_ptr->links[temp_char];
 		}
 		
@@ -164,12 +168,13 @@ void DFA::draw_dfa_graph(std::string file_name)
 	{
 		*out << enter_node->positions[i] << ",";
 	}
-
+	*out << " id:" << enter_node->id << "; ";
 	*out << "\"" << " [label=\"";
 		for (int i = 0; i < enter_node->positions.size(); i++)
 		{
 			*out << enter_node->positions[i] << ",";
 		}
+		*out << " id:" << enter_node->id << "; ";
 		if(!enter_node->type_accept)
 			*out << "\\nstart\"];" << std::endl;
 		else
@@ -184,12 +189,13 @@ void DFA::draw_dfa_graph(std::string file_name)
 			{
 				*out << nodes[i]->positions[j] << ",";
 			}
-
+			*out << " id:" << nodes[i]->id << "; ";
 			*out << "\"" << " [label=\"";
 			for (int j = 0; j < nodes[i]->positions.size(); j++)
 			{
 				*out << nodes[i]->positions[j] << ",";
 			}
+			*out << " id:" << nodes[i]->id << "; ";
 			*out << "\\naccepting\"];" << std::endl;
 		}
 	}
@@ -224,16 +230,17 @@ void DFA::drawing(DFA_Node* node, std::ofstream* out)
 		{
 			*out << node->positions[i] << ",";
 		}
-		
+		*out << " id:" << node->id << "; ";
 		*out << "\"" << " -> " << " \"";
 		for (int i = 0; i < (*it).second->positions.size(); i++)
 		{
 			
 			*out << (*it).second->positions[i] <<",";
 		}
+		*out << " id:" << (*it).second->id << "; ";
 		*out << "\" "
 			
-			<< "[label=\"" << (*it).first << "\"];" << std::endl;
+			<< "[label=\""<<(*it).first << "\"];" << std::endl;
 	}
 	node->isChecked = true;
 
@@ -241,6 +248,11 @@ void DFA::drawing(DFA_Node* node, std::ofstream* out)
 	{
 		drawing((*it).second, out);
 	}
+}
+
+std::string DFA::search()
+{
+	return search_str;
 }
 
 void DFA::set_exit_node(Syntax_Tree* tree)
