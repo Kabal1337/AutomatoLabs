@@ -1,0 +1,6 @@
+string main()
+start
+string str1:="Hello";
+string str2:=" World!";
+return str1;
+finish

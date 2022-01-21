@@ -1,0 +1,2 @@
+C:\Users\34110\Desktop\Borya\x64\Debug\Tile_Robot.exe
+D:\AutomatoLabs\Test\lab3_a\x64\Debug\Tile_Robot.exe
