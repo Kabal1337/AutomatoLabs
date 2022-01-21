@@ -106,6 +106,18 @@ bool DFA::check_string(std::string str, Syntax_Tree* tree)
 	{
 		if (cur_ptr->type_accept) was_in_accept = true;
 		std::string temp_char;
+		if (i + 2 < str.size())
+		{
+			if (str[i] == '.' && str[i + 1] == '.' && str[i + 2] == '.')
+			{
+				temp_char.push_back(str[i]);
+				temp_char.push_back(str[i + 1]);
+				temp_char.push_back(str[i + 2]);
+				i = i + 2;
+			}
+			else temp_char.push_back(str[i]);
+		}
+		else
 		temp_char.push_back(str[i]);
 		if (cur_ptr->links[temp_char] == NULL) 
 			return false;
@@ -113,9 +125,17 @@ bool DFA::check_string(std::string str, Syntax_Tree* tree)
 			return false;
 		else
 		{
-			add_to_group(cur_ptr, tree, str[i]);
+			for (int j = 0; j < temp_char.size(); j++)
+			{
+				add_to_group(cur_ptr, tree, temp_char[j]);
+			}
+			
 			if(!was_in_accept)
-			search_str.push_back(str[i]);
+			for (int j = 0; j < temp_char.size(); j++)
+			{
+					search_str.push_back(temp_char[j]);
+			}
+			
 			cur_ptr = cur_ptr->links[temp_char];
 		}
 		

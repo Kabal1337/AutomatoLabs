@@ -37,8 +37,74 @@ Syntax_Tree::Syntax_Tree(std::string string)
 
 		for (int i = first_index; i <= last_index; i++)
 		{
+
 			
-			if (str[i] != '.' && str[i] != '?' && str[i] != '|' && str[i] != '%' && str[i]!=' ' && str[i] != '#' && str[i] != '@' && str[i] != '^')
+			//if (str[i] == '%')
+			//{
+			//	int second_index = i + 1;
+			//	
+			//	for (int j = i+1; j < str.size(); j++)
+			//	{
+			//		
+			//		if (str[j] == '%')
+			//		{
+			//			if (str[j + 1] == '%')
+			//			{
+			//				second_index++;
+			//				
+			//			}
+			//			break;
+			//		}
+			//		second_index++;
+			//	}
+			//	/*str[second_index] = ' ';
+			//	str[i] = ' ';*/
+			//		std::vector<int> temp;
+			//		std::string temp1;
+			//		
+			//		for (int j = i+1; j < second_index; j++)
+			//		{
+			//			temp.push_back(j);
+			//			temp1.push_back(str[j]);
+			//			str[j] = ' ';
+			//		}
+			//		creat_node(temp1, temp, a_node);
+			//		_get_node(i+1)->Nullable = false;
+			//		i = second_index+1;
+			//}
+			if (str[i] == '%')
+			{
+				int second_index = i + 1;
+					
+					for (int j = i+1; j < str.size(); j++)
+					{
+						
+						if (str[j] == '%')
+						{
+							if (str[j + 1] == '%')
+							{
+								second_index++;
+								
+							}
+							break;
+						}
+						second_index++;
+					}
+				std::vector<int> temp;
+				std::string temp1;
+				str[i] = ' ';
+				temp.push_back(i);
+				for (int j = i + 1; j < second_index; j++)
+				{
+					temp.push_back(j);
+					temp1.push_back(str[j]);
+					str[j] = ' ';
+				}
+				creat_node(temp1, temp, a_node);
+				str[second_index] = ' ';
+				
+			}
+			if (str[i] != '.' && str[i] != '?' && str[i] != '|' && str[i] != '%' && str[i]!=' ' && str[i] != '#' && str[i] != '@' && str[i] != '^' && str[i] != '%')
 			{
 				std::vector<int> temp;
 				temp.push_back(i);
@@ -84,6 +150,7 @@ Syntax_Tree::Syntax_Tree(std::string string)
 
 				str[i] = ' ';
 			}
+			
 		}
 
 
@@ -140,45 +207,40 @@ Syntax_Tree::Syntax_Tree(std::string string)
 				}
 			}
 		}
-		for (int i = first_index; i <= last_index; i++)
-		{
-			if (str[i] == '?')
-			{
-				std::vector<int> temp;
-				temp.push_back(i);
-				creat_node("?", temp, opart_node);
-				str[i] = ' ';
-				add_child(i, i - 1);
-			}
-		}
+		
 		for (int i = first_index; i <= last_index; i++)
 		{
 			if (str[i] == '@')
 			{
-				std::vector<int> temp;
-				temp.push_back(i);
-				creat_node("cat", temp, cat_node);
-				str[i] = ' ';
-				add_child(i, i - 1);
-				add_child(i, i + 1);
-				for (int j = 0; j < _get_node(i)->left_ptr->First.size(); j++)
-				{
-					_get_node(i)->First.push_back(_get_node(i)->left_ptr->First[j]);
-				}
-				if (_get_node(i)->left_ptr->Nullable == true)
-					for (int j = 0; j < _get_node(i)->right_ptr->First.size(); j++)
+				
+				
+
+
+					std::vector<int> temp;
+					temp.push_back(i);
+					creat_node("cat", temp, cat_node);
+					str[i] = ' ';
+					add_child(i, i - 1);
+					add_child(i, i + 1);
+					for (int j = 0; j < _get_node(i)->left_ptr->First.size(); j++)
 					{
-						_get_node(i)->First.push_back(_get_node(i)->right_ptr->First[j]);
+						_get_node(i)->First.push_back(_get_node(i)->left_ptr->First[j]);
 					}
-				for (int j = 0; j < _get_node(i)->right_ptr->Last.size(); j++)
-				{
-					_get_node(i)->Last.push_back(_get_node(i)->right_ptr->Last[j]);
-				}
-				if (_get_node(i)->right_ptr->Nullable == true)
-					for (int j = 0; j < _get_node(i)->left_ptr->Last.size(); j++)
+					if (_get_node(i)->left_ptr->Nullable == true)
+						for (int j = 0; j < _get_node(i)->right_ptr->First.size(); j++)
+						{
+							_get_node(i)->First.push_back(_get_node(i)->right_ptr->First[j]);
+						}
+					for (int j = 0; j < _get_node(i)->right_ptr->Last.size(); j++)
 					{
-						_get_node(i)->Last.push_back(_get_node(i)->left_ptr->Last[j]);
+						_get_node(i)->Last.push_back(_get_node(i)->right_ptr->Last[j]);
 					}
+					if (_get_node(i)->right_ptr->Nullable == true)
+						for (int j = 0; j < _get_node(i)->left_ptr->Last.size(); j++)
+						{
+							_get_node(i)->Last.push_back(_get_node(i)->left_ptr->Last[j]);
+						}
+				
 			}
 			
 			
@@ -211,17 +273,33 @@ void Syntax_Tree::add_cat_str(std::string &str)
 			while (str[i] != '>') i++;
 			i++;
 		}
-		if (str[i] != '?' && str[i] != '|' && str[i] != '%' && str[i] != ' ' && str[i] != '#' && str[i] != '@' && str[i] != '(')
+		if (str[i] != '?' && str[i] != '|' && str[i] != ' ' && str[i] != '#' && str[i] != '@' && str[i] != '(' && str[i] != '%')
 		{	
 			if (i + 2 < str.size() - 1)
 				if (str[i] == '.' && str[i + 1] == '.' && str[i + 2] == '.') i += 2;
-			if (str[i + 1] != '.' && str[i + 1] != '?' && str[i + 1] != '|' && str[i + 1] != '%' && str[i + 1] != ' ' && str[i+1] != '@' && str[i+1] != ')')
+			if (str[i + 1] != '.' && str[i + 1] != '?' && str[i + 1] != '|' && str[i + 1] != ' ' && str[i+1] != '@' && str[i+1] != ')')
 			{
 				str.insert(i + 1, "@");
 				add_cat_str(str);
 				break;
 			}
 		}
+		else if (str[i] == '%')
+		{
+			i++;
+			while (str[i] != '%') i++;
+			if (str[i + 1] == '%') i++;
+			if (i + 2 < str.size() - 1)
+				if (str[i] == '.' && str[i + 1] == '.' && str[i + 2] == '.') i += 2;
+			if (str[i + 1] != '.' && str[i + 1] != '?' && str[i + 1] != '|' && str[i + 1] != ' ' && str[i + 1] != '@' && str[i + 1] != ')')
+			{
+				str.insert(i + 1, "@");
+				add_cat_str(str);
+				break;
+			}
+		}
+		
+
 	}
 	
 }
@@ -327,6 +405,21 @@ void Syntax_Tree::process_opart(std::string* str)
 {
 	for (int i = 0; i < str->size(); i++)
 	{
+		if ((*str)[i] == '%')
+		{
+			for (int j = i+1; j < str->size(); j++)
+			{
+				if ((*str)[j] == '%')
+				{
+					if ((*str)[j + 1] == '%')
+					{
+						j++;
+					}
+					i = j;
+					break;
+				}
+			}
+		}
 		if ((*str)[i] == '?')
 		{
 			str->erase(i, 1);

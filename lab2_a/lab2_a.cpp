@@ -11,17 +11,18 @@
 #include "DFA_mul.h"
 int main()
 {
-    std::string reg1 = "<ab>(abcd<cd>(d...))";
+    std::string reg1 = "(abc(d|(%...%)?))";
     std::string reg2 = "abcd";
     Syntax_Tree* tree1 = new Syntax_Tree(reg1);
     Syntax_Tree* tree2 = new Syntax_Tree(reg2);
     //tree1->draw_syntax_tree("test1.txt");
+    tree1->draw_syntax_tree("Syntax_tree.txt");
     DFA* dfa1 = new DFA(tree1);
     DFA* dfa2 = new DFA(tree2);
     dfa1->draw_dfa_graph("dfa1.txt");
     dfa2->draw_dfa_graph("dfa2.txt");
    
-    if (dfa1->check_string("abcddd", tree1))
+    if (dfa1->check_string("abc", tree1))
     {
         std::cout << "string accepted" << std::endl;;
     }

@@ -1,5 +1,10 @@
 digraph G {
 "0,0" [label="0,0\nstart"];
+"4,0" [label="4,0\naccepting"];
+"4,1" [label="4,1\naccepting"];
+"4,2" [label="4,2\naccepting"];
+"4,3" [label="4,3\naccepting"];
+"4,4" [label="4,4\naccepting"];
 "5,0" [label="5,0\naccepting"];
 "5,1" [label="5,1\naccepting"];
 "5,2" [label="5,2\naccepting"];
@@ -28,9 +33,5 @@ digraph G {
 "5,5" ->  "2,2" [label="a"];
 "5,5" ->  "2,2" [label="b"];
 "5,5" ->  "2,2" [label="c"];
-"5,5" ->  "5,2" [label="d"];
-"5,2" ->  "2,2" [label="a"];
-"5,2" ->  "2,2" [label="b"];
-"5,2" ->  "2,2" [label="c"];
-"5,2" ->  "5,2" [label="d"];
+"5,5" ->  "2,2" [label="d"];
 }
