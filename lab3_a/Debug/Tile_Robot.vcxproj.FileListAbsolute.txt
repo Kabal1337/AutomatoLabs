@@ -1,2 +1,0 @@
-F:\at_progs\lab_03\Tile_Robot\Debug\Tile_Robot.exe
-F:\at_progs\lab_03\Tile_Robot\Debug\Tile_Robot.pdb

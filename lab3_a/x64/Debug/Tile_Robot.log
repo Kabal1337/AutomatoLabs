@@ -1,9 +1,4 @@
-﻿  Function.cpp
-D:\AutomatoLabs\Test\lab3_a\Function.cpp(50,26): warning C4267: return: преобразование из "size_t" в "int"; возможна потеря данных
-  Interpreter.cpp
+﻿  Interpreter.cpp
   main.cpp
-  Integer.cpp
-  Pointer.cpp
-  String.cpp
   Создание кода...
   Tile_Robot.vcxproj -> D:\AutomatoLabs\Test\lab3_a\x64\Debug\Tile_Robot.exe

@@ -16,7 +16,7 @@ Interpreter::Interpreter(std::string robocode_file)
 
 	try
 	{
-		_collect();
+		_build();
 		
 	}
 	catch (const std::string& ex)
@@ -26,11 +26,11 @@ Interpreter::Interpreter(std::string robocode_file)
 	
 }
 
-void Interpreter::_collect()
+void Interpreter::_build()
 {
 	
 
-	//Стек ожидания. Используется для проверки присутствия return у функций и закрытых групп предложений языка
+	//Стек ожидания. Используется для проверки присутствия return у функций и закрытых start finish
 	std::stack<std::string> exp_stack;
 
 	std::string type("integer|string|(pointer)<(integer|string)>");
@@ -166,15 +166,7 @@ void Interpreter::_collect()
 			continue;
 		}
 
-		/*
-		if (regex_match(code[i].c_str(), return_rx))
-		{
-			if (!exp_stack.empty() && exp_stack.top() != "return") throw ("Expected 'return', at line: " + std::to_string(i+1));
-			if (exp_stack.empty()) throw ("Extra 'return' met, at line: " + std::to_string(i+1));
-			exp_stack.pop();
-			continue;
-		}
-		*/
+		
 	}
 
 	if (!exp_stack.empty()) throw "Error '" + exp_stack.top() + "' excpected somewhere";

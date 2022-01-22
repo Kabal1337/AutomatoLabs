@@ -16,12 +16,7 @@
 class Interpreter
 {
 public:
-	/*
-	* Работа интерпретатора состоит в исполнении двух функций: 
-	* Collect (собирает информацию о функциях)
-	* и
-	* Built (выполняет код внутри функций)
-	*/
+	
 	Interpreter(std::string robocode_file);
 
 private:
@@ -36,6 +31,6 @@ private:
 
 	
 
-	void _collect();
+	void _build();
 	
 };

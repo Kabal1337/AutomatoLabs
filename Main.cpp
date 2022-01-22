@@ -241,8 +241,8 @@ int main()
        /* word += ' ';
         word += temp;*/
         std::string argv;
-        //getline(cin, argv);
-        if (!getline(fin, argv)) break;
+        getline(cin, argv);
+        //if (!getline(fin, argv)) break;
         int index = 0;
         //int argc = word.length();
         int argc = argv.length();
@@ -276,9 +276,9 @@ int main()
                 start = clock();
                 thisContext.SetStr(argv);
                 //isAcceptable = thisContext.CheckString(word.c_str());
-                isAcceptable = thisContext.CheckString(argv);
+                //isAcceptable = thisContext.CheckString(argv);
                 cmatch m;
-                //isAcceptable = CheckStringRegex(argv, rels);
+                isAcceptable = CheckStringRegex(argv, rels);
                 for (int i = 0; i < m.size(); i++) cout << m[i] << endl;
                 stop = clock();
                 if (!isAcceptable)
