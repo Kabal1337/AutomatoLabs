@@ -1,7 +1,7 @@
 #include "FileGeneration.h"
 #define MAX_STRINGS 1
-#define MAX_SIGNS 1000
-#define MAX_ATR 1000
+#define MAX_SIGNS 100
+#define MAX_ATR 100
 
 
 int FileGeneration::rand_num(int first, int last)
@@ -24,7 +24,7 @@ void FileGeneration::generate(std::string file_name)
 
 		
 		name_size = this->rand_num(1, MAX_SIGNS);
-		mist = this->rand_num(0, 2);
+		mist = this->rand_num(0, 10);
 		if (mist == 1)
 		{
 			name_size++;
@@ -39,15 +39,23 @@ void FileGeneration::generate(std::string file_name)
 		}
 
 			
-		
+		mist = this->rand_num(0, 10);
+		if (mist != 1)
 		fout << '(';
 		atr_size = this->rand_num(1, MAX_ATR);
 		for (int j = 0; j < atr_size; j++)
 		{
-
+			mist = this->rand_num(0, 10);
+			if (mist == 1)
+			{
+				name_size++;
+				temp = '1';
+				fout << temp;
+			}
 			name_size = this->rand_num(1, MAX_SIGNS);
 			for (int k = 0; k < name_size; k++)
-			{	
+			{		
+					
 					temp = 'a' + this->rand_num(0, 'z' - 'a');
 					fout << temp;
 			
@@ -55,6 +63,8 @@ void FileGeneration::generate(std::string file_name)
 			if(j!=atr_size-1)
 			fout << ',';
 		}
+		mist = this->rand_num(0, 10);
+		if (mist != 1)
 		fout << ')'<<std::endl;
 	}
 

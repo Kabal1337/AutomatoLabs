@@ -9,8 +9,8 @@
 FILE* out;
 extern FILE* yyin;
 int num = 0, res;
-int start, stop;
-int size = 4;
+clock_t start, stop;
+int size;
 static void AddRel(const char* RelName)
 {
 	out = fopen("rellist.txt", "a+");
@@ -28,11 +28,12 @@ char* f_readln(FILE* file)
 	int n, len = 0;
 	do {
 		n = fscanf(file, "%9[^\n]", buf);
+		if(strlen(buf) == 0)
 		if (n == -1)
 		{
 			return NULL;
 		}
-		if (n == 0)
+		if (n == 0 || (n == -1 && strlen(buf) != 0))
 			fscanf(file, "%*c");
 		else
 		{
@@ -63,7 +64,19 @@ static void ShowRel(const char* RelName)
 {
 	
 	FILE* in = fopen("rellist.txt", "r");
+	size = 0;
+	char ch;
+	while (!feof(in))
+	{
+		ch = fgetc(in);
+		if (ch == '\n')
+			size++;
+	}
+	//printf("%d", size);
+	fseek(in, 0, SEEK_SET);
+	
 	bool join = false;
+
 	char* name1 = (char*)malloc(strlen(RelName) * sizeof(char));
 	char* name2 = (char*)malloc(strlen(RelName) * sizeof(char));
 	*name1 = NULL;
@@ -252,7 +265,7 @@ static void ShowRel(const char* RelName)
 	}
 }
 %}
-REG_BEGIN_C [c][r][e][a][t]
+REG_BEGIN_C [c][r][e][a][t][e]
 REG_BEGIN_J [a-zA-Z][a-zA-Z0-9]*
 VAR1 [a-zA-Z][a-zA-Z0-9]*[\(][a-zA-Z][a-zA-Z0-9]*([\,][a-zA-Z][a-zA-Z0-9]*)*[\)]
 VAR2 [a-zA-Z][a-zA-Z0-9]*|[a-zA-Z][a-zA-Z0-9]*[\ ][j][o][i][n][\ ][a-zA-Z][a-zA-Z0-9]*
@@ -264,11 +277,11 @@ EXP [&|\||\^]?
 %%
 {REG_BEGIN_C} {yyless(0); BEGIN(REG1);}
 {REG_BEGIN_J} {yyless(0); BEGIN(REG2);}
-<REG1>[c][r][e][a][t][\ ][a-zA-Z][a-zA-Z0-9]*[\(][a-zA-Z][a-zA-Z0-9]*([\,][a-zA-Z][a-zA-Z0-9]*)*[\)] {printf("Correct: %s\n",yytext); yyless(0); BEGIN(PRS1);}
+<REG1>[c][r][e][a][t][e][\ ][a-zA-Z][a-zA-Z0-9]*[\(][a-zA-Z][a-zA-Z0-9]*([\,][a-zA-Z][a-zA-Z0-9]*)*[\)] {printf("Correct:\n",yytext); yyless(0); BEGIN(PRS1);}
 <REG1>. {REJECT;}
 <REG2>[a-zA-Z][a-zA-Z0-9]*|[a-zA-Z][a-zA-Z0-9]*[\ ][j][o][i][n][\ ][a-zA-Z][a-zA-Z0-9]* {printf("Correct: %s\n",yytext); yyless(0); BEGIN(PRS2);}
 <REG2>. {REJECT;}
-<PRS1>"creat"	{}
+<PRS1>"create"	{}
 <PRS1>{VAR1}	{AddRel(yytext); BEGIN(INITIAL);}
 <PRS2>{VAR2}  {ShowRel(yytext);}
 
@@ -277,22 +290,27 @@ EXP [&|\||\^]?
 int main() {
 printf("Working\n");
 
+
+
+
 yyin = fopen("test.txt", "r");
-out = fopen("yyout.txt", "w");
+out = fopen("timing.txt", "w");
 
 while(1)
 {
 start = clock();
 res = yylex();
 stop = clock();
-
+printf("\nstart:%d\n", start);
+printf("stop:%d\n", stop);
+printf("stop-start:%d\n", (stop-start));
 if (!res) break;
-fprintf(out, "%d ", stop);
-fprintf(out, "%d ", start);
-fprintf(out, "%d ", num);
-fprintf(out, "time: %d", (stop-start));
+//fprintf(out, "%d ", stop);
+//fprintf(out, "%d ", start);
+//fprintf(out, "%d ", num);
 num++;
 }
+
 
 printf("End Work\n");
 return 0;

@@ -453,6 +453,7 @@ void Syntax_Tree::find_repeat(std::string* str)
 	{
 		if ((*str)[i] == '{')
 		{
+			
 			std::string temp_str;
 			if ((*str)[i - 1] == ')')
 			{

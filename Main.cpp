@@ -210,7 +210,7 @@ int main()
     vector<Rel> rels;
     FileGeneration fg;
     fg.generate("test.txt");
-
+    fg.generate("C:/cygwin64/home/34110/test.txt");
     clock_t start, stop;
 
     std::ifstream fin;
@@ -241,14 +241,14 @@ int main()
        /* word += ' ';
         word += temp;*/
         std::string argv;
-        getline(cin, argv);
-        //if (!getline(fin, argv)) break;
+        //getline(cin, argv);
+        if (!getline(fin, argv)) break;
         int index = 0;
         //int argc = word.length();
         int argc = argv.length();
         
         bool isAcceptable;
-        //thisContext.SetStr(argv);
+        thisContext.SetStr(argv);
         int retcode = 0;
 
         if (argc == 0)
@@ -276,24 +276,24 @@ int main()
                 start = clock();
                 thisContext.SetStr(argv);
                 //isAcceptable = thisContext.CheckString(word.c_str());
-                //isAcceptable = thisContext.CheckString(argv);
+                isAcceptable = thisContext.CheckString(argv);
                 cmatch m;
-                isAcceptable = CheckStringRegex(argv, rels);
+                //isAcceptable = CheckStringRegex(argv, rels);
                 for (int i = 0; i < m.size(); i++) cout << m[i] << endl;
                 stop = clock();
                 if (!isAcceptable)
                 {
                     //fout << index << " is not acceptable, " << "time: " << (stop - start)<< endl;
-                    cout << argv << " is not acceptable, " << std::endl;
+                    //cout << argv << " is not acceptable, " << std::endl;
                     fout << (stop - start) << endl;
                     
                 }
                 else
                 {
                     //fout << index << " is acceptable, " << "time: " << (stop - start) << endl;
-                    cout<< argv << " is acceptable, " << std::endl;
+                    //cout<< argv << " is acceptable, " << std::endl;
                     fout << (stop - start) << endl;
-                   
+                    
 
                 }
             }
@@ -310,7 +310,7 @@ int main()
    }
     fin.close();
     fout.close();
-       // return retcode;
+        //return retcode;
     
 }
 
