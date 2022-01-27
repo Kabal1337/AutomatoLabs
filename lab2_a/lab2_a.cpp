@@ -11,7 +11,7 @@
 #include "DFA_mul.h"
 int main()
 {
-    std::string reg1 = "(abc(d|(%...%)?))";
+    std::string reg1 = "(abc?)...";
     std::string reg2 = "abcd";
     Syntax_Tree* tree1 = new Syntax_Tree(reg1);
     Syntax_Tree* tree2 = new Syntax_Tree(reg2);
@@ -28,11 +28,11 @@ int main()
     }
     else std::cout << "string not accepted" << std::endl;
     std::cout<<dfa1->search();
-   // DFA_to_reg to_reg(dfa);
-    //std::ofstream* out = new std::ofstream("regex_inv.txt");
-    //*out << to_reg.regex;
+     DFA_to_reg to_reg(dfa1);
+    std::ofstream* out = new std::ofstream("regex_inv.txt");
+    *out << to_reg.regex;
     DFA_mul* dfa_mul = new DFA_mul(dfa1, dfa2, Diff);
-
+    
     dfa_mul->draw_dfa_graph("dfa_mul.txt");
     return 0;
     

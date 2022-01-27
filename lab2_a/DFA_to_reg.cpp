@@ -64,31 +64,35 @@ std::string DFA_to_reg::K_path(int i, int j, int k)
 		std::string reg_f;
 		if (!reg1.empty())
 		{	
-			if (reg1.size() > 1) reg1 = "(" + reg1 + ")";
+			//if (reg1.size() > 1) reg1 = "(" + reg1 + ")";
 			reg_f = reg_f + reg1;
 		}
 		if (!reg2.empty() && !reg3.empty() && !reg4.empty())
 		{
-			
-			if (!reg_f.empty())
-				reg_f = reg_f + "|";
-			reg_f = reg_f + "(";
-			if (reg2 != "^")
-			{
-				if (reg2.size() > 1) reg2 = "(" + reg2 + ")";
-				reg_f = reg_f + reg2;
-			}
+			//if (reg2 != "^" || reg3 != "^" || reg4 != "^")
+			//{
 
-			if (reg3 != "^")
-			{
+
+				if (!reg_f.empty())
+					reg_f = reg_f + "|";
+				reg_f = reg_f + "(";
+			//}
+			//if (reg2 != "^")
+			//{
+				//if (reg2.size() > 1) reg2 = "(" + reg2 + ")";
+				reg_f = reg_f + reg2;
+			//}
+
+			//if (reg3 != "^")
+			//{
 				reg_f = reg_f + "(" + "(" + reg3 + ")" + "..." + ")";
-			}
+			//}
 			//else reg_f = reg_f + reg3;
-			if (reg4 != "^")
-			{
-				if (reg4.size() > 1) reg4 = "(" + reg4 + ")";
+			//if (reg4 != "^")
+			//{
+				//if (reg4.size() > 1) reg4 = "(" + reg4 + ")";
 				reg_f = reg_f + reg4;
-			}
+			//}
 			reg_f = reg_f + ")";
 		}
 		return (reg_f);

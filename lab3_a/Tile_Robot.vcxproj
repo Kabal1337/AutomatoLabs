@@ -139,16 +139,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Calculator\ST_Node.cpp" />
+    <ClCompile Include="Calculator\ST_Calculator.cpp" />
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="Interpreter.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Variables\Array.cpp" />
     <ClCompile Include="Variables\Integer.cpp" />
     <ClCompile Include="Variables\Pointer.cpp" />
     <ClCompile Include="Variables\String.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Calculator\ST_Node.h" />
+    <ClInclude Include="Calculator\ST_Calculator.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="Interpreter.h" />
+    <ClInclude Include="Variables\Array.h" />
     <ClInclude Include="Variables\Integer.h" />
     <ClInclude Include="Variables\Pointer.h" />
     <ClInclude Include="Variables\String.h" />
