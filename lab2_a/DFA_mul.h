@@ -2,10 +2,7 @@
 #include "DFA.h"
 #include "DFA_mul_node.h"
 
-enum Operation_Type
-{
-	Cross, Diff
-};
+
 
 class DFA_mul
 {
@@ -15,7 +12,9 @@ public:
 	void draw_dfa_graph(std::string file_name);
 	void drawing(DFA_mul_node* node, std::ofstream* out);
 	
+	
 private:
+
 	std::vector<DFA_mul_node*> nodes;
 	DFA_mul_node* enter_node;
 	void cross();

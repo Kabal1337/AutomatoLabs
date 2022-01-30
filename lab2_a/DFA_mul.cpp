@@ -122,6 +122,8 @@ void DFA_mul::drawing(DFA_mul_node* node, std::ofstream* out)
 	}
 }
 
+
+
 void DFA_mul::cross()
 {
 	for (int i = 0; i < nodes.size(); i++)

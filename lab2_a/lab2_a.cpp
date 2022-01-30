@@ -11,8 +11,8 @@
 #include "DFA_mul.h"
 int main()
 {
-    std::string reg1 = "(abc?)...";
-    std::string reg2 = "abcd";
+    std::string reg1 = "abcddd";
+    std::string reg2 = "abcd...";
     Syntax_Tree* tree1 = new Syntax_Tree(reg1);
     Syntax_Tree* tree2 = new Syntax_Tree(reg2);
     //tree1->draw_syntax_tree("test1.txt");
@@ -21,19 +21,20 @@ int main()
     DFA* dfa2 = new DFA(tree2);
     dfa1->draw_dfa_graph("dfa1.txt");
     dfa2->draw_dfa_graph("dfa2.txt");
-   
-    if (dfa1->check_string("abc", tree1))
+    DFA* dfa_mul = dfa1->DFA_mul(dfa2, Cross);
+    if (dfa1->check_string("mephiaababmephi", tree1))
     {
-        std::cout << "string accepted" << std::endl;;
+        std::cout << "string accepted" << std::endl;
     }
-    else std::cout << "string not accepted" << std::endl;
+   else std::cout << "string not accepted" << std::endl;
     std::cout<<dfa1->search();
      DFA_to_reg to_reg(dfa1);
     std::ofstream* out = new std::ofstream("regex_inv.txt");
     *out << to_reg.regex;
-    DFA_mul* dfa_mul = new DFA_mul(dfa1, dfa2, Diff);
-    
+   // DFA_mul* dfa_mul = new DFA_mul(dfa1, dfa2, Diff);
     dfa_mul->draw_dfa_graph("dfa_mul.txt");
+    dfa_mul->minimization();
+    dfa_mul->draw_dfa_graph("dfa_mul_min.txt");
     return 0;
     
 }

@@ -1,6 +1,6 @@
 digraph G {
 "1, id:0; " [label="1, id:0; \nstart"];
-"9, id:5; " [label="9, id:5; \naccepting"];
+"7,12, id:4; " [label="7,12, id:4; \naccepting"];
 "1, id:0; " ->  "3, id:1; " [label="a"];
 "1, id:0; " ->  " id:2; " [label="b"];
 "1, id:0; " ->  " id:2; " [label="c"];
@@ -15,14 +15,10 @@ digraph G {
 " id:2; " ->  " id:2; " [label="d"];
 "5, id:3; " ->  " id:2; " [label="a"];
 "5, id:3; " ->  " id:2; " [label="b"];
-"5, id:3; " ->  "7, id:4; " [label="c"];
+"5, id:3; " ->  "7,12, id:4; " [label="c"];
 "5, id:3; " ->  " id:2; " [label="d"];
-"7, id:4; " ->  " id:2; " [label="a"];
-"7, id:4; " ->  " id:2; " [label="b"];
-"7, id:4; " ->  " id:2; " [label="c"];
-"7, id:4; " ->  "9, id:5; " [label="d"];
-"9, id:5; " ->  " id:2; " [label="a"];
-"9, id:5; " ->  " id:2; " [label="b"];
-"9, id:5; " ->  " id:2; " [label="c"];
-"9, id:5; " ->  " id:2; " [label="d"];
+"7,12, id:4; " ->  " id:2; " [label="a"];
+"7,12, id:4; " ->  " id:2; " [label="b"];
+"7,12, id:4; " ->  " id:2; " [label="c"];
+"7,12, id:4; " ->  "7,12, id:4; " [label="d"];
 }

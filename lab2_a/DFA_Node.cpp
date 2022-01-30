@@ -15,6 +15,15 @@ DFA_Node::DFA_Node(DFA_node_type type, std::vector<int> positions)
 	this->isChecked = false;
 }
 
+DFA_Node::DFA_Node(DFA_Node* node1, DFA_Node* node2)
+{
+	this->node1 = node1;
+	this->node2 = node2;
+	type_accept = false;
+	type_start = false;
+	isChecked = false;
+}
+
 void DFA_Node::sort_pos()
 {
 	for (int i = 0; i < positions.size(); i++)
@@ -29,6 +38,16 @@ void DFA_Node::sort_pos()
 			}
 		}
 	}
+}
+
+DFA_Node* DFA_Node::get_node1()
+{
+	return node1;
+}
+
+DFA_Node* DFA_Node::get_node2()
+{
+	return node2;
 }
 
 void DFA_Node::make_link(DFA_Node* to, std::string tr)
