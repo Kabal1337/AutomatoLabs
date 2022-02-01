@@ -1,2 +1,38 @@
-﻿  lab2_a.cpp
+﻿  DFA.cpp
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(24,20): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(29,21): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(38,24): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(41,25): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(56,22): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(77,22): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(89,23): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(115,20): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(117,21): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(125,20): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(134,20): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(182,21): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(190,23): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(232,20): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(250,20): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(269,20): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(273,13): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(301,22): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(307,22): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(328,21): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(360,20): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(366,21): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(375,20): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(381,22): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(387,22): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(422,21): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(428,21): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(452,20): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(489,23): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(492,24): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(551,23): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(604,20): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(615,20): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(640,21): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(765,20): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab2_a\DFA.cpp(767,21): warning C4018: <: несоответствие типов со знаком и без знака
   lab2_a.vcxproj -> D:\AutomatoLabs\Test\lab2_a\Debug\lab2_a.exe

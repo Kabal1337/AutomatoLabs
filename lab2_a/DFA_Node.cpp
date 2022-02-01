@@ -54,3 +54,13 @@ void DFA_Node::make_link(DFA_Node* to, std::string tr)
 {
 	this->links[tr] = to;
 }
+
+void DFA_Node::set_node1(DFA_Node* node1)
+{
+	this->node1 = node1;
+}
+
+void DFA_Node::set_node2(DFA_Node* node2)
+{
+	this->node2 = node2;
+}

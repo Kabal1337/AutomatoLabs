@@ -3,10 +3,9 @@
 DFA_to_reg::DFA_to_reg(DFA *dfa)
 {	
 	int j = 1;
-	for (int i = 0; i < dfa->nodes.size(); i++)
+	for (int i = 0; i < dfa->get_nodes().size(); i++)
 	{
-		this->nodes[j] = dfa->nodes[i];
-		nodes[j]->id = j;
+		this->nodes[j] = dfa->get_nodes()[i];
 		j++;
 	}
 	

@@ -2,11 +2,11 @@
 
 DFA_mul::DFA_mul(DFA* dfa1, DFA* dfa2, Operation_Type type)
 {
-	for (int i = 0; i < dfa1->nodes.size(); i++)
+	for (int i = 0; i < dfa1->get_nodes().size(); i++)
 	{
-		for (int j = 0; j < dfa2->nodes.size(); j++)
+		for (int j = 0; j < dfa2->get_nodes().size(); j++)
 		{
-			DFA_mul_node* node = new DFA_mul_node(dfa1->nodes[i], dfa2->nodes[j]);
+			DFA_mul_node* node = new DFA_mul_node(dfa1->get_nodes()[i], dfa2->get_nodes()[j]);
 			
 			nodes.push_back(node);
 		}

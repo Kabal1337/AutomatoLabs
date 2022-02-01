@@ -22,7 +22,8 @@ public:
 	void make_link(DFA_Node* to, std::string tr);
 	std::vector<int> positions;
 	std::map<std::string, DFA_Node*> links;
-
+	void set_node1(DFA_Node* node1);
+	void set_node2(DFA_Node* node2);
 private:
 	DFA_Node* node1;
 	DFA_Node* node2;

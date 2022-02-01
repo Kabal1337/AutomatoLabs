@@ -11,7 +11,7 @@
 #include "DFA_mul.h"
 int main()
 {
-    std::string reg1 = "abcddd";
+    std::string reg1 = "(abc...)(a|b|c)...";
     std::string reg2 = "abcd...";
     Syntax_Tree* tree1 = new Syntax_Tree(reg1);
     Syntax_Tree* tree2 = new Syntax_Tree(reg2);
@@ -21,7 +21,7 @@ int main()
     DFA* dfa2 = new DFA(tree2);
     dfa1->draw_dfa_graph("dfa1.txt");
     dfa2->draw_dfa_graph("dfa2.txt");
-    DFA* dfa_mul = dfa1->DFA_mul(dfa2, Cross);
+    DFA* dfa_mul = dfa1->DFA_mul(dfa2, Diff);
     if (dfa1->check_string("mephiaababmephi", tree1))
     {
         std::cout << "string accepted" << std::endl;
@@ -31,10 +31,13 @@ int main()
      DFA_to_reg to_reg(dfa1);
     std::ofstream* out = new std::ofstream("regex_inv.txt");
     *out << to_reg.regex;
+    Syntax_Tree* tree_reg = new Syntax_Tree(to_reg.regex);
+    DFA* dfa_reg = new DFA(tree_reg);
+    dfa_reg->draw_dfa_graph("dfa_reg.txt");
    // DFA_mul* dfa_mul = new DFA_mul(dfa1, dfa2, Diff);
-    dfa_mul->draw_dfa_graph("dfa_mul.txt");
+    dfa_mul->draw_dfa_graph_mul("dfa_mul.txt");
     dfa_mul->minimization();
-    dfa_mul->draw_dfa_graph("dfa_mul_min.txt");
+    dfa_mul->draw_dfa_graph_mul("dfa_mul_min.txt");
     return 0;
     
 }

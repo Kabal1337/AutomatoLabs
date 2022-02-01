@@ -11,7 +11,7 @@ DFA::DFA(Syntax_Tree* tree)
 	node_process(enter_node, tree);
 	
 	set_exit_node(tree);
-	minimization();
+	//minimization();
 }
 
 DFA::DFA()
@@ -97,9 +97,21 @@ void DFA::node_process(DFA_Node* node, Syntax_Tree* tree)
 	
 }
 
+DFA_Node DFA::get_enter_node()
+{
+	return *enter_node;
+}
+
+DFA_Node DFA::get_exit_node()
+{
+	return *exit_node;
+}
+
 DFA* DFA::DFA_mul(DFA* dfa, Operation_Type type)
 {
+
 	DFA* dfa_mul = new DFA();
+	dfa_mul->alth = alth;
 	for (int i = 0; i < nodes.size(); i++)
 	{
 		for (int j = 0; j < dfa->nodes.size(); j++)
@@ -118,7 +130,13 @@ DFA* DFA::DFA_mul(DFA* dfa, Operation_Type type)
 			dfa_mul->enter_node = dfa_mul->nodes[i];
 		}
 	}
-	for (int i = 0; i < dfa_mul->nodes.size(); i++)
+	
+	for (int i = 0; i < alth.size(); i++)
+	{
+		make_link_for_mul(dfa_mul->enter_node, dfa_mul);
+	}
+	del_mul_no_links(dfa_mul);
+	/*for (int i = 0; i < dfa_mul->nodes.size(); i++)
 	{
 		for (int j = 0; j < alth.size(); j++)
 		{
@@ -138,12 +156,102 @@ DFA* DFA::DFA_mul(DFA* dfa, Operation_Type type)
 			}
 		}
 
-	}
+	}*/
 	if(type == Cross)
 		dfa_mul->cross();
 	if(type == Diff)
 		dfa_mul->diff();
 	return dfa_mul;
+}
+void DFA::del_mul_no_links(DFA* dfa_mul)
+{
+	for (auto it = dfa_mul->nodes.begin(); it != dfa_mul->nodes.end(); it++)
+	{
+		if ((*it)->links.size() == 0)
+		{
+			dfa_mul->nodes.erase(it);
+			del_mul_no_links(dfa_mul);
+			break;
+		}
+		
+	}
+}
+void DFA::make_link_for_mul(DFA_Node* cur_node, DFA* dfa_mul)
+{
+	if(cur_node->links.size() == 0)
+		for (int j = 0; j < alth.size(); j++)
+		{
+			if (cur_node->get_node1()->links.count(alth[j]) != 0 && cur_node->get_node2()->links.count(alth[j]) != 0)
+			{
+
+
+				DFA_Node* t_node1 = cur_node->get_node1()->links[alth[j]];
+				DFA_Node* t_node2 = cur_node->get_node2()->links[alth[j]];
+				for (int k = 0; k < dfa_mul->nodes.size(); k++)
+				{
+					if (dfa_mul->nodes[k]->get_node1() == t_node1 && dfa_mul->nodes[k]->get_node2() == t_node2)
+					{
+						cur_node->make_link(dfa_mul->nodes[k], alth[j]);
+						DFA_Node* cur_node_t = dfa_mul->nodes[k];
+						make_link_for_mul(cur_node_t, dfa_mul);
+					}
+				}
+			}
+			
+		}
+
+	
+}
+void DFA::draw_dfa_graph_mul(std::string file_name)
+{
+	if (this->enter_node == nullptr) return;
+
+	std::ofstream* out = new std::ofstream(file_name);
+	*out << "digraph G {" << std::endl;
+
+	*out << "\"";
+	/*for (int i = 0; i < enter_node->positions.size(); i++)
+	{
+		*out << enter_node->positions[i] << ",";
+	}*/
+	if (enter_node->get_node1() != NULL && enter_node->get_node2() != NULL)
+		*out << enter_node->get_node1()->id << "," << enter_node->get_node2()->id;
+	*out << "id:" << enter_node->id;
+	*out << "\"" << " [label=\"";
+	/*for (int i = 0; i < enter_node->positions.size(); i++)
+	{
+		*out << enter_node->positions[i] << ",";
+	}*/
+	if (enter_node->get_node1() != NULL && enter_node->get_node2() != NULL)
+		*out << enter_node->get_node1()->id << "," << enter_node->get_node2()->id;
+	*out << "id:" << enter_node->id;
+	if (!enter_node->type_accept)
+		*out << "\\nstart\"];" << std::endl;
+	else
+		*out << "\\nstart, accepting\"];" << std::endl;
+	for (int i = 0; i < nodes.size(); i++)
+	{
+
+		if (nodes[i]->type_accept && !nodes[i]->type_start)
+		{
+			*out << "\"";
+			if (nodes[i]->get_node1() != NULL && nodes[i]->get_node2() != NULL)
+				*out << nodes[i]->get_node1()->id << "," << nodes[i]->get_node2()->id;
+			*out << "id:" << nodes[i]->id;
+
+			*out << "\"" << " [label=\"";
+			if (nodes[i]->get_node1() != NULL && nodes[i]->get_node2() != NULL)
+				*out << nodes[i]->get_node1()->id << "," << nodes[i]->get_node2()->id;
+			*out << "id:" << nodes[i]->id;
+			*out << "\\naccepting\"];" << std::endl;
+		}
+	}
+	drawing_mul(this->enter_node, out);
+	for (int i = 0; i < nodes.size(); i++)
+	{
+		nodes[i]->isChecked = false;
+	}
+	*out << "}";
 }
 
 void DFA::add_node(DFA_Node* node)
@@ -176,11 +284,20 @@ bool DFA::check_string(std::string str, Syntax_Tree* tree)
 		else
 		temp_char.push_back(str[i]);
 		if (cur_ptr->links.count(temp_char) == 0)
+		{
+			if (!was_in_accept) search_str.clear();
+			cur_ptr = enter_node;
 			not_accepted = true;
-		else if (cur_ptr->links[temp_char]->positions.size() == 0) 
+		}
+		else if (cur_ptr->links[temp_char]->positions.size() == 0)
+		{
+			if (!was_in_accept) search_str.clear();
+			cur_ptr = enter_node;
 			not_accepted = true;
+		}
 		else
 		{
+			if(!not_accepted)
 			for (int j = 0; j < temp_char.size(); j++)
 			{
 				add_to_group(cur_ptr, tree, temp_char[j]);
@@ -406,13 +523,29 @@ void DFA::minimization()
 				//добавление связей новому ноду
 				else
 				{
-
-					new_general_node->links = it->second.begin()->second->links;
+					for (auto it_l = it->second.begin()->second->links.begin(); it_l != it->second.begin()->second->links.end(); it_l++)
+					{
+						bool in_our_groop = false;
+						for (auto it_n = it->second.begin(); it_n != it->second.end(); it_n++)
+						{	
+							if (it_n->second->id == it_l->second->id)
+							{
+								in_our_groop = true;
+								new_general_node->links[it_l->first] = new_general_node;
+								break;
+							}
+							
+						}
+						if (!in_our_groop) new_general_node->links[it_l->first] = it_l->second;
+					}
+					//new_general_node->links = it->second.begin()->second->links;
 					
 				}
 			}
+			
 			//удаление старых нодов
 			int new_node_id = it->second.begin()->second->id;
+			
 			for (auto it_n = it->second.begin(); it_n != it->second.end(); it_n++)
 			{
 				for (int j = 0; j < nodes.size(); j++)
@@ -424,8 +557,45 @@ void DFA::minimization()
 				}
 			}
 			new_general_node->id = new_node_id;
+			new_general_node->type_accept = acc;
+			new_general_node->type_start = start;
 			nodes.push_back(new_general_node);
 		}
+	}
+}
+
+void DFA::drawing_mul(DFA_Node* node, std::ofstream* out)
+{
+	if (node->isChecked) return;
+
+	for (auto it = node->links.begin(); it != node->links.end(); it++)
+	{
+		*out << "\"";
+		/*for (int i = 0; i < node->positions.size(); i++)
+		{
+			*out << node->positions[i] << ",";
+		}*/
+		if (node->get_node1() != NULL && node->get_node2() != NULL)
+			*out << node->get_node1()->id << "," << node->get_node2()->id;
+		*out << "id:" << node->id;
+		*out << "\"" << " -> " << " \"";
+		/*for (int i = 0; i < (*it).second->positions.size(); i++)
+		{
+
+			*out << (*it).second->positions[i] << ",";
+		}*/
+		if (it->second->get_node1() != NULL && it->second->get_node2() != NULL)
+			*out << it->second->get_node1()->id << "," << it->second->get_node2()->id;
+		*out << "id:" << it->second->id;
+		*out << "\" "
+
+			<< "[label=\"" << (*it).first << "\"];" << std::endl;
+	}
+	node->isChecked = true;
+
+	for (auto it = node->links.begin(); it != node->links.end(); it++)
+	{
+		drawing_mul((*it).second, out);
 	}
 }
 
@@ -455,6 +625,13 @@ std::string DFA::search()
 {
 	return search_str;
 }
+
+std::vector<DFA_Node*> DFA::get_nodes()
+{
+	return nodes;
+}
+
+
 
 void DFA::min_group(std::map<int, DFA_Node*>* group, std::map<int, std::map<int, DFA_Node*>>* pi_groups, std::vector<std::string>* alth)
 {
