@@ -24,15 +24,6 @@
     <ClCompile Include="Syntax_Node.cpp">
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
-    <ClCompile Include="NFA_Node.cpp">
-      <Filter>Файлы ресурсов</Filter>
-    </ClCompile>
-    <ClCompile Include="NFA_Creating.cpp">
-      <Filter>Файлы ресурсов</Filter>
-    </ClCompile>
-    <ClCompile Include="NFA_Component.cpp">
-      <Filter>Файлы ресурсов</Filter>
-    </ClCompile>
     <ClCompile Include="DFA.cpp">
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
@@ -40,12 +31,6 @@
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
     <ClCompile Include="DFA_to_reg.cpp">
-      <Filter>Файлы ресурсов</Filter>
-    </ClCompile>
-    <ClCompile Include="DFA_mul.cpp">
-      <Filter>Файлы ресурсов</Filter>
-    </ClCompile>
-    <ClCompile Include="DFA_mul_node.cpp">
       <Filter>Файлы ресурсов</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,15 +41,6 @@
     <ClInclude Include="Syntax_Node.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="NFA_Node.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="NFA_Creating.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="NFA_Component.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="DFA.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -72,12 +48,6 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="DFA_to_reg.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="DFA_mul.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="DFA_mul_node.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

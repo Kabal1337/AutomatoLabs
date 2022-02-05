@@ -146,7 +146,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Variables\Array.cpp" />
     <ClCompile Include="Variables\Integer.cpp" />
-    <ClCompile Include="Variables\Pointer.cpp" />
     <ClCompile Include="Variables\String.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -156,7 +155,6 @@
     <ClInclude Include="Interpreter.h" />
     <ClInclude Include="Variables\Array.h" />
     <ClInclude Include="Variables\Integer.h" />
-    <ClInclude Include="Variables\Pointer.h" />
     <ClInclude Include="Variables\String.h" />
     <ClInclude Include="Variables\Variable.h" />
   </ItemGroup>

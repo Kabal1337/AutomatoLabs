@@ -52,9 +52,6 @@ void Array::set_value(Variable* value, int index)
 			case vt_String:
 				dynamic_cast<String*>(this->value->at(index))->set_value(dynamic_cast<String*>(value)->get_value());
 				break;
-			case vt_Pointer:
-				dynamic_cast<Pointer*>(this->value->at(index))->set_value(dynamic_cast<Pointer*>(value)->get_value());
-				break;
 			default:
 				break;
 			}

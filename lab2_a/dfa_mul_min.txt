@@ -1,23 +1,12 @@
 digraph G {
 "0,0id:0" [label="0,0id:0\nstart"];
-"3,3id:18" [label="3,3id:18\naccepting"];
-"id:17" [label="id:17\naccepting"];
-"0,0id:0" ->  "1,1id:6" [label="a"];
-"0,0id:0" ->  "2,2id:12" [label="b"];
-"0,0id:0" ->  "2,2id:12" [label="c"];
-"1,1id:6" ->  "2,2id:12" [label="a"];
-"1,1id:6" ->  "3,3id:18" [label="b"];
-"1,1id:6" ->  "2,2id:12" [label="c"];
-"2,2id:12" ->  "2,2id:12" [label="a"];
-"2,2id:12" ->  "2,2id:12" [label="b"];
-"2,2id:12" ->  "2,2id:12" [label="c"];
-"3,3id:18" ->  "id:17" [label="a"];
-"3,3id:18" ->  "id:17" [label="b"];
-"3,3id:18" ->  "3,4id:19" [label="c"];
-"id:17" ->  "id:17" [label="a"];
-"id:17" ->  "id:17" [label="b"];
-"id:17" ->  "id:17" [label="c"];
-"3,4id:19" ->  "id:17" [label="a"];
-"3,4id:19" ->  "id:17" [label="b"];
-"3,4id:19" ->  "id:17" [label="c"];
+"2,2id:12" [label="2,2id:12\naccepting"];
+"0,0id:0" ->  "id:6" [label="a"];
+"0,0id:0" ->  "id:6" [label="c"];
+"id:6" ->  "2,2id:12" [label="a"];
+"id:6" ->  "2,2id:12" [label="c"];
+"2,2id:12" ->  "3,2id:17" [label="a"];
+"2,2id:12" ->  "3,2id:17" [label="c"];
+"3,2id:17" ->  "3,2id:17" [label="a"];
+"3,2id:17" ->  "3,2id:17" [label="c"];
 }

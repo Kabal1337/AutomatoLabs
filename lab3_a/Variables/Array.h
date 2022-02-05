@@ -1,7 +1,7 @@
 #pragma once
 #include "Variable.h"
 #include "Integer.h"
-#include "Pointer.h"
+
 #include "String.h"
 #include <vector>
 

@@ -10,7 +10,6 @@
 #include "Function.h"
 #include "Variables/Variable.h"
 #include "Variables/String.h"
-#include "Variables/Pointer.h"
 #include "Variables/Array.h"
 
 
@@ -19,15 +18,14 @@ class Interpreter
 public:
 	/*
 	* Работа интерпретатора состоит в исполнении двух функций: 
-	* Collect (собирает информацию о функциях)
-	* и
-	* Execute (выполняет код внутри функций)
+	* take_func (собирает информацию о функциях) и
+	* perform_body (выполняет код внутри функций)
 	*/
 	Interpreter(std::string robocode_file, std::string labyrinth_file);
 
 private:
 	//В этом стеке находится номер позиции в коде, к которой необходимо вернуться в случае встречи return, finish или начала программы
-	std::stack<int> call_stack;
+	std::stack<int> pos_stack;
 	//В этом стеке хранятся контексты вызываемых функций
 	std::stack<Function*> context_stack;
 
@@ -37,6 +35,6 @@ private:
 
 	
 
-	void _collect();
-	void _execute();
+	void take_funcs();
+	void perform_body();
 };

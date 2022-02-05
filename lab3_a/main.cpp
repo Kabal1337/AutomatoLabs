@@ -5,7 +5,6 @@
 #include "Variables/Variable.h"
 #include "Variables/Integer.h"
 #include "Variables/String.h"
-#include "Variables/Pointer.h"
 #include "Variables/Array.h"
 
 #include "Interpreter.h"
@@ -24,7 +23,7 @@ int main()
 	//Тест с математическим выражением
 	//Interpreter ntrptr("math_test.txt", "labyrinth.txt");
 	//Тест с конкатенацией строк
-	//Interpreter ntrptr("str_test.txt", "labyrinth.txt");
+	Interpreter ntrptr("str_test.txt", "labyrinth.txt");
 	//Interpreter ntrptr("array_test.txt", "labyrinth.txt");
 
     return 0;

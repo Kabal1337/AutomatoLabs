@@ -457,16 +457,25 @@ void Syntax_Tree::find_repeat(std::string* str)
 			std::string temp_str;
 			if ((*str)[i - 1] == ')')
 			{
+				int br_cl = 0;
 				int t = 0;
 				for (int j = i-1; j >= 0; j--)
 				{
 					
 					if ((*str)[j] == '(')
 					{
-						t = j;
-						break;
+						if (br_cl > 0) br_cl--;
+						else
+						{
+							t = j;
+							break;
+						}
+						
 					}
-					
+					if ((*str)[j] == ')')
+					{
+						br_cl++;
+					}
 				}
 				for (int j = t; j < i; j++)
 				{

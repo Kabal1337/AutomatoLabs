@@ -5,7 +5,7 @@ Function::Function(Variable* return_var, std::string name, int start_i)
 	this->return_var = return_var;
 	this->name = name;
 	this->start_i = start_i;
-	this->beneficiary = nullptr;
+	this->return_var_ptr = nullptr;
 	this->called_context = nullptr;
 }
 
@@ -58,19 +58,19 @@ void Function::set_arg(int index, int value)
 	tmp->set_value(value);
 }
 
-void Function::set_beneficiary(Variable* beneficiary)
+void Function::set_return_var_ptr(Variable* return_var_ptr)
 {
-	this->beneficiary = beneficiary;
+	this->return_var_ptr = return_var_ptr;
 }
 
 void Function::make_benefit()
 {
-	if (this->beneficiary == nullptr) return;
+	if (this->return_var_ptr == nullptr) return;
 
 	switch (this->return_var->get_type())
 	{
 	case vt_Integer:
-		dynamic_cast<Integer*>(this->beneficiary)->set_value(dynamic_cast<Integer*>(this->return_var)->get_value());
+		dynamic_cast<Integer*>(this->return_var_ptr)->set_value(dynamic_cast<Integer*>(this->return_var)->get_value());
 		break;
 	default:
 		throw (std::string)("This type of beneficiary is not supported (yet?)");

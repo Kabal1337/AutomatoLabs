@@ -11,13 +11,10 @@ Interpreter::Interpreter(std::string robocode_file, std::string labyrinth_file)
 	{
 		this->code.push_back(t_line);
 	}
-
-	
-
 	try
 	{
-		_collect();
-		_execute();
+		take_funcs();
+		perform_body();
 	}
 	catch (const std::string& ex)
 	{
@@ -26,15 +23,10 @@ Interpreter::Interpreter(std::string robocode_file, std::string labyrinth_file)
 	
 }
 
-void Interpreter::_collect()
+void Interpreter::take_funcs()
 {
-	/* todo or not todo
-	* Возможно в этом методе стоит: 
-	*	
-	*/
-
-	//Стек ожидания. Используется для проверки присутствия return у функций и закрытых групп предложений языка
-	std::stack<std::string> exp_stack;
+	
+	
 
 	std::string type("integer|string|(pointer)<(integer|string)>");
 	std::string name("[a-zA-Z][a-zA-Z0-9]*");
@@ -45,7 +37,8 @@ void Interpreter::_collect()
 	std::regex return_rx("return[ ]((" + name + ")|(.*))[;]");
 
 	std::cmatch cap_gr;
-
+	//Стек ожидания. Используется для проверки присутствия return у функций и закрытых start/finish
+	std::stack<std::string> exp_stack;
 	Function* function = nullptr;
 
 	for (int i = 0; i < code.size(); i++)
@@ -55,9 +48,6 @@ void Interpreter::_collect()
 		{
 			/*
 			* Group 1 – fun type
-			* Если указатель, то
-			*	Group 2 – fun type
-			*	Group 3 – pointer type
 			* Group 4 – fun name
 			* Group 5 – fun argumets
 			*/
@@ -70,15 +60,7 @@ void Interpreter::_collect()
 			//Определение типа и имени функции
 			if (cap_gr[2].length() != 0 && cap_gr[3].length() != 0)
 			{
-				//Функция возвращает указатель
-				if (cap_gr[3] == "integer")
-				{
-					function = new Function(new Pointer("return", vt_Integer), cap_gr[4], i + 2);
-				}
-				else if (cap_gr[3] == "string")
-				{
-					function = new Function(new Pointer("return", vt_String), cap_gr[4], i + 2);
-				}
+			
 			}
 			else
 			{
@@ -97,7 +79,7 @@ void Interpreter::_collect()
 			{			
 				std::string value = cap_gr[5];
 				static const std::regex rdelim{ ", " };
-				std::vector<std::string> arg_pairs{
+				std::vector<std::string> args{
 						std::sregex_token_iterator(value.begin(), value.end(), rdelim, -1),
 						std::sregex_token_iterator()
 				};
@@ -107,27 +89,16 @@ void Interpreter::_collect()
 
 				/*
 				* Group 1 – var type
-				* Если указатель, то
-				*	Group 2 – var type
-				*	Group 3 – pointer type
 				* Group 4 – var name
 				*/
 
-				for (int i = 0; i < arg_pairs.size(); i++)
+				for (int i = 0; i < args.size(); i++)
 				{
-					regex_match(arg_pairs[i].c_str(), arg_cg, arg_rx);
+					regex_match(args[i].c_str(), arg_cg, arg_rx);
 
 					if (arg_cg[2].length() != 0 && arg_cg[3].length() != 0)
 					{
-						//Аргумент указатель
-						if (arg_cg[3] == "integer")
-						{
-							function->add_arg(new Pointer(arg_cg[4], vt_Integer));
-						}
-						else if (cap_gr[3] == "string")
-						{
-							function->add_arg(new Pointer(arg_cg[4], vt_String));
-						}
+						
 					}
 					else
 					{
@@ -149,7 +120,7 @@ void Interpreter::_collect()
 			this->functions[cap_gr[4]] = function;
 
 			//Если обработана функция main, то она добавляется в стек вызова
-			if (cap_gr[4] == "main") this->call_stack.push(this->functions["main"]->get_start_i());
+			if (cap_gr[4] == "main") this->pos_stack.push(this->functions["main"]->get_start_i());
 
 			i++;
 			continue;
@@ -169,27 +140,17 @@ void Interpreter::_collect()
 			continue;
 		}
 
-		/*
-		if (regex_match(code[i].c_str(), return_rx))
-		{
-			if (!exp_stack.empty() && exp_stack.top() != "return") throw ("Expected 'return', at line: " + std::to_string(i+1));
-			if (exp_stack.empty()) throw ("Extra 'return' met, at line: " + std::to_string(i+1));
-			exp_stack.pop();
-			continue;
-		}
-		*/
 	}
 
 	if (!exp_stack.empty()) throw "Error '" + exp_stack.top() + "' excpected somewhere";
-	if (this->call_stack.empty()) throw (std::string)("The 'main' function was not met");
+	if (this->pos_stack.empty()) throw (std::string)("The 'main' function was not met");
 }
 
-void Interpreter::_execute()
+void Interpreter::perform_body()
 {
-	/*
-	* Программа работает до момента встречи return в функции main
-	* Или в случае если при выполнении return, call_stack оказался пуст
-	*/
+	
+	// Программа работает до момента встречи return в функции main или при выполнении return, pos_stack оказался пуст
+	
 
 	/*
 	* После оператора присваивания идет проверка на использование
@@ -215,15 +176,15 @@ void Interpreter::_execute()
 	std::regex finish_rx("finish");
 	std::regex break_rx("break;");
 
-	std::regex fun_call_rx("(([a-zA-Z][a-zA-Z0-9]*):=)?call[ ]([a-zA-Z][a-zA-Z0-9]*)[ ]with[ ][(](.*)[)][;]"); //cg[2]=beneficiary_name, cg[3]=fun_name, cg[4]=args
+	std::regex fun_call_rx("(([a-zA-Z][a-zA-Z0-9]*):=)?call[ ]([a-zA-Z][a-zA-Z0-9]*)[ ]with[ ][(](.*)[)][;]"); //cg[2]=return_var_ptr_name, cg[3]=fun_name, cg[4]=args
 	std::regex return_rx("return[ ]((-?[0-9]+)|[\"](.+)[\"]|([a-zA-Z][a-zA-Z0-9]*));"); //cg[2]=number, cg[3]=str, cg[4]=variable
 
 	std::regex robo_methods_rx("(top)|(right)|(bot)|(left)|(timeshift[(](-?[0-9]+)[)])"); //cg[1]=top, cg[2]=right, cg[3]=bot, cg[4]=left, cg[5]=timeshift, cg[6]=timeshift_arg
 
 	context_stack.push(this->functions["main"]);
 	Function* cur_context = context_stack.top(); //Функция, внутри контекста которой работает интерпретатор
-	int GI = this->call_stack.top(); //Глобальный индекс
-	this->call_stack.pop();
+	int GI = this->pos_stack.top(); //Глобальный индекс
+	this->pos_stack.pop();
 
 	//Каждый парсер самостоятельно двигает GI, цикл завершается при достижении return функции main или при выходе робота из лабиринта
 	while (1)
@@ -459,32 +420,32 @@ void Interpreter::_execute()
 			//Проверка бенефициара
 			if (cg[2].length() != 0)
 			{
-				Variable* beneficiary = cur_context->get_var(cg[2]);
-				if (beneficiary == nullptr) throw (std::string)("There is no such variable '" + cg[2].str() + "', at line: " + std::to_string(GI + 1));
-				if (beneficiary->get_type() != called_fun->get_ret_type()) throw (std::string)("The return type does not match the variable, at line: " + std::to_string(GI + 1));
+				Variable* return_var_ptr = cur_context->get_var(cg[2]);
+				if (return_var_ptr == nullptr) throw (std::string)("There is no such variable '" + cg[2].str() + "', at line: " + std::to_string(GI + 1));
+				if (return_var_ptr->get_type() != called_fun->get_ret_type()) throw (std::string)("The return type does not match the variable, at line: " + std::to_string(GI + 1));
 
-				called_fun->set_beneficiary(beneficiary);
+				called_fun->set_return_var_ptr(return_var_ptr);
 			}
-			else called_fun->set_beneficiary(nullptr);
+			else called_fun->set_return_var_ptr(nullptr);
 
 			//Проверка параметров
 			if (cg[4].length() != 0)
 			{
 				std::string value = cg[4];
 				static const std::regex rdelim{ ", " };
-				std::vector<std::string> arg_pairs{
+				std::vector<std::string> args{
 						std::sregex_token_iterator(value.begin(), value.end(), rdelim, -1),
 						std::sregex_token_iterator()
 				};
 
-				if (arg_pairs.size() != called_fun->get_args_size()) throw (std::string)("Argument list does not match function requirements, at line: " + std::to_string(GI + 1));
+				if (args.size() != called_fun->get_args_size()) throw (std::string)("Argument list does not match function requirements, at line: " + std::to_string(GI + 1));
 
 				//Передача параметров функции
-				for (int i = 0; i < arg_pairs.size(); i++)
+				for (int i = 0; i < args.size(); i++)
 				{
 					std::cmatch local_cg;
 
-					if (regex_match(arg_pairs[i].c_str(), local_cg, var_operand)) //Переменная
+					if (regex_match(args[i].c_str(), local_cg, var_operand)) //Переменная
 					{
 						Variable* var_arg = cur_context->get_var(local_cg[1]);
 						if (var_arg == nullptr) throw (std::string)("There is no such variable '" + local_cg[1].str() + "', at line: " + std::to_string(GI + 1));
@@ -502,7 +463,7 @@ void Interpreter::_execute()
 						continue;
 					}
 
-					if (regex_match(arg_pairs[i].c_str(), local_cg, int_operand)) //Число
+					if (regex_match(args[i].c_str(), local_cg, int_operand)) //Число
 					{
 						called_fun->set_arg(i, std::stoi(local_cg[1]));
 					}
@@ -515,7 +476,7 @@ void Interpreter::_execute()
 			}
 
 			//Переход к вызываемой функции
-			this->call_stack.push(GI + 1);
+			this->pos_stack.push(GI + 1);
 			GI = called_fun->get_start_i();
 
 			called_fun->set_called_context(cur_context);
@@ -616,7 +577,7 @@ void Interpreter::_execute()
 			
 			/*
 			* Если выражение равно 0, то выполняется первое тело и потом 
-			* переходит по call_stack в конец условного оператора			
+			* переходит по pos_stack в конец условного оператора			
 			*/
 
 			int checkzero_i = GI; //Индекс оператора checkzero
@@ -662,17 +623,17 @@ void Interpreter::_execute()
 			if (result->get_value() == 0)
 			{
 				GI = checkzero_i + 2;
-				this->call_stack.push(finish_i + 1);
+				this->pos_stack.push(finish_i + 1);
 			}
 			else if (instead_i != -1)
 			{
 				GI = instead_i + 2;
-				this->call_stack.push(finish_i + 1);
+				this->pos_stack.push(finish_i + 1);
 			}
 			else
 			{
 				GI = finish_i;
-				this->call_stack.push(finish_i + 1);
+				this->pos_stack.push(finish_i + 1);
 			}
 
 			delete result;
@@ -686,7 +647,7 @@ void Interpreter::_execute()
 			if (code[GI + 1] != "start") throw (std::string)("Expected 'start', at line: " + std::to_string(GI + 2));
 
 			/*
-			* Если выражение равно 1, то в call_stack заносится GI начала while
+			* Если выражение равно 1, то в pos_stack заносится GI начала while
 			* Выполняется тело цикла до finish, после переходит снова на проверку 
 			* Если выражение равно 0, то ищется и выполняется блок instead
 			* GI переводится на конец while
@@ -698,7 +659,7 @@ void Interpreter::_execute()
 
 			if (result->get_value() == 1) //Если условие выполняется, то работает с телом цикла
 			{
-				call_stack.push(GI);
+				pos_stack.push(GI);
 				GI+=2; //Переход к телу цикла
 				delete result;
 				continue;
@@ -725,7 +686,7 @@ void Interpreter::_execute()
 					else
 					{
 						while_end_i = GI;
-						call_stack.push(GI + 1); //Конец while`a
+						pos_stack.push(GI + 1); //Конец while`a
 						break;
 					}
 				}
@@ -741,7 +702,7 @@ void Interpreter::_execute()
 			}
 			else 
 			{
-				GI = while_end_i; //Переход на finish в конце while`a, чтобы освободить call_stack
+				GI = while_end_i; //Переход на finish в конце while`a, чтобы освободить pos_stack
 			}
 
 			continue;
@@ -750,16 +711,16 @@ void Interpreter::_execute()
 		//Break (Нет проверки на ошибку "Break out of cycle")
 		if (regex_match(code[GI].c_str(), break_rx))
 		{
-			if (this->call_stack.empty()) throw (std::string)("Call_stack was empty, at line: " + std::to_string(GI + 1));
+			if (this->pos_stack.empty()) throw (std::string)("pos_stack was empty, at line: " + std::to_string(GI + 1));
 
-			GI = call_stack.top();
+			GI = pos_stack.top();
 			while (!regex_match(code[GI].c_str(), while_rx))
 			{
-				call_stack.pop();
-				GI = call_stack.top();
+				pos_stack.pop();
+				GI = pos_stack.top();
 			}
 
-			call_stack.pop();
+			pos_stack.pop();
 
 			//Ищем конец while`а
 			GI++; //От while переходим к start
@@ -777,7 +738,7 @@ void Interpreter::_execute()
 					}
 					else
 					{
-						call_stack.push(GI + 1); //Конец while`a
+						pos_stack.push(GI + 1); //Конец while`a
 						break;
 					}
 				}
@@ -790,13 +751,13 @@ void Interpreter::_execute()
 			continue;
 		}
 
-		//Конец группы
+		
 		if (regex_match(code[GI].c_str(), finish_rx))
 		{
-			if (this->call_stack.empty()) throw (std::string)("Call_stack was empty, at line: " + std::to_string(GI+1));
+			if (this->pos_stack.empty()) throw (std::string)("pos_stack was empty, at line: " + std::to_string(GI+1));
 
-			GI = this->call_stack.top();
-			this->call_stack.pop();
+			GI = this->pos_stack.top();
+			this->pos_stack.pop();
 			continue;
 		}
 
@@ -840,14 +801,14 @@ void Interpreter::_execute()
 			cur_context = context_stack.top();
 
 
-			//call_stack.pop();
-			GI = call_stack.top();
+			//pos_stack.pop();
+			GI = pos_stack.top();
 			while (!regex_match(code[GI-1], fun_call_rx))
 			{
-				call_stack.pop();
-				GI = call_stack.top();
+				pos_stack.pop();
+				GI = pos_stack.top();
 			}
-			call_stack.pop();
+			pos_stack.pop();
 			continue;
 		}
 

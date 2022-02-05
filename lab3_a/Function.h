@@ -23,8 +23,8 @@ public:
 	var_type get_ret_type();
 	Variable* get_return_var();
 
-	void set_beneficiary(Variable* beneficiary); //Установка бенефициара функции
-	void make_benefit(); //Передача бенефициару возвращаемое значение
+	void set_return_var_ptr(Variable* beneficiary); //Установка return_var_ptr функции
+	void make_benefit(); //Передача return_var_ptr возвращаемое значение
 
 	Function* make_copy();
 
@@ -36,7 +36,7 @@ private:
 	std::map<std::string, Variable*> scope;
 
 	Variable* return_var; //Переменная функции, содержащая в себе возвращаемое значение
-	Variable* beneficiary; //Бенефициар функции, переменная, в которую будет помещенно значение return_var
+	Variable* return_var_ptr; //указатель на переменную в которую будет помещенно значение return_var
 
 	Function* called_context; //Контекс функции из которой была вызвана данная
 
