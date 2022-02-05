@@ -229,7 +229,7 @@ void Interpreter::perform_body()
 				}
 				else //Это переменная и ее инициализация опциональна
 				{
-					//Проверка на использование метода робота
+					
 					std::string tmp_crutch = cg[8];
 					std::cmatch local_cg;
 				
@@ -417,7 +417,7 @@ void Interpreter::perform_body()
 			//В functions хранятся объявления функций, для последующей работы необходимо создать новый экземпляр и поместить его в context_stack
 			called_fun = called_fun->make_copy();
 
-			//Проверка бенефициара
+			//Проверка return_var_ptr
 			if (cg[2].length() != 0)
 			{
 				Variable* return_var_ptr = cur_context->get_var(cg[2]);
