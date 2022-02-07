@@ -1,0 +1,4 @@
+﻿  Interpr.cpp
+D:\AutomatoLabs\Test\lab3_a_1\lab3_a\Interpr.cpp(38,20): warning C4018: <: несоответствие типов со знаком и без знака
+D:\AutomatoLabs\Test\lab3_a_1\lab3_a\Interpr.cpp(66,23): warning C4018: <: несоответствие типов со знаком и без знака
+  lab3_a.vcxproj -> D:\AutomatoLabs\Test\lab3_a_1\lab3_a\Debug\lab3_a.exe

@@ -1,9 +1,5 @@
-﻿  ST_Calculator.cpp
-D:\AutomatoLabs\Test\lab3_a\Calculator\ST_Calculator.cpp(484,56): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
-D:\AutomatoLabs\Test\lab3_a\Calculator\ST_Calculator.cpp(499,44): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
-  Function.cpp
+﻿  Function.cpp
 D:\AutomatoLabs\Test\lab3_a\Function.cpp(50,26): warning C4267: return: преобразование из "size_t" в "int"; возможна потеря данных
-  Interpreter.cpp
   main.cpp
   Создание кода...
   Tile_Robot.vcxproj -> D:\AutomatoLabs\Test\lab3_a\x64\Debug\Tile_Robot.exe

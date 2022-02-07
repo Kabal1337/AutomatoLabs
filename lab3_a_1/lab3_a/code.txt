@@ -1,0 +1,6 @@
+string main(int a)
+start
+string b:="Test";
+int a:=2;
+return b;
+finish

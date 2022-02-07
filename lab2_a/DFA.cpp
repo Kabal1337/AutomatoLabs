@@ -112,16 +112,7 @@ DFA* DFA::DFA_mul(DFA* dfa, Operation_Type type)
 
 	DFA* dfa_mul = new DFA();
 	
-	for (int i = 0; i < alth.size(); i++)
-	{
-		for (int j = 0; j < dfa->alth.size(); j++)
-		{
-			if (alth[i] == dfa->alth[j])
-			{
-				dfa_mul->alth.push_back(alth[i]);
-			}
-		}
-	}
+	
 	for (int i = 0; i < nodes.size(); i++)
 	{
 		for (int j = 0; j < dfa->nodes.size(); j++)

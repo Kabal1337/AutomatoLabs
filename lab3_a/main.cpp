@@ -21,9 +21,9 @@ int main()
 	//Тест с рекурсией
 	//Interpreter ntrptr("recursive_test.txt", "labyrinth.txt");
 	//Тест с математическим выражением
-	//Interpreter ntrptr("math_test.txt", "labyrinth.txt");
+	Interpreter ntrptr("math_test.txt", "labyrinth.txt");
 	//Тест с конкатенацией строк
-	Interpreter ntrptr("str_test.txt", "labyrinth.txt");
+	//Interpreter ntrptr("str_test.txt", "labyrinth.txt");
 	//Interpreter ntrptr("array_test.txt", "labyrinth.txt");
 
     return 0;

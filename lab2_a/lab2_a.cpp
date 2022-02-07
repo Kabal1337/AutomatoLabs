@@ -11,8 +11,8 @@
 
 int main()
 {
-    std::string reg1 = "(a|c){2}";
-    std::string reg2 = "abcd...";
+    std::string reg1 = "(1|2|3)...";
+    std::string reg2 = "(1|2)...";
     Syntax_Tree* tree1 = new Syntax_Tree(reg1);
     Syntax_Tree* tree2 = new Syntax_Tree(reg2);
     //tree1->draw_syntax_tree("test1.txt");
@@ -22,7 +22,7 @@ int main()
     dfa1->draw_dfa_graph("dfa1.txt");
     dfa2->draw_dfa_graph("dfa2.txt");
     DFA* dfa_mul = dfa1->DFA_mul(dfa2, Diff);
-    if (dfa1->check_string("aьacmm", tree1))
+    if (dfa1->check_string("aьaccmm", tree1))
     {
         std::cout << "string accepted" << std::endl;
     }
