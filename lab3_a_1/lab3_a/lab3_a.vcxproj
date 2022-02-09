@@ -139,14 +139,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Calculator.cpp" />
+    <ClCompile Include="Calc_Node.cpp" />
     <ClCompile Include="Func.cpp" />
+    <ClCompile Include="Header.cpp" />
     <ClCompile Include="Integer.cpp" />
     <ClCompile Include="Interpr.cpp" />
     <ClCompile Include="lab3_a.cpp" />
     <ClCompile Include="String.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Calculator.h" />
     <ClInclude Include="Func.h" />
+    <ClInclude Include="Calc_Node.h" />
     <ClInclude Include="Integer.h" />
     <ClInclude Include="Interpr.h" />
     <ClInclude Include="String.h" />

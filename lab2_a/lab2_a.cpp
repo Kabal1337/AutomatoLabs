@@ -11,7 +11,7 @@
 
 int main()
 {
-    std::string reg1 = "(1|2|3)...";
+    std::string reg1 = "abc(1|2|3)...";
     std::string reg2 = "(1|2)...";
     Syntax_Tree* tree1 = new Syntax_Tree(reg1);
     Syntax_Tree* tree2 = new Syntax_Tree(reg2);

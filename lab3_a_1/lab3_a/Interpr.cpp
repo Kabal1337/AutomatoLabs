@@ -1,4 +1,5 @@
 #include "Interpr.h"
+#include "Calculator.h"
 
 
 Interpr::Interpr(std::string code_file)
@@ -129,6 +130,7 @@ void Interpr::perform_body()
 	std::regex regex_finish("finish");
 	std::regex regex_return("return[ ]((-?[0-9]+)|[\"](.+)[\"]|([a-zA-Z][a-zA-Z0-9]*));"); 
 	std::cmatch catch_group;
+
 	while (1)
 	{
 		if (regex_match(code[cur_index].c_str(), catch_group, regex_variable_dec))
@@ -157,7 +159,9 @@ void Interpr::perform_body()
 					}
 					else //выражение
 					{
-
+						Calculator calculator(catch_group[7]);
+						//Integer* result = new Integer("temp");
+						
 					}
 				}
 				else //переменная 
@@ -243,6 +247,66 @@ void Interpr::perform_body()
 			}
 			cur_index++;
 			continue;
+		}
+		if (regex_match(code[cur_index].c_str(), catch_group, regex_variable_assig))
+		{
+			Var* temp_var_assig;
+			Var* temp_var;
+			if (cur_func->get_variable(catch_group[1])->get_type() == Integer_t)
+			{
+				temp_var = dynamic_cast<Integer*>(cur_func->get_variable(catch_group[1]));
+				temp_var_assig = nullptr;
+				if (catch_group[3].length() != 0) //является ли переменной
+				{
+					temp_var_assig = dynamic_cast<Integer*>(cur_func->get_variable(catch_group[3]));
+					
+					dynamic_cast<Integer*>(temp_var)->set_value(dynamic_cast<Integer*>(temp_var_assig)->get_value());
+				}
+				else if (catch_group[4].length() != 0) //это выражение или число
+				{
+					std::cmatch temp_cg;
+					std::string temp_group = catch_group[4];
+					regex_match(temp_group.c_str(), temp_cg, integer_op);
+					if (temp_cg[1].length() != 0) //это число
+					{
+						dynamic_cast<Integer*>(temp_var)->set_value(std::stoi(temp_cg[1]));
+					}
+					else//это выражение
+					{
+
+						
+					}
+				}
+				break;
+			}
+			else if(cur_func->get_variable(catch_group[1])->get_type() == String_t)
+			{
+				temp_var = dynamic_cast<String*>(cur_func->get_variable(catch_group[1]));
+				temp_var_assig = nullptr;
+				if (catch_group[3].length() != 0)//это переменная
+				{
+					temp_var_assig = dynamic_cast<Integer*>(cur_func->get_variable(catch_group[3]));
+					dynamic_cast<String*>(temp_var)->set_value(dynamic_cast<String*>(temp_var_assig)->get_value());
+				}
+				else if (catch_group[4].length() != 0) //это строка
+				{
+					std::string temp_group = catch_group[4];
+					std::cmatch temp_cg;
+					regex_match(temp_group.c_str(), temp_cg, string_op);
+					if (temp_cg[1].length() != 0)
+					{
+						dynamic_cast<String*>(temp_var)->set_value(temp_cg[1]);
+					}
+					else
+					{
+
+					}
+				}
+				else throw (std::string)("This type is not supporting, at line"
+					+ std::to_string(cur_index + 1));
+				cur_index++;
+				
+			}
 		}
 		if (regex_match(code[cur_index].c_str(), catch_group, regex_return))
 		{
